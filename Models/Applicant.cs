@@ -1,8 +1,21 @@
 ﻿using ScholarshipInfoSystem.Models;
+using System.ComponentModel.DataAnnotations;
 
 public class Applicant
 {
     // Existing properties
+    public int ApplicantID { get; set; }
+
+    [Required]
+    public string Name { get; set; }
+
+    [Required, EmailAddress]
+    public string Email { get; set; }
+
+    [Required]
+    public string CAONumber { get; set; }
+
+    public string ApplicationStatus { get; set; } = "notReviewed";
 
     // New properties
     public DateTime? DateOfBirth { get; set; }
@@ -19,6 +32,10 @@ public class Applicant
     public string HighestCompetitionLevel { get; set; }
     public string SportingAchievements { get; set; }
     public string SportingGoals { get; set; }
+
+    public int? CampusID { get; set; }
+
+    public Campus Campus { get; set; }
 
     // Relationships
     public ICollection<ApplicantSport> ApplicantSports { get; set; }

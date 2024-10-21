@@ -1,0 +1,72 @@
+﻿@model StudentApplicationPages.ViewModels.ApplicantViewModel
+
+<div>
+    <h3>Personal Details</h3>
+    <div>
+        <label asp-for="Name"></label>
+        <input asp-for="Name" />
+        <span asp-validation-for="Name"></span>
+    </div>
+    <div>
+        <label asp-for="Email"></label>
+        <input asp-for="Email" />
+        <span asp-validation-for="Email"></span>
+    </div>
+    <div>
+        <label asp-for="DateOfBirth"></label>
+        <input asp-for="DateOfBirth" type="date" id="dob" />
+        <span asp-validation-for="DateOfBirth"></span>
+    </div>
+    <div>
+        <label asp-for="Gender"></label>
+        <select asp-for="Gender">
+            <option value="">Select Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Non-binary">Non-binary</option>
+            <!-- Add other options if needed -->
+        </select>
+        <span asp-validation-for="Gender"></span>
+    </div>
+    <div>
+        <label asp-for="MobilePhoneNumber"></label>
+        <input asp-for="MobilePhoneNumber" />
+        <span asp-validation-for="MobilePhoneNumber"></span>
+    </div>
+    <div>
+        <label asp-for="Address"></label>
+        <input asp-for="Address" />
+        <span asp-validation-for="Address"></span>
+    </div>
+    <!-- Parent/Guardian Details -->
+    <div id="parentDetails" style="display:none;">
+        <h4>Parent/Guardian Details</h4>
+        <div>
+            <label asp-for="ParentPhoneNumber"></label>
+            <input asp-for="ParentPhoneNumber" />
+            <span asp-validation-for="ParentPhoneNumber"></span>
+        </div>
+        <div>
+            <label asp-for="ParentEmail"></label>
+            <input asp-for="ParentEmail" />
+            <span asp-validation-for="ParentEmail"></span>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.getElementById('dob').addEventListener('change', function () {
+            var dob = new Date(this.value);
+            var ageDifMs = Date.now() - dob.getTime();
+            var ageDate = new Date(ageDifMs); // milliseconds from epoch
+            var age = Math.abs(ageDate.getUTCFullYear() - 1970);
+
+            if (age < 18) {
+                document.getElementById('parentDetails').style.display = 'block';
+            } else {
+                document.getElementById('parentDetails').style.display = 'none';
+            }
+        });
+    </script>
+}

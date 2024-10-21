@@ -1,0 +1,31 @@
+﻿@model StudentApplicationPages.ViewModels.ApplicantViewModel
+
+<div>
+    <h3>Reference Details</h3>
+    @for (int i = 0; i < Model.Referees.Count; i++)
+    {
+        <div>
+            <h4>Referee @(i + 1)</h4>
+            <div>
+                <label>Name</label>
+                <input asp-for="Referees[@i].Name" />
+                <span asp-validation-for="Referees[@i].Name"></span>
+            </div>
+            <div>
+                <label>Title/Role</label>
+                <input asp-for="Referees[@i].TitleOrRole" />
+                <span asp-validation-for="Referees[@i].TitleOrRole"></span>
+            </div>
+            <div>
+                <label>Phone Number</label>
+                <input asp-for="Referees[@i].PhoneNumber" />
+                <span asp-validation-for="Referees[@i].PhoneNumber"></span>
+            </div>
+            <div>
+                <label>Email</label>
+                <input asp-for="Referees[@i].Email" />
+                <span asp-validation-for="Referees[@i].Email"></span>
+            </div>
+        </div>
+    }
+</div>

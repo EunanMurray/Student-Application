@@ -1,0 +1,45 @@
+﻿@model StudentApplicationPages.ViewModels.ApplicantViewModel
+@{
+    var sportSelectList = ViewData["SportSelectList"] as MultiSelectList;
+}
+
+<div>
+    <h3>Sport Details</h3>
+    <div>
+        <label>Main Sport</label>
+        <select asp-for="SportIDs" asp-items="sportSelectList" multiple="multiple">
+            <!-- Options populated from the PageModel -->
+        </select>
+        <span asp-validation-for="SportIDs"></span>
+    </div>
+    <div>
+        <label asp-for="SportPositionOrCategory"></label>
+        <input asp-for="SportPositionOrCategory" />
+        <span asp-validation-for="SportPositionOrCategory"></span>
+    </div>
+    <div>
+        <label asp-for="CurrentClub"></label>
+        <input asp-for="CurrentClub" />
+        <span asp-validation-for="CurrentClub"></span>
+    </div>
+    <div>
+        <label asp-for="PastClubs"></label>
+        <input asp-for="PastClubs" />
+        <span asp-validation-for="PastClubs"></span>
+    </div>
+    <div>
+        <label asp-for="HighestCompetitionLevel"></label>
+        <input asp-for="HighestCompetitionLevel" />
+        <span asp-validation-for="HighestCompetitionLevel"></span>
+    </div>
+    <div>
+        <label asp-for="SportingAchievements"></label>
+        <textarea asp-for="SportingAchievements"></textarea>
+        <span asp-validation-for="SportingAchievements"></span>
+    </div>
+    <div>
+        <label asp-for="SportingGoals"></label>
+        <textarea asp-for="SportingGoals"></textarea>
+        <span asp-validation-for="SportingGoals"></span>
+    </div>
+</div>

@@ -1,0 +1,23 @@
+﻿@model StudentApplicationPages.ViewModels.ApplicantViewModel
+
+<div>
+    <h3>Sports Scholar Leisurewear and Declaration</h3>
+    <div>
+        <label asp-for="PreferredLeisurewearSize">Preferred Leisurewear Size</label>
+        <select asp-for="PreferredLeisurewearSize">
+            <option value="">Select Size</option>
+            <option value="XSmall">XSmall</option>
+            <option value="Small">Small</option>
+            <option value="Medium">Medium</option>
+            <option value="Large">Large</option>
+            <option value="XLarge">XLarge</option>
+            <!-- Add other sizes if needed -->
+        </select>
+        <span asp-validation-for="PreferredLeisurewearSize"></span>
+    </div>
+    <div>
+        <input asp-for="IsDeclarationConfirmed" type="checkbox" />
+        <label asp-for="IsDeclarationConfirmed"></label>
+        <span asp-validation-for="IsDeclarationConfirmed"></span>
+    </div>
+</div>

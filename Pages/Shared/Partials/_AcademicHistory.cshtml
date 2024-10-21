@@ -1,0 +1,54 @@
+﻿@model StudentApplicationPages.ViewModels.ApplicantViewModel
+@{
+
+    var campusSelectList = ViewData["CampusSelectList"] as SelectList;
+}
+
+<div>
+    <h3>Academic History and Campus Choices</h3>
+    <div>
+        <label asp-for="SecondarySchoolAttended"></label>
+        <input asp-for="SecondarySchoolAttended" />
+        <span asp-validation-for="SecondarySchoolAttended"></span>
+    </div>
+    <div>
+        <label asp-for="PriorThirdLevelAttendance"></label>
+        <input asp-for="PriorThirdLevelAttendance" type="checkbox" />
+    </div>
+    <div>
+        <label asp-for="CAONumber"></label>
+        <input asp-for="CAONumber" />
+        <span asp-validation-for="CAONumber"></span>
+    </div>
+    <div>
+        <label asp-for="CampusID">Campus Selection</label>
+        <select asp-for="CampusID" asp-items="campusSelectList">
+            <option value="">Select Campus</option>
+        </select>
+        <span asp-validation-for="CampusID"></span>
+    </div>
+    <div id="courseCodesContainer">
+        <label>Course Codes</label>
+        <div>
+            <input name="CourseCodes" type="text" />
+            <button type="button" onclick="addCourseCode()">Add Another</button>
+        </div>
+    </div>
+    <div>
+        <label asp-for="CourseSelectionReasons"></label>
+        <textarea asp-for="CourseSelectionReasons"></textarea>
+        <span asp-validation-for="CourseSelectionReasons"></span>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function addCourseCode() {
+            var container = document.getElementById('courseCodesContainer');
+            var input = document.createElement('input');
+            input.name = "CourseCodes";
+            input.type = "text";
+            container.appendChild(input);
+        }
+    </script>
+}

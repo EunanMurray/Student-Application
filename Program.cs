@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using StudentApplicationPages.Data;
+using ScholarshipInfoSystem.Models;
 using ScholarshipInfoSystem.Data;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -47,6 +47,20 @@ else
     app.UseExceptionHandler("/Error");
     app.UseHsts();
 }
+
+app.UseRouting();
+
+app.UseEndpoints(endpoints =>
+{
+    // Map Razor Pages
+    endpoints.MapRazorPages();
+
+    // Redirect root URL "/" to "/Applications/Apply"
+    endpoints.MapGet("/", async context =>
+    {
+        context.Response.Redirect("/Applications/Apply");
+    });
+});
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

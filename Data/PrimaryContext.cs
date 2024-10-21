@@ -13,6 +13,7 @@ namespace ScholarshipInfoSystem.Data
         public DbSet<Applicant> Applicants { get; set; }
         public DbSet<Scholarship> Scholarships { get; set; }
         public DbSet<ScholarshipType> ScholarshipTypes { get; set; }
+        public DbSet<Campus> Campuses { get; set; }
         public DbSet<Sport> Sports { get; set; }
         public DbSet<ApplicantSport> ApplicantSports { get; set; }
         public DbSet<ScholarshipApplication> ScholarshipApplications { get; set; }
