@@ -52,10 +52,6 @@ namespace StudentApplicationPages.Migrations
                     b.Property<DateTime?>("DateOfBirth")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Gender")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -66,10 +62,6 @@ namespace StudentApplicationPages.Migrations
 
                     b.Property<bool>("IsDeclarationConfirmed")
                         .HasColumnType("bit");
-
-                    b.Property<string>("MobilePhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -114,6 +106,41 @@ namespace StudentApplicationPages.Migrations
                     b.ToTable("Applicants");
                 });
 
+            modelBuilder.Entity("ContactDetail", b =>
+                {
+                    b.Property<int>("ContactID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ContactID"));
+
+                    b.Property<int>("ApplicantID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ParentsEmail")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ParentsPhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ContactID");
+
+                    b.HasIndex("ApplicantID")
+                        .IsUnique();
+
+                    b.ToTable("ContactDetails");
+                });
+
             modelBuilder.Entity("CourseCode", b =>
                 {
                     b.Property<int>("CourseCodeID")
@@ -133,7 +160,30 @@ namespace StudentApplicationPages.Migrations
 
                     b.HasIndex("ApplicantID");
 
-                    b.ToTable("CourseCode");
+                    b.ToTable("CourseCodes");
+                });
+
+            modelBuilder.Entity("HomeDetail", b =>
+                {
+                    b.Property<int>("HomeID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HomeID"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ApplicantID")
+                        .HasColumnType("int");
+
+                    b.HasKey("HomeID");
+
+                    b.HasIndex("ApplicantID")
+                        .IsUnique();
+
+                    b.ToTable("HomeDetails");
                 });
 
             modelBuilder.Entity("Referee", b =>
@@ -214,68 +264,14 @@ namespace StudentApplicationPages.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("SportID")
+                        .HasColumnType("int");
+
                     b.HasKey("MemberID");
-
-                    b.ToTable("CommitteeMembers");
-                });
-
-            modelBuilder.Entity("ScholarshipInfoSystem.Models.ContactDetail", b =>
-                {
-                    b.Property<int>("ContactID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ContactID"));
-
-                    b.Property<int>("ApplicantID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ContactID");
-
-                    b.HasIndex("ApplicantID");
-
-                    b.ToTable("ContactDetails");
-                });
-
-            modelBuilder.Entity("ScholarshipInfoSystem.Models.HomeDetail", b =>
-                {
-                    b.Property<int>("HomeID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HomeID"));
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ApplicantID")
-                        .HasColumnType("int");
-
-                    b.HasKey("HomeID");
-
-                    b.HasIndex("ApplicantID");
-
-                    b.ToTable("HomeDetails");
-                });
-
-            modelBuilder.Entity("ScholarshipInfoSystem.Models.MemberSport", b =>
-                {
-                    b.Property<int>("MemberID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SportID")
-                        .HasColumnType("int");
-
-                    b.HasKey("MemberID", "SportID");
 
                     b.HasIndex("SportID");
 
-                    b.ToTable("MemberSports");
+                    b.ToTable("CommitteeMember");
                 });
 
             modelBuilder.Entity("ScholarshipInfoSystem.Models.Scholarship", b =>
@@ -298,31 +294,6 @@ namespace StudentApplicationPages.Migrations
                     b.HasIndex("ScholarshipTypeID");
 
                     b.ToTable("Scholarships");
-                });
-
-            modelBuilder.Entity("ScholarshipInfoSystem.Models.ScholarshipApplication", b =>
-                {
-                    b.Property<int>("ApplicationID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ApplicationID"));
-
-                    b.Property<int>("ApplicantID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ApplicationType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Year")
-                        .HasColumnType("int");
-
-                    b.HasKey("ApplicationID");
-
-                    b.HasIndex("ApplicantID");
-
-                    b.ToTable("ScholarshipApplications");
                 });
 
             modelBuilder.Entity("ScholarshipInfoSystem.Models.ScholarshipOfferHistory", b =>
@@ -367,7 +338,7 @@ namespace StudentApplicationPages.Migrations
 
                     b.HasIndex("SportID");
 
-                    b.ToTable("ScholarshipOfferHistories");
+                    b.ToTable("ScholarshipOfferHistory");
                 });
 
             modelBuilder.Entity("ScholarshipInfoSystem.Models.ScholarshipType", b =>
@@ -420,11 +391,33 @@ namespace StudentApplicationPages.Migrations
                     b.Navigation("Campus");
                 });
 
+            modelBuilder.Entity("ContactDetail", b =>
+                {
+                    b.HasOne("Applicant", "Applicant")
+                        .WithOne("ContactDetail")
+                        .HasForeignKey("ContactDetail", "ApplicantID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Applicant");
+                });
+
             modelBuilder.Entity("CourseCode", b =>
                 {
                     b.HasOne("Applicant", "Applicant")
                         .WithMany("CourseCodes")
                         .HasForeignKey("ApplicantID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Applicant");
+                });
+
+            modelBuilder.Entity("HomeDetail", b =>
+                {
+                    b.HasOne("Applicant", "Applicant")
+                        .WithOne("HomeDetail")
+                        .HasForeignKey("HomeDetail", "ApplicantID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -461,43 +454,11 @@ namespace StudentApplicationPages.Migrations
                     b.Navigation("Sport");
                 });
 
-            modelBuilder.Entity("ScholarshipInfoSystem.Models.ContactDetail", b =>
+            modelBuilder.Entity("ScholarshipInfoSystem.Models.CommitteeMember", b =>
                 {
-                    b.HasOne("Applicant", "Applicant")
-                        .WithMany()
-                        .HasForeignKey("ApplicantID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Applicant");
-                });
-
-            modelBuilder.Entity("ScholarshipInfoSystem.Models.HomeDetail", b =>
-                {
-                    b.HasOne("Applicant", "Applicant")
-                        .WithMany()
-                        .HasForeignKey("ApplicantID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Applicant");
-                });
-
-            modelBuilder.Entity("ScholarshipInfoSystem.Models.MemberSport", b =>
-                {
-                    b.HasOne("ScholarshipInfoSystem.Models.CommitteeMember", "CommitteeMember")
-                        .WithMany("MemberSports")
-                        .HasForeignKey("MemberID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("ScholarshipInfoSystem.Models.Sport", "Sport")
-                        .WithMany("MemberSports")
-                        .HasForeignKey("SportID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CommitteeMember");
+                        .WithMany("CommitteeMembers")
+                        .HasForeignKey("SportID");
 
                     b.Navigation("Sport");
                 });
@@ -511,17 +472,6 @@ namespace StudentApplicationPages.Migrations
                         .IsRequired();
 
                     b.Navigation("ScholarshipType");
-                });
-
-            modelBuilder.Entity("ScholarshipInfoSystem.Models.ScholarshipApplication", b =>
-                {
-                    b.HasOne("Applicant", "Applicant")
-                        .WithMany()
-                        .HasForeignKey("ApplicantID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Applicant");
                 });
 
             modelBuilder.Entity("ScholarshipInfoSystem.Models.ScholarshipOfferHistory", b =>
@@ -555,14 +505,15 @@ namespace StudentApplicationPages.Migrations
                 {
                     b.Navigation("ApplicantSports");
 
+                    b.Navigation("ContactDetail")
+                        .IsRequired();
+
                     b.Navigation("CourseCodes");
 
-                    b.Navigation("Referees");
-                });
+                    b.Navigation("HomeDetail")
+                        .IsRequired();
 
-            modelBuilder.Entity("ScholarshipInfoSystem.Models.CommitteeMember", b =>
-                {
-                    b.Navigation("MemberSports");
+                    b.Navigation("Referees");
                 });
 
             modelBuilder.Entity("ScholarshipInfoSystem.Models.Scholarship", b =>
@@ -581,7 +532,7 @@ namespace StudentApplicationPages.Migrations
                 {
                     b.Navigation("ApplicantSports");
 
-                    b.Navigation("MemberSports");
+                    b.Navigation("CommitteeMembers");
 
                     b.Navigation("ScholarshipOfferHistories");
                 });

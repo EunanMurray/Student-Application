@@ -6,9 +6,7 @@ public class CourseCode
     public int CourseCodeID { get; set; }
 
     public int ApplicantID { get; set; }
-
     public string Code { get; set; }
 
-    // Navigation Property
     public Applicant Applicant { get; set; }
 }

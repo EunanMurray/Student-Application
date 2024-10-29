@@ -13,7 +13,7 @@ namespace ScholarshipInfoSystem.Models
 
         // Navigation Properties
         public ICollection<ApplicantSport> ApplicantSports { get; set; }
-        public ICollection<MemberSport> MemberSports { get; set; }
         public ICollection<ScholarshipOfferHistory> ScholarshipOfferHistories { get; set; }
+        public ICollection<CommitteeMember> CommitteeMembers { get; set; }
     }
 }

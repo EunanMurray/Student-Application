@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ScholarshipInfoSystem.Models
 {
@@ -10,7 +10,11 @@ namespace ScholarshipInfoSystem.Models
 
         public string Name { get; set; }
 
-        // Navigation Property
-        public ICollection<MemberSport> MemberSports { get; set; }
+        // Foreign Key for Sport
+        public int? SportID { get; set; }
+
+        // Navigation Property for Sport
+        [ForeignKey("SportID")]
+        public Sport Sport { get; set; }
     }
 }

@@ -4,8 +4,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ScholarshipInfoSystem.Data;
 using ScholarshipInfoSystem.Models;
-using StudentApplicationPages.Data;
 using StudentApplicationPages.ViewModels;
+using System.Diagnostics;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace StudentApplicationPages.Pages.Applications
 {
@@ -16,132 +19,155 @@ namespace StudentApplicationPages.Pages.Applications
         public ApplyModel(PrimaryContext context)
         {
             _context = context;
+            Application = new ApplicantViewModel();
+            CampusSelectList = new SelectList(_context.Campuses, "CampusID", "CampusName");
+            SportSelectList = new MultiSelectList(_context.Sports, "SportID", "SportName");
+            ErrorMessages = new List<string>();
         }
 
         [BindProperty]
         public ApplicantViewModel Application { get; set; }
 
-
         public SelectList CampusSelectList { get; set; }
         public MultiSelectList SportSelectList { get; set; }
+        public List<string> ErrorMessages { get; set; }
 
         public void OnGet()
         {
-            Application = new ApplicantViewModel();
-
-            // Populate CampusSelectList
             CampusSelectList = new SelectList(_context.Campuses, "CampusID", "CampusName");
-
-            // Populate SportSelectList
             SportSelectList = new MultiSelectList(_context.Sports, "SportID", "SportName");
         }
 
-
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(string submit)
         {
-            // Repopulate the select lists
-            CampusSelectList = new SelectList(_context.Campuses, "CampusID", "CampusName");
-            SportSelectList = new MultiSelectList(_context.Sports, "SportID", "SportName");
-
-            if (!ModelState.IsValid)
+            if (submit == "submit")
             {
-                return Page();
-            }
-
-            // Map ViewModel to Applicant model
-            var applicant = new Applicant
-            {
-                Name = Application.Name,
-                Email = Application.Email,
-                CAONumber = Application.CAONumber,
-                ApplicationStatus = "notReviewed",
-                DateOfBirth = Application.DateOfBirth,
-                Gender = Application.Gender,
-                MobilePhoneNumber = Application.MobilePhoneNumber,
-                PreferredLeisurewearSize = Application.PreferredLeisurewearSize,
-                IsDeclarationConfirmed = Application.IsDeclarationConfirmed,
-                SecondarySchoolAttended = Application.SecondarySchoolAttended,
-                PriorThirdLevelAttendance = Application.PriorThirdLevelAttendance,
-                CourseSelectionReasons = Application.CourseSelectionReasons,
-                SportPositionOrCategory = Application.SportPositionOrCategory,
-                CurrentClub = Application.CurrentClub,
-                PastClubs = Application.PastClubs,
-                HighestCompetitionLevel = Application.HighestCompetitionLevel,
-                SportingAchievements = Application.SportingAchievements,
-                SportingGoals = Application.SportingGoals,
-                CampusID = Application.CampusID
-            };
-
-            // Add Applicant to context
-            _context.Applicants.Add(applicant);
-            await _context.SaveChangesAsync(); // Save to get the ApplicantID
-
-            // Save ContactDetail
-            var contactDetail = new ContactDetail
-            {
-                ApplicantID = applicant.ApplicantID,
-                PhoneNumber = Application.MobilePhoneNumber
-            };
-            _context.ContactDetails.Add(contactDetail);
-
-            // Save HomeDetail
-            var homeDetail = new HomeDetail
-            {
-                ApplicantID = applicant.ApplicantID,
-                Address = Application.Address
-            };
-            _context.HomeDetails.Add(homeDetail);
-
-            // Save CourseCodes
-            if (Application.CourseCodes != null)
-            {
-                foreach (var code in Application.CourseCodes)
+                if (!ModelState.IsValid)
                 {
-                    var courseCode = new CourseCode
+                    foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
                     {
-                        ApplicantID = applicant.ApplicantID,
-                        Code = code
+                        Debug.WriteLine("Validation Error: " + error.ErrorMessage);
+                        ErrorMessages.Add(error.ErrorMessage);
+                    }
+                    return Page();
+                }
+
+                try
+                {
+                    // Create and save the Applicant entity first
+                    var applicant = new Applicant
+                    {
+                        Name = Application.Name,
+                        CAONumber = Application.CAONumber,
+                        DateOfBirth = Application.DateOfBirth,
+                        Gender = Application.Gender,
+                        PreferredLeisurewearSize = Application.PreferredLeisurewearSize,
+                        IsDeclarationConfirmed = Application.IsDeclarationConfirmed,
+                        SecondarySchoolAttended = Application.SecondarySchoolAttended,
+                        PriorThirdLevelAttendance = Application.PriorThirdLevelAttendance,
+                        CourseSelectionReasons = Application.CourseSelectionReasons,
+                        SportPositionOrCategory = Application.SportPositionOrCategory,
+                        CurrentClub = Application.CurrentClub,
+                        PastClubs = Application.PastClubs,
+                        HighestCompetitionLevel = Application.HighestCompetitionLevel,
+                        SportingAchievements = Application.SportingAchievements,
+                        SportingGoals = Application.SportingGoals,
+                        CampusID = Application.CampusID
                     };
-                    _context.Add(courseCode);
+
+                    _context.Applicants.Add(applicant);
+                    await _context.SaveChangesAsync(); // Save to generate ApplicantID
+                    Debug.WriteLine($"Applicant created with ID: {applicant.ApplicantID}");
+
+                    // Add Contact Detail
+                    if (!string.IsNullOrEmpty(Application.MobilePhoneNumber) && !string.IsNullOrEmpty(Application.Email))
+                    {
+                        var contactDetail = new ContactDetail
+                        {
+                            ApplicantID = applicant.ApplicantID,
+                            PhoneNumber = Application.MobilePhoneNumber,
+                            Email = Application.Email,
+                            ParentsPhoneNumber = Application.ParentPhoneNumber,
+                            ParentsEmail = Application.ParentEmail
+                        };
+                        _context.ContactDetails.Add(contactDetail);
+                        Debug.WriteLine("ContactDetail added for applicant.");
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Contact details are missing required fields.");
+                    }
+
+                    // Add Home Detail
+                    if (!string.IsNullOrEmpty(Application.Address))
+                    {
+                        var homeDetail = new HomeDetail
+                        {
+                            ApplicantID = applicant.ApplicantID,
+                            Address = Application.Address
+                        };
+                        _context.HomeDetails.Add(homeDetail);
+                        Debug.WriteLine("HomeDetail added for applicant.");
+                    }
+
+                    // Add Course Codes if provided
+                    if (Application.CourseCodes != null && Application.CourseCodes.Any())
+                    {
+                        var courseCodes = Application.CourseCodes
+                            .Where(code => !string.IsNullOrEmpty(code))
+                            .Select(code => new CourseCode
+                            {
+                                ApplicantID = applicant.ApplicantID,
+                                Code = code
+                            }).ToList();
+
+                        _context.CourseCodes.AddRange(courseCodes);
+                    }
+
+                    // Add ApplicantSports if provided
+                    if (Application.SportIDs != null && Application.SportIDs.Any())
+                    {
+                        var applicantSports = Application.SportIDs
+                            .Select(sportID => new ApplicantSport
+                            {
+                                SportID = sportID,
+                                ApplicantID = applicant.ApplicantID
+                            }).ToList();
+
+                        _context.ApplicantSports.AddRange(applicantSports);
+                    }
+
+                    // Add Referees if provided
+                    if (Application.Referees != null && Application.Referees.Any())
+                    {
+                        var referees = Application.Referees
+                            .Select(refereeVM => new Referee
+                            {
+                                Name = refereeVM.Name,
+                                TitleOrRole = refereeVM.TitleOrRole,
+                                PhoneNumber = refereeVM.PhoneNumber,
+                                Email = refereeVM.Email,
+                                ApplicantID = applicant.ApplicantID
+                            }).ToList();
+
+                        _context.Referees.AddRange(referees);
+                    }
+
+                    // Save all changes to the database
+                    await _context.SaveChangesAsync();
+
+                    Debug.WriteLine("Data saved successfully.");
+                    return RedirectToPage("Confirmation");
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("An error occurred during save: " + ex.Message);
+                    ErrorMessages.Add("An error occurred while saving your application. Please try again.");
+                    return Page();
                 }
             }
 
-            // Save ApplicantSports
-            if (Application.SportIDs != null)
-            {
-                foreach (var sportID in Application.SportIDs)
-                {
-                    var applicantSport = new ApplicantSport
-                    {
-                        ApplicantID = applicant.ApplicantID,
-                        SportID = sportID
-                    };
-                    _context.ApplicantSports.Add(applicantSport);
-                }
-            }
-
-            // Save Referees
-            if (Application.Referees != null)
-            {
-                foreach (var refereeVM in Application.Referees)
-                {
-                    var referee = new Referee
-                    {
-                        ApplicantID = applicant.ApplicantID,
-                        Name = refereeVM.Name,
-                        TitleOrRole = refereeVM.TitleOrRole,
-                        PhoneNumber = refereeVM.PhoneNumber,
-                        Email = refereeVM.Email
-                    };
-                    _context.Referees.Add(referee);
-                }
-            }
-
-            // Save all changes to the database
-            await _context.SaveChangesAsync();
-
-            // Redirect to a confirmation page
-            return RedirectToPage("Confirmation");
+            return Page(); // Return to the same page if submit button wasn't clicked or model state is invalid
         }
 
     }

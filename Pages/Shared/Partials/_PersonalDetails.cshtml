@@ -1,55 +1,65 @@
 ﻿@model StudentApplicationPages.ViewModels.ApplicantViewModel
 
-<div>
+<div class="container">
     <h3>Personal Details</h3>
-    <div>
-        <label asp-for="Name"></label>
-        <input asp-for="Name" />
-        <span asp-validation-for="Name"></span>
+    <div class="form-group">
+        <label asp-for="Name" class="control-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
     </div>
-    <div>
-        <label asp-for="Email"></label>
-        <input asp-for="Email" />
-        <span asp-validation-for="Email"></span>
+    <div class="form-group">
+        <label asp-for="Email" class="control-label"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
     </div>
-    <div>
-        <label asp-for="DateOfBirth"></label>
-        <input asp-for="DateOfBirth" type="date" id="dob" />
-        <span asp-validation-for="DateOfBirth"></span>
+    <div class="form-group">
+        <label asp-for="DateOfBirth" class="control-label"></label>
+        <input asp-for="DateOfBirth" type="date" id="dob" class="form-control" />
+        <span asp-validation-for="DateOfBirth" class="text-danger"></span>
     </div>
-    <div>
-        <label asp-for="Gender"></label>
-        <select asp-for="Gender">
+    <div class="form-group">
+        <label asp-for="ParentEmail" class="control-label"></label>
+        <input asp-for="ParentEmail" type="email" id="pemail" class="form-control" />
+        <span asp-validation-for="ParentEmail" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ParentPhoneNumber" class="control-label"></label>
+        <input asp-for="ParentPhoneNumber" type="number" id="pphonenumber" class="form-control" />
+        <span asp-validation-for="ParentPhoneNumber" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Gender" class="control-label"></label>
+        <select asp-for="Gender" class="form-control">
             <option value="">Select Gender</option>
             <option value="Male">Male</option>
             <option value="Female">Female</option>
             <option value="Non-binary">Non-binary</option>
             <!-- Add other options if needed -->
         </select>
-        <span asp-validation-for="Gender"></span>
+        <span asp-validation-for="Gender" class="text-danger"></span>
     </div>
-    <div>
-        <label asp-for="MobilePhoneNumber"></label>
-        <input asp-for="MobilePhoneNumber" />
-        <span asp-validation-for="MobilePhoneNumber"></span>
+    <div class="form-group">
+        <label asp-for="MobilePhoneNumber" class="control-label"></label>
+        <input asp-for="MobilePhoneNumber" class="form-control" />
+        <span asp-validation-for="MobilePhoneNumber" class="text-danger"></span>
     </div>
-    <div>
-        <label asp-for="Address"></label>
-        <input asp-for="Address" />
-        <span asp-validation-for="Address"></span>
+    <div class="form-group">
+        <label asp-for="Address" class="control-label"></label>
+        <input asp-for="Address" class="form-control" />
+        <span asp-validation-for="Address" class="text-danger"></span>
     </div>
     <!-- Parent/Guardian Details -->
     <div id="parentDetails" style="display:none;">
         <h4>Parent/Guardian Details</h4>
-        <div>
-            <label asp-for="ParentPhoneNumber"></label>
-            <input asp-for="ParentPhoneNumber" />
-            <span asp-validation-for="ParentPhoneNumber"></span>
+        <div class="form-group">
+            <label asp-for="ParentPhoneNumber" class="control-label"></label>
+            <input asp-for="ParentPhoneNumber" class="form-control" />
+            <span asp-validation-for="ParentPhoneNumber" class="text-danger"></span>
         </div>
-        <div>
-            <label asp-for="ParentEmail"></label>
-            <input asp-for="ParentEmail" />
-            <span asp-validation-for="ParentEmail"></span>
+        <div class="form-group">
+            <label asp-for="ParentEmail" class="control-label"></label>
+            <input asp-for="ParentEmail" class="form-control" />
+            <span asp-validation-for="ParentEmail" class="text-danger"></span>
         </div>
     </div>
 </div>
