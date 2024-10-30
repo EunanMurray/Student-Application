@@ -1,0 +1,59 @@
+﻿@page
+@model RoleTestModel
+@using Microsoft.AspNetCore.Identity
+@{
+    ViewData["Title"] = "Role Test";
+}
+
+<h2>Role Testing Page</h2>
+
+<p>Welcome, @User.Identity.Name!</p>
+
+@if (User.IsInRole("Admin"))
+{
+    <p>You are an <strong>Admin</strong>.</p>
+
+    <h3>Manage User Roles</h3>
+    <form method="post">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Email</th>
+                    <th>Current Role</th>
+                    <th>New Role</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Model.Users)
+                {
+                    <tr>
+                        <td>@user.UserName</td>
+                        <td>@user.Email</td>
+                        <td>@user.CurrentRole</td>
+                        <td>
+                            <select asp-for="NewRole" asp-items="Model.RoleSelectList" name="selectedRole">
+                                <option value="">Select role</option>
+                                <option value="Admin">Admin</option>
+                                <option value="CommitteeMember">Committee Member</option>
+                                <option value="Viewer">Viewer</option>
+                            </select>
+                        </td>
+                        <td>
+                            <button type="submit" name="userId" value="@user.Id" class="btn btn-primary">Update Role</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </form>
+}
+else if (User.IsInRole("CommitteeMember"))
+{
+    <p>You are a <strong>Committee Member</strong> for @Model.AssignedSport.</p>
+}
+else
+{
+    <p>You are a <strong>Viewer</strong>.</p>
+}

@@ -3,25 +3,22 @@ using Microsoft.EntityFrameworkCore;
 using StudentApplicationPages.Data;
 using ScholarshipInfoSystem.Models;
 using ScholarshipInfoSystem.Data;
+using Microsoft.AspNetCore.Identity.UI.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
-// Existing connection string for Identity
 var defaultConnectionString = builder.Configuration.GetConnectionString("DefaultConnection")
     ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(defaultConnectionString));
 
-// Register your PrimaryContext
 var primaryConnectionString = builder.Configuration.GetConnectionString("PrimaryContext")
     ?? throw new InvalidOperationException("Connection string 'PrimaryContext' not found.");
 
 builder.Services.AddDbContext<PrimaryContext>(options =>
     options.UseSqlServer(primaryConnectionString));
 
-// Register your SecondaryContext (if necessary)
 var secondaryConnectionString = builder.Configuration.GetConnectionString("SecondaryContext")
     ?? throw new InvalidOperationException("Connection string 'SecondaryContext' not found.");
 
@@ -30,15 +27,56 @@ builder.Services.AddDbContext<SecondaryContext>(options =>
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddSingleton<IEmailSender, ConsoleEmailSender>();
+
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddDefaultTokenProviders();
+
 
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    try
+    {
+        // Add the admin role
+        var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+        var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
+
+       
+        string roleName = "Admin";
+        if (!await roleManager.RoleExistsAsync(roleName))
+        {
+            await roleManager.CreateAsync(new IdentityRole(roleName));
+        }
+
+        string roleName2 = "Committe Member";
+        if (!await roleManager.RoleExistsAsync(roleName2))
+        {
+            await roleManager.CreateAsync(new IdentityRole(roleName2));
+        }
+
+        string roleName3 = "Viewer";
+        if (!await roleManager.RoleExistsAsync(roleName3))
+        {
+            await roleManager.CreateAsync(new IdentityRole(roleName3));
+        }
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine("An error occurred while creating roles or assigning roles to users: " + ex.Message);
+
+    }
+}
+
+
+   
+    if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
 }
@@ -48,31 +86,26 @@ else
     app.UseHsts();
 }
 
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+
 app.UseRouting();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>
 {
-    // Map Razor Pages
+
     endpoints.MapRazorPages();
 
-    // Redirect root URL "/" to "/Applications/Apply"
     endpoints.MapGet("/", async context =>
     {
         context.Response.Redirect("/Applications/Apply");
     });
 });
 
-app.UseHttpsRedirection();
-app.UseStaticFiles();
 
-app.UseRouting();
-
-app.UseAuthentication(); // Ensure this is included if you're using Identity
-app.UseAuthorization();
-
-app.MapRazorPages();
-
-// Seed the database
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
@@ -84,7 +117,7 @@ using (var scope = app.Services.CreateScope())
     }
     catch (Exception ex)
     {
-        // Handle exceptions (e.g., log the error)
+
     }
 }
 

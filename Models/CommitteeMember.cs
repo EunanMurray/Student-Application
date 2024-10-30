@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Collections.Generic;
 
 namespace ScholarshipInfoSystem.Models
 {
@@ -8,13 +9,14 @@ namespace ScholarshipInfoSystem.Models
         [Key]
         public int MemberID { get; set; }
 
-        public string Name { get; set; }
+        [Required]
+        public string Name { get; set; } = string.Empty;
 
-        // Foreign Key for Sport
         public int? SportID { get; set; }
 
-        // Navigation Property for Sport
         [ForeignKey("SportID")]
-        public Sport Sport { get; set; }
+        public Sport Sport { get; set; } = null!;
+        public ICollection<UserRole> UserRoles { get; set; } = new List<UserRole>();
+        public ICollection<UserSport> UserSports { get; set; } = new List<UserSport>();
     }
 }
