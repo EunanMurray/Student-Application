@@ -4,115 +4,127 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using ScholarshipInfoSystem.Data;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
-[Authorize]
-public class RoleTestModel : PageModel
-{
-    private readonly UserManager<IdentityUser> _userManager;
-    private readonly RoleManager<IdentityRole> _roleManager;
-    private readonly SecondaryContext _secondaryContext;
-
-    public List<UserWithRoleViewModel> Users { get; set; }
-    public string AssignedSport { get; set; }
-    [BindProperty]
-    public string NewRole { get; set; }
-
-    public SelectList RoleSelectList { get; set; }
-
-    public RoleTestModel(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, SecondaryContext secondaryContext)
+    [Authorize]
+    public class RoleTestModel : PageModel
     {
-        _userManager = userManager;
-        _roleManager = roleManager;
-        _secondaryContext = secondaryContext;
-    }
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-    public async Task OnGetAsync()
-    {
-        var user = await _userManager.GetUserAsync(User);
+        public List<UserWithRoleViewModel> Users { get; set; } = new List<UserWithRoleViewModel>();
+        public string AssignedSport { get; set; }
 
-        if (int.TryParse(user.Id, out int userId))
+        public SelectList RoleSelectList { get; set; }
+
+        public RoleTestModel(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
-            var userRole = await _secondaryContext.UserRoles
-                .AsNoTracking()
-                .Include(ur => ur.Role)
-                .FirstOrDefaultAsync(ur => ur.UserID == userId);
-
-            if (userRole != null && userRole.Role.Name == "CommitteeMember")
-            {
-                var committeeMember = await _secondaryContext.CommitteeMembers
-                    .AsNoTracking()
-                    .Include(cm => cm.Sport)
-                    .FirstOrDefaultAsync(cm => cm.MemberID == userId);
-
-                AssignedSport = committeeMember?.Sport?.SportName;
-            }
+            _userManager = userManager;
+            _roleManager = roleManager;
         }
 
-        Users = await _userManager.Users
-            .Select(u => new UserWithRoleViewModel
-            {
-                Id = u.Id,
-                UserName = u.UserName,
-                Email = u.Email,
-                CurrentRole = _userManager.GetRolesAsync(u).Result.FirstOrDefault() ?? "None" 
-            })
-            .ToListAsync();
-
-        var roles = await _roleManager.Roles.Select(r => r.Name).ToListAsync();
-        RoleSelectList = new SelectList(roles);
-    }
-
-
-    public async Task<IActionResult> OnPostAsync(string userId, string selectedRole)
-    {
-        if (!User.IsInRole("Admin")) return Unauthorized();
-
-        var user = await _userManager.FindByIdAsync(userId);
-        if (user == null) return NotFound();
-
-        // Remove all current roles
-        var currentRoles = await _userManager.GetRolesAsync(user);
-        await _userManager.RemoveFromRolesAsync(user, currentRoles);
-
-        Users = await _userManager.Users
-            .Select(user => new UserWithRoleViewModel
-            {
-                Id = user.Id,
-                UserName = user.UserName,
-                Email = user.Email,
-                CurrentRole = string.Join(", ", _userManager.GetRolesAsync(user).Result) // This loads roles directly
-            })
-            .ToListAsync();
-
-
-        // Add the new role if provided
-        if (!string.IsNullOrEmpty(selectedRole))
+        public async Task OnGetAsync()
         {
-            var roleExists = await _roleManager.RoleExistsAsync(selectedRole);
-            if (roleExists)
+            Console.WriteLine("Starting OnGetAsync");
+
+            var currentUser = await _userManager.GetUserAsync(User);
+            if (currentUser == null)
             {
-                await _userManager.AddToRoleAsync(user, selectedRole);
+                Console.WriteLine("No user found.");
+                return;
+            }
+
+            Console.WriteLine($"User found with email: {currentUser.Email}");
+
+            var allUsers = await _userManager.Users.ToListAsync();
+
+            foreach (var u in allUsers)
+            {
+                var roles = await _userManager.GetRolesAsync(u);
+                var currentRole = roles.FirstOrDefault() ?? "None";
+                Users.Add(new UserWithRoleViewModel
+                {
+                    Id = u.Id,
+                    UserName = u.UserName,
+                    Email = u.Email,
+                    CurrentRole = currentRole
+                });
+
+                Console.WriteLine($"User: {u.UserName} - Role: {currentRole}");
+            }
+
+            var rolesList = await _roleManager.Roles.ToListAsync();
+            RoleSelectList = new SelectList(rolesList, "Name", "Name");
+
+            Console.WriteLine("RoleSelectList successfully populated.");
+            Console.WriteLine("OnGetAsync completed.");
+        }
+
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> OnPostAsync(string email, string selectedRole)
+        {
+            Console.WriteLine("OnPostAsync called.");
+            Console.WriteLine($"Email received: {email}");
+            Console.WriteLine($"SelectedRole received: {selectedRole}");
+
+            if (!User.IsInRole(RoleNames.Admin))
+            {
+                return Unauthorized();
+            }
+
+            if (string.IsNullOrEmpty(email))
+            {
+                ModelState.AddModelError("", "Email cannot be null or empty.");
+                return Page();
+            }
+
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+            {
+                TempData["ErrorMessage"] = $"User with email '{email}' not found.";
+                return RedirectToPage();
+            }
+
+            // Remove all current roles
+            var currentRoles = await _userManager.GetRolesAsync(user);
+            await _userManager.RemoveFromRolesAsync(user, currentRoles);
+
+            // Add the new role if provided
+            if (!string.IsNullOrEmpty(selectedRole))
+            {
+                var roleExists = await _roleManager.RoleExistsAsync(selectedRole);
+                if (roleExists)
+                {
+                    await _userManager.AddToRoleAsync(user, selectedRole);
+                    TempData["SuccessMessage"] = $"Role for {email} updated to {selectedRole}.";
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = "Selected role does not exist.";
+                }
             }
             else
             {
-                ModelState.AddModelError("", "Selected role does not exist.");
-                return Page();
+                TempData["SuccessMessage"] = $"All roles removed from {email}.";
             }
-        }
 
-        return RedirectToPage();
+            return RedirectToPage();
+        }
     }
 
-}
+    public class UserWithRoleViewModel
+    {
+        public string Id { get; set; }
+        public string UserName { get; set; }
+        public string Email { get; set; }
+        public string CurrentRole { get; set; }
+    }
 
-public class UserWithRoleViewModel
-{
-    public string Id { get; set; }
-    public string UserName { get; set; }
-    public string Email { get; set; }
-    public string CurrentRole { get; set; }
-}
+    public static class RoleNames
+    {
+        public const string Admin = "Admin";
+        public const string CommitteeMember = "Committee Member";
+        public const string Viewer = "Viewer";
+    }

@@ -9,47 +9,60 @@
 
 <p>Welcome, @User.Identity.Name!</p>
 
-@if (User.IsInRole("Admin"))
+@if (User.IsInRole(RoleNames.Admin))
 {
     <p>You are an <strong>Admin</strong>.</p>
 
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+
     <h3>Manage User Roles</h3>
-    <form method="post">
-        <table class="table">
-            <thead>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>User</th>
+                <th>Email</th>
+                <th>Current Role</th>
+                <th>New Role</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model.Users)
+            {
                 <tr>
-                    <th>User</th>
-                    <th>Email</th>
-                    <th>Current Role</th>
-                    <th>New Role</th>
-                    <th>Action</th>
+                    <td>@user.UserName</td>
+                    <td>@user.Email</td>
+                    <td>@user.CurrentRole</td>
+                    <td colspan="2">
+                        <form method="post">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="email" value="@user.Email" />
+                            <div class="form-group">
+                                <select name="selectedRole" class="form-control" asp-items="Model.RoleSelectList">
+                                    <option value="">Select role</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Update Role</button>
+                        </form>
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                @foreach (var user in Model.Users)
-                {
-                    <tr>
-                        <td>@user.UserName</td>
-                        <td>@user.Email</td>
-                        <td>@user.CurrentRole</td>
-                        <td>
-                            <select asp-for="NewRole" asp-items="Model.RoleSelectList" name="selectedRole">
-                                <option value="">Select role</option>
-                                <option value="Admin">Admin</option>
-                                <option value="CommitteeMember">Committee Member</option>
-                                <option value="Viewer">Viewer</option>
-                            </select>
-                        </td>
-                        <td>
-                            <button type="submit" name="userId" value="@user.Id" class="btn btn-primary">Update Role</button>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </form>
+            }
+        </tbody>
+    </table>
 }
-else if (User.IsInRole("CommitteeMember"))
+else if (User.IsInRole(RoleNames.CommitteeMember))
 {
     <p>You are a <strong>Committee Member</strong> for @Model.AssignedSport.</p>
 }
