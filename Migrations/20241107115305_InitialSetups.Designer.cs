@@ -12,8 +12,8 @@ using ScholarshipInfoSystem.Data;
 namespace StudentApplicationPages.Migrations
 {
     [DbContext(typeof(PrimaryContext))]
-    [Migration("20241030141742_sRoleUpdate")]
-    partial class sRoleUpdate
+    [Migration("20241107115305_InitialSetups")]
+    partial class InitialSetups
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -324,7 +324,7 @@ namespace StudentApplicationPages.Migrations
 
                     b.HasIndex("SportID");
 
-                    b.ToTable("CommitteeMember");
+                    b.ToTable("CommitteeMembers");
                 });
 
             modelBuilder.Entity("ScholarshipInfoSystem.Models.Scholarship", b =>

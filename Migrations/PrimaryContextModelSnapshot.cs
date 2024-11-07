@@ -321,7 +321,7 @@ namespace StudentApplicationPages.Migrations
 
                     b.HasIndex("SportID");
 
-                    b.ToTable("CommitteeMember");
+                    b.ToTable("CommitteeMembers");
                 });
 
             modelBuilder.Entity("ScholarshipInfoSystem.Models.Scholarship", b =>

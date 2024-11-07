@@ -41,6 +41,7 @@ using (var scope = app.Services.CreateScope())
     {
         // Initialize roles
         var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+        var userManager = services.GetRequiredService<UserManager<IdentityRole>>();
         string[] roleNames = { "Admin", "Committee Member", "Viewer" };
         foreach (var roleName in roleNames)
         {
@@ -49,6 +50,35 @@ using (var scope = app.Services.CreateScope())
                 await roleManager.CreateAsync(new IdentityRole(roleName));
             }
         }
+
+        string userEmail = "S00235207@atu.ie"; // Accounts email to be targeted
+        string roleToAssign = "Admin"; // Accounts role you wanna give it
+
+        var user = await userManager.FindByEmailAsync(userEmail);
+        if (user != null)
+        {
+            if (!await userManager.IsInRoleAsync(user, roleToAssign))
+            {
+                var result = await userManager.AddToRoleAsync(user, roleToAssign);
+                if (result.Succeeded)
+                {
+                    Console.WriteLine($"User with email {userEmail} has been assigned the role '{roleToAssign}'.");
+                }
+                else
+                {
+                    Console.WriteLine($"Failed to assign role '{roleToAssign}' to user with email {userEmail}: {string.Join(", ", result.Errors.Select(e => e.Description))}");
+                }
+            }
+            else
+            {
+                Console.WriteLine($"User with email {userEmail} already has the role '{roleToAssign}'.");
+            }
+        }
+        else
+        {
+            Console.WriteLine($"User with email {userEmail} not found.");
+        }
+
 
         // Initialize database
         var context = services.GetRequiredService<PrimaryContext>();
@@ -75,6 +105,8 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
+
+
 
 app.UseEndpoints(endpoints =>
 {

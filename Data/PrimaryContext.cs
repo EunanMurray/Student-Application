@@ -18,6 +18,8 @@ namespace ScholarshipInfoSystem.Data
         public DbSet<ContactDetail> ContactDetails { get; set; }
         public DbSet<HomeDetail> HomeDetails { get; set; }
         public DbSet<Referee> Referees { get; set; }
+        public DbSet<CommitteeMember> CommitteeMembers { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
