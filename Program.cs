@@ -39,9 +39,11 @@ using (var scope = app.Services.CreateScope())
 
     try
     {
-        // Initialize roles
+        //Following Chunk is for manually giving users roles via code.
+
+        /*// Initialize roles
         var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-        var userManager = services.GetRequiredService<UserManager<IdentityRole>>();
+        var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
         string[] roleNames = { "Admin", "Committee Member", "Viewer" };
         foreach (var roleName in roleNames)
         {
@@ -78,7 +80,7 @@ using (var scope = app.Services.CreateScope())
         {
             Console.WriteLine($"User with email {userEmail} not found.");
         }
-
+        */
 
         // Initialize database
         var context = services.GetRequiredService<PrimaryContext>();
