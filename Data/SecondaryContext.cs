@@ -13,9 +13,8 @@ namespace ScholarshipInfoSystem.Data
 
         public DbSet<Role> Roles { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
-        public DbSet<Sport> Sports { get; set; }
+        public DbSet<Sport> Sports { get; set; } 
         public DbSet<UserSport> UserSports { get; set; }
-
         public DbSet<ApplicantSport> ApplicantSports { get; set; }
         public DbSet<RoleClaim> RoleClaims { get; set; }
         public DbSet<CommitteeMember> CommitteeMembers { get; set; }
@@ -23,6 +22,9 @@ namespace ScholarshipInfoSystem.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Sport>().ToTable("Sports");
+            modelBuilder.Entity<Sport>().Metadata.SetIsTableExcludedFromMigrations(true);
 
             modelBuilder.Entity<ApplicantSport>()
                 .HasKey(ur => new { ur.ApplicantID, ur.SportID });
@@ -45,7 +47,7 @@ namespace ScholarshipInfoSystem.Data
 
             modelBuilder.Entity<UserSport>()
                 .HasOne(us => us.User)
-                .WithMany(u => u.UserSports)
+                .WithMany(u => u.UserSports) 
                 .HasForeignKey(us => us.UserID);
 
             modelBuilder.Entity<UserSport>()
