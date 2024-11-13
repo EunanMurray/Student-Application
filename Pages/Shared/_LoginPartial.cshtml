@@ -8,12 +8,8 @@
         @if (User.IsInRole("Admin") || User.IsInRole("Committee Member"))
         {
             <li class="nav-item me-3">
-                <a class="nav-link" asp-page="/RoleTest">
-                    <button class="btn btn-outline-light" style="border-width: 2px;">
-                        <i class="fas fa-home me-2"></i>In-House Portal
-                    </button> <!--In house button added-->
-                </a>
-            </li>
+                <a class="nav-link btn btn-outline-light" asp-page="/RoleTest" style="border-width: 2px;">In-House Portal</a>
+            </li> <!--In house protal navigation added-->
         }
         <li class="nav-item">
             <a class="nav-link text-light" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
