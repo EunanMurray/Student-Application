@@ -4,62 +4,66 @@
 
 <div class="container mt-4">
     <h3>Reference Details</h3>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card mb-3">
+                <h5 class="card-header">Referee 1</h5>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label asp-for="Referees[0].Name" class="font-weight-bold">Name</label>
+                        <input type="text" class="form-control" asp-for="Referees[0].Name" />
+                        <span asp-validation-for="Referees[0].Name" class="text-danger"></span>
+                    </div>
 
-    <div class="card mb-3">
-        <h5 class="card-header">Referee 1</h5>
-        <div class="card-body">
-            <div class="form-group">
-                <label asp-for="Referees[0].Name" class="font-weight-bold">Name</label>
-                <input type="text" class="form-control" asp-for="Referees[0].Name" />
-                <span asp-validation-for="Referees[0].Name" class="text-danger"></span>
-            </div>
+                    <div class="form-group">
+                        <label asp-for="Referees[0].TitleOrRole" class="font-weight-bold">Title/Role</label>
+                        <input type="text" class="form-control" asp-for="Referees[0].TitleOrRole" />
+                        <span asp-validation-for="Referees[0].TitleOrRole" class="text-danger"></span>
+                    </div>
 
-            <div class="form-group">
-                <label asp-for="Referees[0].TitleOrRole" class="font-weight-bold">Title/Role</label>
-                <input type="text" class="form-control" asp-for="Referees[0].TitleOrRole" />
-                <span asp-validation-for="Referees[0].TitleOrRole" class="text-danger"></span>
-            </div>
+                    <div class="form-group">
+                        <label asp-for="Referees[0].PhoneNumber" class="font-weight-bold">Phone Number</label>
+                        <input type="text" class="form-control" asp-for="Referees[0].PhoneNumber" />
+                        <span asp-validation-for="Referees[0].PhoneNumber" class="text-danger"></span>
+                    </div>
 
-            <div class="form-group">
-                <label asp-for="Referees[0].PhoneNumber" class="font-weight-bold">Phone Number</label>
-                <input type="text" class="form-control" asp-for="Referees[0].PhoneNumber" />
-                <span asp-validation-for="Referees[0].PhoneNumber" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Referees[0].Email" class="font-weight-bold">Email</label>
-                <input type="text" class="form-control" asp-for="Referees[0].Email" />
-                <span asp-validation-for="Referees[0].Email" class="text-danger"></span>
-            </div>
-        </div>
-    </div>
-
-    <div class="card mb-3">
-        <h5 class="card-header">Referee 2</h5>
-        <div class="card-body">
-            <div class="form-group">
-                <label asp-for="Referees[1].Name" class="font-weight-bold">Name</label>
-                <input type="text" class="form-control" asp-for="Referees[1].Name" />
-                <span asp-validation-for="Referees[1].Name" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Referees[1].TitleOrRole" class="font-weight-bold">Title/Role</label>
-                <input type="text" class="form-control" asp-for="Referees[1].TitleOrRole" />
-                <span asp-validation-for="Referees[1].TitleOrRole" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Referees[1].PhoneNumber" class="font-weight-bold">Phone Number</label>
-                <input type="text" class="form-control" asp-for="Referees[1].PhoneNumber" />
-                <span asp-validation-for="Referees[1].PhoneNumber" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Referees[1].Email" class="font-weight-bold">Email</label>
-                <input type="text" class="form-control" asp-for="Referees[1].Email" />
-                <span asp-validation-for="Referees[1].Email" class="text-danger"></span>
+                    <div class="form-group">
+                        <label asp-for="Referees[0].Email" class="font-weight-bold">Email</label>
+                        <input type="text" class="form-control" asp-for="Referees[0].Email" />
+                        <span asp-validation-for="Referees[0].Email" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+        <div class="col-md-6">
+            <div class="card mb-3">
+                <h5 class="card-header">Referee 2</h5>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label asp-for="Referees[1].Name" class="font-weight-bold">Name</label>
+                        <input type="text" class="form-control" asp-for="Referees[1].Name" />
+                        <span asp-validation-for="Referees[1].Name" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Referees[1].TitleOrRole" class="font-weight-bold">Title/Role</label>
+                        <input type="text" class="form-control" asp-for="Referees[1].TitleOrRole" />
+                        <span asp-validation-for="Referees[1].TitleOrRole" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Referees[1].PhoneNumber" class="font-weight-bold">Phone Number</label>
+                        <input type="text" class="form-control" asp-for="Referees[1].PhoneNumber" />
+                        <span asp-validation-for="Referees[1].PhoneNumber" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Referees[1].Email" class="font-weight-bold">Email</label>
+                        <input type="text" class="form-control" asp-for="Referees[1].Email" />
+                        <span asp-validation-for="Referees[1].Email" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+   </div>
 </div>
