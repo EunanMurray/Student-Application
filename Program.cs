@@ -11,12 +11,12 @@ var defaultConnectionString = builder.Configuration.GetConnectionString("Default
     ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(defaultConnectionString));
 
-var primaryConnectionString = builder.Configuration.GetConnectionString("PrimaryContext")
-    ?? throw new InvalidOperationException("Connection string 'PrimaryContext' not found.");
+var primaryConnectionString = builder.Configuration.GetConnectionString("Project300Database")
+    ?? throw new InvalidOperationException("Connection string 'Project300Database' not found.");
 builder.Services.AddDbContext<PrimaryContext>(options => options.UseSqlServer(primaryConnectionString));
 
-var secondaryConnectionString = builder.Configuration.GetConnectionString("SecondaryContext")
-    ?? throw new InvalidOperationException("Connection string 'SecondaryContext' not found.");
+var secondaryConnectionString = builder.Configuration.GetConnectionString("Project300Database")
+    ?? throw new InvalidOperationException("Connection string 'Project300Database' not found.");
 builder.Services.AddDbContext<SecondaryContext>(options => options.UseSqlServer(secondaryConnectionString));
 
 builder.Services.AddDbContext<SecondaryContext>(options =>

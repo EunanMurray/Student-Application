@@ -6,8 +6,6 @@ namespace ScholarshipInfoSystem.Data
     public class PrimaryContext : DbContext
     {
         public PrimaryContext(DbContextOptions<PrimaryContext> options) : base(options) { }
-
-        // DbSet declarations for each of your entities
         public DbSet<Applicant> Applicants { get; set; }
         public DbSet<Scholarship> Scholarships { get; set; }
         public DbSet<ScholarshipType> ScholarshipTypes { get; set; }
