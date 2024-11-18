@@ -1,0 +1,59 @@
+﻿@model StudentApplicationPages.ViewModels.ApplicantViewModel
+@{
+
+    var campusSelectList = ViewData["CampusSelectList"] as SelectList;
+}
+
+<div class="container">
+    <h3>Academic History and Campus Choices</h3>
+    <div class="form-group">
+        <label asp-for="SecondarySchoolAttended" class="control-label"></label>
+        <input asp-for="SecondarySchoolAttended" class="form-control" />
+        <span asp-validation-for="SecondarySchoolAttended" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <div class="form-check">
+            <input asp-for="PriorThirdLevelAttendance" class="form-check-input" type="checkbox" />
+            <label asp-for="PriorThirdLevelAttendance" class="form-check-label"></label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="CAONumber" class="control-label"></label>
+        <input asp-for="CAONumber" class="form-control" />
+        <span asp-validation-for="CAONumber" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="CampusID" class="control-label">Campus Selection</label>
+        <select asp-for="CampusID" asp-items="campusSelectList" class="form-control">
+            <option value="">Select Campus</option>
+        </select>
+        <span asp-validation-for="CampusID" class="text-danger"></span>
+    </div>
+    <div id="courseCodesContainer" class="form-group">
+        <label>Course Codes</label>
+        <div class="input-group">
+            <input name="CourseCodes" type="text" class="form-control" />
+            <div class="input-group-append">
+                <button type="button" onclick="addCourseCode()" class="btn btn-primary">Add Another</button>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="CourseSelectionReasons" class="control-label"></label>
+        <textarea asp-for="CourseSelectionReasons" class="form-control"></textarea>
+        <span asp-validation-for="CourseSelectionReasons" class="text-danger"></span>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function addCourseCode() {
+            var container = document.getElementById('courseCodesContainer');
+            var input = document.createElement('input');
+            input.name = "CourseCodes";
+            input.type = "text";
+            input.classList.add("form-control");
+            container.appendChild(input);
+        }
+    </script>
+}
