@@ -1,0 +1,14 @@
+C:\Users\S00235207\Documents\ProjectRebuild\student-application-model\bin\Debug\net8.0\student-application-model.deps.json
+C:\Users\S00235207\Documents\ProjectRebuild\student-application-model\bin\Debug\net8.0\student-application-model.runtimeconfig.json
+C:\Users\S00235207\Documents\ProjectRebuild\student-application-model\bin\Debug\net8.0\student-application-model.dll
+C:\Users\S00235207\Documents\ProjectRebuild\student-application-model\bin\Debug\net8.0\student-application-model.pdb
+C:\Users\S00235207\Documents\ProjectRebuild\student-application-model\obj\Debug\net8.0\student-application-model.csproj.AssemblyReference.cache
+C:\Users\S00235207\Documents\ProjectRebuild\student-application-model\obj\Debug\net8.0\student-application-model.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\S00235207\Documents\ProjectRebuild\student-application-model\obj\Debug\net8.0\student-application-model.AssemblyInfoInputs.cache
+C:\Users\S00235207\Documents\ProjectRebuild\student-application-model\obj\Debug\net8.0\student-application-model.AssemblyInfo.cs
+C:\Users\S00235207\Documents\ProjectRebuild\student-application-model\obj\Debug\net8.0\student-application-model.csproj.CoreCompileInputs.cache
+C:\Users\S00235207\Documents\ProjectRebuild\student-application-model\obj\Debug\net8.0\student-application-model.dll
+C:\Users\S00235207\Documents\ProjectRebuild\student-application-model\obj\Debug\net8.0\refint\student-application-model.dll
+C:\Users\S00235207\Documents\ProjectRebuild\student-application-model\obj\Debug\net8.0\student-application-model.pdb
+C:\Users\S00235207\Documents\ProjectRebuild\student-application-model\obj\Debug\net8.0\student-application-model.genruntimeconfig.cache
+C:\Users\S00235207\Documents\ProjectRebuild\student-application-model\obj\Debug\net8.0\ref\student-application-model.dll
