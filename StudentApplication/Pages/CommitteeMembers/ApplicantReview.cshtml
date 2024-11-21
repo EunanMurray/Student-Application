@@ -1,0 +1,45 @@
+﻿@page
+@model ApplicantReviewModel
+@{
+    ViewData["Title"] = "Applicant Review";
+}
+
+<h2>Applicant Review</h2>
+
+<div class="alert alert-info">
+    <h4>Your Assigned Sports:</h4>
+    <p>@string.Join(", ", Model.AssignedSports)</p>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Sports</th>
+                        <th>Campus</th>
+                        <th>Date Submitted</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var applicant in Model.Applicants)
+                    {
+                        <tr>
+                            <td>@applicant.Name</td>
+                            <td>@applicant.Sports</td>
+                            <td>@applicant.Campus</td>
+                            <td>@applicant.DateSubmitted?.ToShortDateString()</td>
+                            <td>
+                                <a href="/Applications/Details/@applicant.ApplicantId"
+                                   class="btn btn-primary btn-sm">View Details</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

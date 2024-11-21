@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using StudentApplicationModel.Models;
+using student_application_model.Models;
 
 namespace ScholarshipInfoSystem.Data
 {
@@ -11,10 +12,11 @@ namespace ScholarshipInfoSystem.Data
         {
         }
 
-        public DbSet<Role> Roles { get; set; }
-        public DbSet<UserRole> UserRoles { get; set; }
+        public new DbSet<Role> Roles { get; set; }
+        public new DbSet<UserRole> UserRoles { get; set; }
         public DbSet<UserSport> UserSports { get; set; }
-        public DbSet<RoleClaim> RoleClaims { get; set; }
+        public new DbSet<RoleClaim> RoleClaims { get; set; }
+        public DbSet<CommitteeMemberSport> CommitteeMemberSports { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -22,41 +24,69 @@ namespace ScholarshipInfoSystem.Data
 
             modelBuilder.Ignore<ApplicantSport>();
 
+            // Tables excluded from migrations
             modelBuilder.Entity<UserRole>().Metadata.SetIsTableExcludedFromMigrations(true);
             modelBuilder.Entity<UserSport>().Metadata.SetIsTableExcludedFromMigrations(true);
             modelBuilder.Entity<Role>().Metadata.SetIsTableExcludedFromMigrations(true);
             modelBuilder.Entity<RoleClaim>().Metadata.SetIsTableExcludedFromMigrations(true);
 
-            modelBuilder.Entity<UserRole>()
-                .HasKey(ur => new { ur.UserID, ur.RoleID });
+            // UserRole configuration
+            modelBuilder.Entity<UserRole>(entity =>
+            {
+                entity.HasKey(ur => new { ur.UserID, ur.RoleID });
 
-            modelBuilder.Entity<UserSport>()
-                .HasKey(us => new { us.UserID, us.SportID });
+                entity.HasOne(ur => ur.User)
+                    .WithMany(u => u.UserRoles)
+                    .HasForeignKey(ur => ur.UserID)
+                    .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<UserRole>()
-                .HasOne(ur => ur.User)
-                .WithMany(u => u.UserRoles)
-                .HasForeignKey(ur => ur.UserID);
+                entity.HasOne(ur => ur.Role)
+                    .WithMany(r => r.UserRoles)
+                    .HasForeignKey(ur => ur.RoleID)
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
 
-            modelBuilder.Entity<UserRole>()
-                .HasOne(ur => ur.Role)
-                .WithMany(r => r.UserRoles)
-                .HasForeignKey(ur => ur.RoleID);
+            // CommitteeMemberSport configuration
+            modelBuilder.Entity<CommitteeMemberSport>(entity =>
+            {
+                entity.ToTable("CommitteeMemberSports");
 
-            modelBuilder.Entity<UserSport>()
-                .HasOne(us => us.User)
-                .WithMany(u => u.UserSports)
-                .HasForeignKey(us => us.UserID);
+                entity.HasKey(cms => new { cms.UserId, cms.SportId });
 
-            modelBuilder.Entity<UserSport>()
-                .HasOne(us => us.Sport)
-                .WithMany(s => s.UserSports)
-                .HasForeignKey(us => us.SportID);
+                // Configure the foreign key to AspNetUsers
+                entity.HasOne<IdentityUser>()
+                    .WithMany()
+                    .HasForeignKey(cms => cms.UserId)
+                    .IsRequired()
+                    .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<RoleClaim>()
-                .HasOne(rc => rc.Role)
-                .WithMany(r => r.RoleClaims)
-                .HasForeignKey(rc => rc.RoleID);
+                // Configure SportId as a regular property (not a foreign key)
+                entity.Property(cms => cms.SportId)
+                    .IsRequired();
+
+            });
+
+            // UserSport configuration
+            modelBuilder.Entity<UserSport>(entity =>
+            {
+                entity.HasKey(us => new { us.UserID, us.SportID });
+
+                entity.HasOne(us => us.User)
+                    .WithMany(u => u.UserSports)
+                    .HasForeignKey(us => us.UserID);
+
+                entity.HasOne(us => us.Sport)
+                    .WithMany(s => s.UserSports)
+                    .HasForeignKey(us => us.SportID);
+            });
+
+            // RoleClaim configuration
+            modelBuilder.Entity<RoleClaim>(entity =>
+            {
+                entity.HasOne(rc => rc.Role)
+                    .WithMany(r => r.RoleClaims)
+                    .HasForeignKey(rc => rc.RoleID);
+            });
         }
     }
 }

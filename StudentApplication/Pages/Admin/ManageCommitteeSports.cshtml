@@ -1,0 +1,80 @@
+﻿@page
+@model StudentApplication.Pages.Admin.ManageCommitteeSportsModel
+@{
+    ViewData["Title"] = "Manage Committee Member Sports";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+@if (!ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <li>@error.ErrorMessage</li>
+            }
+        </ul>
+    </div>
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Committee Member</th>
+                        <th>Email</th>
+                        <th>Assigned Sports</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var member in Model.CommitteeMembers)
+                    {
+                        <tr>
+                            <td>@member.UserName</td>
+                            <td>@member.Email</td>
+                            <td>
+                                @string.Join(", ", member.AvailableSports
+                                         .Where(s => member.AssignedSportIds.Contains(s.SportID))
+                                         .Select(s => s.SportName))
+                            </td>
+                            <td>
+                                <form method="post">
+                                    <input type="hidden" name="SelectedUserId" value="@member.UserId" />
+                                    <div class="form-group">
+                                        <select name="SelectedSports" multiple class="form-control">
+                                            @foreach (var sport in member.AvailableSports)
+                                            {
+                                                <option value="@sport.SportID" selected="@member.AssignedSportIds.Contains(sport.SportID)">
+                                                    @sport.SportName
+                                                </option>
+                                            }
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary mt-2">Update Sports</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

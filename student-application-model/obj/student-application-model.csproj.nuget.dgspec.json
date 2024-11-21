@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\S00235207\\Documents\\ProjectRebuild\\student-application-model\\student-application-model.csproj": {}
+    "C:\\Users\\S00235207\\Documents\\Test\\student-application-model\\student-application-model.csproj": {}
   },
   "projects": {
-    "C:\\Users\\S00235207\\Documents\\ProjectRebuild\\student-application-model\\student-application-model.csproj": {
+    "C:\\Users\\S00235207\\Documents\\Test\\student-application-model\\student-application-model.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\S00235207\\Documents\\ProjectRebuild\\student-application-model\\student-application-model.csproj",
+        "projectUniqueName": "C:\\Users\\S00235207\\Documents\\Test\\student-application-model\\student-application-model.csproj",
         "projectName": "student-application-model",
-        "projectPath": "C:\\Users\\S00235207\\Documents\\ProjectRebuild\\student-application-model\\student-application-model.csproj",
+        "projectPath": "C:\\Users\\S00235207\\Documents\\Test\\student-application-model\\student-application-model.csproj",
         "packagesPath": "C:\\Users\\S00235207\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\S00235207\\Documents\\ProjectRebuild\\student-application-model\\obj\\",
+        "outputPath": "C:\\Users\\S00235207\\Documents\\Test\\student-application-model\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -89,7 +89,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

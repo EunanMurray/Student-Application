@@ -52,6 +52,9 @@ namespace StudentApplication.Migrations.Secondary
                     b.Property<DateTime?>("DateOfBirth")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime>("DateSubmitted")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Gender")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -659,6 +662,19 @@ namespace StudentApplication.Migrations.Secondary
                         });
                 });
 
+            modelBuilder.Entity("student_application_model.Models.CommitteeMemberSport", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("SportId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId", "SportId");
+
+                    b.ToTable("CommitteeMemberSports", (string)null);
+                });
+
             modelBuilder.Entity("Applicant", b =>
                 {
                     b.HasOne("StudentApplicationModel.Models.Campus", "Campus")
@@ -861,6 +877,15 @@ namespace StudentApplication.Migrations.Secondary
                     b.Navigation("Sport");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("student_application_model.Models.CommitteeMemberSport", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Applicant", b =>
