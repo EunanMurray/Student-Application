@@ -4,71 +4,92 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using StudentApplicationPages.Data;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
-    [Authorize]
-    public class RoleTestModel : PageModel
+[Authorize]
+public class RoleTestModel : PageModel
+{
+    private readonly UserManager<IdentityUser> _userManager;
+    private readonly RoleManager<IdentityRole> _roleManager;
+    private readonly ApplicationDbContext _applicationDb;
+    private readonly ILogger<RoleTestModel> _logger;
+
+    public List<UserWithRoleViewModel> Users { get; set; } = new List<UserWithRoleViewModel>();
+    public List<string> AssignedSports { get; set; } = new List<string>();
+    public SelectList RoleSelectList { get; set; }
+
+    public RoleTestModel(
+        UserManager<IdentityUser> userManager,
+        RoleManager<IdentityRole> roleManager,
+        ApplicationDbContext applicationDb,
+        ILogger<RoleTestModel> logger)
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
+        _userManager = userManager;
+        _roleManager = roleManager;
+        _applicationDb = applicationDb;
+        _logger = logger;
+    }
 
-        public List<UserWithRoleViewModel> Users { get; set; } = new List<UserWithRoleViewModel>();
-        public string AssignedSport { get; set; }
-
-        public SelectList RoleSelectList { get; set; }
-
-        public RoleTestModel(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
+    public async Task OnGetAsync()
+    {
+        try
         {
-            _userManager = userManager;
-            _roleManager = roleManager;
-        }
-
-        public async Task OnGetAsync()
-        {
-            Console.WriteLine("Starting OnGetAsync");
-
             var currentUser = await _userManager.GetUserAsync(User);
             if (currentUser == null)
             {
-                Console.WriteLine("No user found.");
+                _logger.LogWarning("No user found.");
                 return;
             }
 
-            Console.WriteLine($"User found with email: {currentUser.Email}");
-
-            var allUsers = await _userManager.Users.ToListAsync();
-
-            foreach (var u in allUsers)
+            if (User.IsInRole(RoleNames.CommitteeMember))
             {
-                var roles = await _userManager.GetRolesAsync(u);
-                var currentRole = roles.FirstOrDefault() ?? "None";
-                Users.Add(new UserWithRoleViewModel
-                {
-                    Id = u.Id,
-                    UserName = u.UserName,
-                    Email = u.Email,
-                    CurrentRole = currentRole
-                });
-
-                Console.WriteLine($"User: {u.UserName} - Role: {currentRole}");
+                // Get assigned sports for committee member
+                AssignedSports = await _applicationDb.UserSports
+                    .Where(us => us.UserID == currentUser.Id)
+                    .Join(_applicationDb.Sports,
+                        us => us.SportID,
+                        s => s.SportID,
+                        (us, s) => s.SportName)
+                    .ToListAsync();
             }
 
-            var rolesList = await _roleManager.Roles.ToListAsync();
-            RoleSelectList = new SelectList(rolesList, "Name", "Name");
+            if (User.IsInRole(RoleNames.Admin))
+            {
+                var allUsers = await _userManager.Users.ToListAsync();
 
-            Console.WriteLine("RoleSelectList successfully populated.");
-            Console.WriteLine("OnGetAsync completed.");
+                foreach (var u in allUsers)
+                {
+                    var roles = await _userManager.GetRolesAsync(u);
+                    var currentRole = roles.FirstOrDefault() ?? "None";
+                    Users.Add(new UserWithRoleViewModel
+                    {
+                        Id = u.Id,
+                        UserName = u.UserName,
+                        Email = u.Email,
+                        CurrentRole = currentRole
+                    });
+                }
+
+                var rolesList = await _roleManager.Roles.ToListAsync();
+                RoleSelectList = new SelectList(rolesList, "Name", "Name");
+            }
         }
-
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> OnPostAsync(string email, string selectedRole)
+        catch (Exception ex)
         {
-            Console.WriteLine("OnPostAsync called.");
-            Console.WriteLine($"Email received: {email}");
-            Console.WriteLine($"SelectedRole received: {selectedRole}");
+            _logger.LogError(ex, "Error in OnGetAsync");
+            TempData["ErrorMessage"] = "An error occurred while loading the page.";
+        }
+    }
 
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> OnPostAsync(string email, string selectedRole)
+    {
+        try
+        {
             if (!User.IsInRole(RoleNames.Admin))
             {
                 return Unauthorized();
@@ -89,7 +110,10 @@ using System.Threading.Tasks;
 
             // Remove all current roles
             var currentRoles = await _userManager.GetRolesAsync(user);
-            await _userManager.RemoveFromRolesAsync(user, currentRoles);
+            if (currentRoles.Any())
+            {
+                await _userManager.RemoveFromRolesAsync(user, currentRoles);
+            }
 
             // Add the new role if provided
             if (!string.IsNullOrEmpty(selectedRole))
@@ -99,6 +123,20 @@ using System.Threading.Tasks;
                 {
                     await _userManager.AddToRoleAsync(user, selectedRole);
                     TempData["SuccessMessage"] = $"Role for {email} updated to {selectedRole}.";
+
+                    // If user is no longer a committee member, remove their sport assignments
+                    if (selectedRole != RoleNames.CommitteeMember)
+                    {
+                        var userSports = await _applicationDb.UserSports
+                            .Where(us => us.UserID == user.Id)
+                            .ToListAsync();
+
+                        if (userSports.Any())
+                        {
+                            _applicationDb.UserSports.RemoveRange(userSports);
+                            await _applicationDb.SaveChangesAsync();
+                        }
+                    }
                 }
                 else
                 {
@@ -112,19 +150,26 @@ using System.Threading.Tasks;
 
             return RedirectToPage();
         }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error in OnPostAsync");
+            TempData["ErrorMessage"] = "An error occurred while updating the role.";
+            return RedirectToPage();
+        }
     }
+}
 
-    public class UserWithRoleViewModel
-    {
-        public string Id { get; set; }
-        public string UserName { get; set; }
-        public string Email { get; set; }
-        public string CurrentRole { get; set; }
-    }
+public class UserWithRoleViewModel
+{
+    public string Id { get; set; }
+    public string UserName { get; set; }
+    public string Email { get; set; }
+    public string CurrentRole { get; set; }
+}
 
-    public static class RoleNames
-    {
-        public const string Admin = "Admin";
-        public const string CommitteeMember = "Committee Member";
-        public const string Viewer = "Viewer";
-    }
+public static class RoleNames
+{
+    public const string Admin = "Admin";
+    public const string CommitteeMember = "Committee Member";
+    public const string Viewer = "Viewer";
+}

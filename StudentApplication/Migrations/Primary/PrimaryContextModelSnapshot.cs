@@ -3,20 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StudentApplicationModel.Data;
 
 #nullable disable
 
-namespace StudentApplication.Migrations
+namespace StudentApplication.Migrations.Primary
 {
     [DbContext(typeof(PrimaryContext))]
-    [Migration("20241121114249_UpdateOne")]
-    partial class UpdateOne
+    partial class PrimaryContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,7 +36,7 @@ namespace StudentApplication.Migrations
 
                     b.Property<string>("CAONumber")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int?>("CampusID")
                         .HasColumnType("int");
@@ -104,6 +101,9 @@ namespace StudentApplication.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ApplicantID");
+
+                    b.HasIndex("CAONumber")
+                        .IsUnique();
 
                     b.HasIndex("CampusID");
 
@@ -226,56 +226,6 @@ namespace StudentApplication.Migrations
                     b.ToTable("Referees");
                 });
 
-            modelBuilder.Entity("Role", b =>
-                {
-                    b.Property<int>("RoleID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoleID"));
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("RoleID");
-
-                    b.ToTable("Role");
-                });
-
-            modelBuilder.Entity("RoleClaim", b =>
-                {
-                    b.Property<int>("RoleClaimID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoleClaimID"));
-
-                    b.Property<string>("ClaimType")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("ClaimValue")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<int>("RoleID")
-                        .HasColumnType("int");
-
-                    b.HasKey("RoleClaimID");
-
-                    b.HasIndex("RoleID");
-
-                    b.ToTable("RoleClaim");
-                });
-
             modelBuilder.Entity("StudentApplicationModel.Models.ApplicantSport", b =>
                 {
                     b.Property<int>("ApplicantID")
@@ -308,28 +258,6 @@ namespace StudentApplication.Migrations
                     b.ToTable("Campuses");
                 });
 
-            modelBuilder.Entity("StudentApplicationModel.Models.CommitteeMember", b =>
-                {
-                    b.Property<int>("MemberID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MemberID"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("SportID")
-                        .HasColumnType("int");
-
-                    b.HasKey("MemberID");
-
-                    b.HasIndex("SportID");
-
-                    b.ToTable("CommitteeMember");
-                });
-
             modelBuilder.Entity("StudentApplicationModel.Models.Scholarship", b =>
                 {
                     b.Property<int>("ScholarshipID")
@@ -350,6 +278,31 @@ namespace StudentApplication.Migrations
                     b.HasIndex("ScholarshipTypeID");
 
                     b.ToTable("Scholarships");
+                });
+
+            modelBuilder.Entity("StudentApplicationModel.Models.ScholarshipApplication", b =>
+                {
+                    b.Property<int>("ApplicationID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ApplicationID"));
+
+                    b.Property<int>("ApplicantID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ApplicationType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Year")
+                        .HasColumnType("int");
+
+                    b.HasKey("ApplicationID");
+
+                    b.HasIndex("ApplicantID");
+
+                    b.ToTable("ScholarshipApplications");
                 });
 
             modelBuilder.Entity("StudentApplicationModel.Models.ScholarshipOfferHistory", b =>
@@ -388,13 +341,13 @@ namespace StudentApplication.Migrations
 
                     b.HasKey("OfferID");
 
-                    b.HasIndex("ApplicantID");
-
                     b.HasIndex("ScholarshipID");
 
                     b.HasIndex("SportID");
 
-                    b.ToTable("ScholarshipOfferHistory");
+                    b.HasIndex("ApplicantID", "ScholarshipID");
+
+                    b.ToTable("ScholarshipOfferHistories");
                 });
 
             modelBuilder.Entity("StudentApplicationModel.Models.ScholarshipType", b =>
@@ -432,52 +385,6 @@ namespace StudentApplication.Migrations
                     b.HasKey("SportID");
 
                     b.ToTable("Sports");
-                });
-
-            modelBuilder.Entity("UserRole", b =>
-                {
-                    b.Property<int>("UserRoleID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserRoleID"));
-
-                    b.Property<int>("RoleID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserID")
-                        .HasColumnType("int");
-
-                    b.HasKey("UserRoleID");
-
-                    b.HasIndex("RoleID");
-
-                    b.HasIndex("UserID");
-
-                    b.ToTable("UserRole");
-                });
-
-            modelBuilder.Entity("UserSport", b =>
-                {
-                    b.Property<int>("UserSportID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserSportID"));
-
-                    b.Property<int>("SportID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserID")
-                        .HasColumnType("int");
-
-                    b.HasKey("UserSportID");
-
-                    b.HasIndex("SportID");
-
-                    b.HasIndex("UserID");
-
-                    b.ToTable("UserSport");
                 });
 
             modelBuilder.Entity("Applicant", b =>
@@ -537,17 +444,6 @@ namespace StudentApplication.Migrations
                     b.Navigation("Applicant");
                 });
 
-            modelBuilder.Entity("RoleClaim", b =>
-                {
-                    b.HasOne("Role", "Role")
-                        .WithMany("RoleClaims")
-                        .HasForeignKey("RoleID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Role");
-                });
-
             modelBuilder.Entity("StudentApplicationModel.Models.ApplicantSport", b =>
                 {
                     b.HasOne("Applicant", "Applicant")
@@ -567,15 +463,6 @@ namespace StudentApplication.Migrations
                     b.Navigation("Sport");
                 });
 
-            modelBuilder.Entity("StudentApplicationModel.Models.CommitteeMember", b =>
-                {
-                    b.HasOne("StudentApplicationModel.Models.Sport", "Sport")
-                        .WithMany("CommitteeMembers")
-                        .HasForeignKey("SportID");
-
-                    b.Navigation("Sport");
-                });
-
             modelBuilder.Entity("StudentApplicationModel.Models.Scholarship", b =>
                 {
                     b.HasOne("StudentApplicationModel.Models.ScholarshipType", "ScholarshipType")
@@ -585,6 +472,17 @@ namespace StudentApplication.Migrations
                         .IsRequired();
 
                     b.Navigation("ScholarshipType");
+                });
+
+            modelBuilder.Entity("StudentApplicationModel.Models.ScholarshipApplication", b =>
+                {
+                    b.HasOne("Applicant", "Applicant")
+                        .WithMany()
+                        .HasForeignKey("ApplicantID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Applicant");
                 });
 
             modelBuilder.Entity("StudentApplicationModel.Models.ScholarshipOfferHistory", b =>
@@ -614,44 +512,6 @@ namespace StudentApplication.Migrations
                     b.Navigation("Sport");
                 });
 
-            modelBuilder.Entity("UserRole", b =>
-                {
-                    b.HasOne("Role", "Role")
-                        .WithMany("UserRoles")
-                        .HasForeignKey("RoleID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("StudentApplicationModel.Models.CommitteeMember", "User")
-                        .WithMany("UserRoles")
-                        .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Role");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("UserSport", b =>
-                {
-                    b.HasOne("StudentApplicationModel.Models.Sport", "Sport")
-                        .WithMany("UserSports")
-                        .HasForeignKey("SportID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("StudentApplicationModel.Models.CommitteeMember", "User")
-                        .WithMany("UserSports")
-                        .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Sport");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("Applicant", b =>
                 {
                     b.Navigation("ApplicantSports");
@@ -665,20 +525,6 @@ namespace StudentApplication.Migrations
                         .IsRequired();
 
                     b.Navigation("Referees");
-                });
-
-            modelBuilder.Entity("Role", b =>
-                {
-                    b.Navigation("RoleClaims");
-
-                    b.Navigation("UserRoles");
-                });
-
-            modelBuilder.Entity("StudentApplicationModel.Models.CommitteeMember", b =>
-                {
-                    b.Navigation("UserRoles");
-
-                    b.Navigation("UserSports");
                 });
 
             modelBuilder.Entity("StudentApplicationModel.Models.Scholarship", b =>
@@ -697,11 +543,7 @@ namespace StudentApplication.Migrations
                 {
                     b.Navigation("ApplicantSports");
 
-                    b.Navigation("CommitteeMembers");
-
                     b.Navigation("ScholarshipOfferHistories");
-
-                    b.Navigation("UserSports");
                 });
 #pragma warning restore 612, 618
         }

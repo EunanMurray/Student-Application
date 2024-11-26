@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace StudentApplication.Migrations
+namespace StudentApplication.Migrations.Primary
 {
     /// <inheritdoc />
-    public partial class InitialSetup : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -22,20 +22,6 @@ namespace StudentApplication.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Campuses", x => x.CampusID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Role",
-                columns: table => new
-                {
-                    RoleID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Role", x => x.RoleID);
                 });
 
             migrationBuilder.CreateTable(
@@ -66,27 +52,6 @@ namespace StudentApplication.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "RoleClaim",
-                columns: table => new
-                {
-                    RoleClaimID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    RoleID = table.Column<int>(type: "int", nullable: false),
-                    ClaimType = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    ClaimValue = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RoleClaim", x => x.RoleClaimID);
-                    table.ForeignKey(
-                        name: "FK_RoleClaim_Role_RoleID",
-                        column: x => x.RoleID,
-                        principalTable: "Role",
-                        principalColumn: "RoleID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Scholarships",
                 columns: table => new
                 {
@@ -107,32 +72,13 @@ namespace StudentApplication.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CommitteeMember",
-                columns: table => new
-                {
-                    MemberID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SportID = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CommitteeMember", x => x.MemberID);
-                    table.ForeignKey(
-                        name: "FK_CommitteeMember_Sports_SportID",
-                        column: x => x.SportID,
-                        principalTable: "Sports",
-                        principalColumn: "SportID");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Applicants",
                 columns: table => new
                 {
                     ApplicantID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CAONumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CAONumber = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ApplicationStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Gender = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -147,6 +93,7 @@ namespace StudentApplication.Migrations
                     HighestCompetitionLevel = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     SportingAchievements = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     SportingGoals = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DateSubmitted = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CampusID = table.Column<int>(type: "int", nullable: true),
                     ScholarshipID = table.Column<int>(type: "int", nullable: true)
                 },
@@ -163,58 +110,6 @@ namespace StudentApplication.Migrations
                         column: x => x.ScholarshipID,
                         principalTable: "Scholarships",
                         principalColumn: "ScholarshipID");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "UserRole",
-                columns: table => new
-                {
-                    UserRoleID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserID = table.Column<int>(type: "int", nullable: false),
-                    RoleID = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserRole", x => x.UserRoleID);
-                    table.ForeignKey(
-                        name: "FK_UserRole_CommitteeMember_UserID",
-                        column: x => x.UserID,
-                        principalTable: "CommitteeMember",
-                        principalColumn: "MemberID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_UserRole_Role_RoleID",
-                        column: x => x.RoleID,
-                        principalTable: "Role",
-                        principalColumn: "RoleID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "UserSport",
-                columns: table => new
-                {
-                    UserSportID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserID = table.Column<int>(type: "int", nullable: false),
-                    SportID = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserSport", x => x.UserSportID);
-                    table.ForeignKey(
-                        name: "FK_UserSport_CommitteeMember_UserID",
-                        column: x => x.UserID,
-                        principalTable: "CommitteeMember",
-                        principalColumn: "MemberID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_UserSport_Sports_SportID",
-                        column: x => x.SportID,
-                        principalTable: "Sports",
-                        principalColumn: "SportID",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -328,7 +223,28 @@ namespace StudentApplication.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ScholarshipOfferHistory",
+                name: "ScholarshipApplications",
+                columns: table => new
+                {
+                    ApplicationID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ApplicantID = table.Column<int>(type: "int", nullable: false),
+                    Year = table.Column<int>(type: "int", nullable: false),
+                    ApplicationType = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ScholarshipApplications", x => x.ApplicationID);
+                    table.ForeignKey(
+                        name: "FK_ScholarshipApplications_Applicants_ApplicantID",
+                        column: x => x.ApplicantID,
+                        principalTable: "Applicants",
+                        principalColumn: "ApplicantID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ScholarshipOfferHistories",
                 columns: table => new
                 {
                     OfferID = table.Column<int>(type: "int", nullable: false)
@@ -344,21 +260,21 @@ namespace StudentApplication.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ScholarshipOfferHistory", x => x.OfferID);
+                    table.PrimaryKey("PK_ScholarshipOfferHistories", x => x.OfferID);
                     table.ForeignKey(
-                        name: "FK_ScholarshipOfferHistory_Applicants_ApplicantID",
+                        name: "FK_ScholarshipOfferHistories_Applicants_ApplicantID",
                         column: x => x.ApplicantID,
                         principalTable: "Applicants",
                         principalColumn: "ApplicantID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ScholarshipOfferHistory_Scholarships_ScholarshipID",
+                        name: "FK_ScholarshipOfferHistories_Scholarships_ScholarshipID",
                         column: x => x.ScholarshipID,
                         principalTable: "Scholarships",
                         principalColumn: "ScholarshipID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ScholarshipOfferHistory_Sports_SportID",
+                        name: "FK_ScholarshipOfferHistories_Sports_SportID",
                         column: x => x.SportID,
                         principalTable: "Sports",
                         principalColumn: "SportID",
@@ -371,6 +287,12 @@ namespace StudentApplication.Migrations
                 column: "CampusID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Applicants_CAONumber",
+                table: "Applicants",
+                column: "CAONumber",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Applicants_ScholarshipID",
                 table: "Applicants",
                 column: "ScholarshipID");
@@ -378,11 +300,6 @@ namespace StudentApplication.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_ApplicantSports_SportID",
                 table: "ApplicantSports",
-                column: "SportID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CommitteeMember_SportID",
-                table: "CommitteeMember",
                 column: "SportID");
 
             migrationBuilder.CreateIndex(
@@ -408,49 +325,29 @@ namespace StudentApplication.Migrations
                 column: "ApplicantID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RoleClaim_RoleID",
-                table: "RoleClaim",
-                column: "RoleID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ScholarshipOfferHistory_ApplicantID",
-                table: "ScholarshipOfferHistory",
+                name: "IX_ScholarshipApplications_ApplicantID",
+                table: "ScholarshipApplications",
                 column: "ApplicantID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ScholarshipOfferHistory_ScholarshipID",
-                table: "ScholarshipOfferHistory",
+                name: "IX_ScholarshipOfferHistories_ApplicantID_ScholarshipID",
+                table: "ScholarshipOfferHistories",
+                columns: new[] { "ApplicantID", "ScholarshipID" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ScholarshipOfferHistories_ScholarshipID",
+                table: "ScholarshipOfferHistories",
                 column: "ScholarshipID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ScholarshipOfferHistory_SportID",
-                table: "ScholarshipOfferHistory",
+                name: "IX_ScholarshipOfferHistories_SportID",
+                table: "ScholarshipOfferHistories",
                 column: "SportID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Scholarships_ScholarshipTypeID",
                 table: "Scholarships",
                 column: "ScholarshipTypeID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserRole_RoleID",
-                table: "UserRole",
-                column: "RoleID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserRole_UserID",
-                table: "UserRole",
-                column: "UserID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserSport_SportID",
-                table: "UserSport",
-                column: "SportID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserSport_UserID",
-                table: "UserSport",
-                column: "UserID");
         }
 
         /// <inheritdoc />
@@ -472,34 +369,22 @@ namespace StudentApplication.Migrations
                 name: "Referees");
 
             migrationBuilder.DropTable(
-                name: "RoleClaim");
+                name: "ScholarshipApplications");
 
             migrationBuilder.DropTable(
-                name: "ScholarshipOfferHistory");
-
-            migrationBuilder.DropTable(
-                name: "UserRole");
-
-            migrationBuilder.DropTable(
-                name: "UserSport");
+                name: "ScholarshipOfferHistories");
 
             migrationBuilder.DropTable(
                 name: "Applicants");
 
             migrationBuilder.DropTable(
-                name: "Role");
-
-            migrationBuilder.DropTable(
-                name: "CommitteeMember");
+                name: "Sports");
 
             migrationBuilder.DropTable(
                 name: "Campuses");
 
             migrationBuilder.DropTable(
                 name: "Scholarships");
-
-            migrationBuilder.DropTable(
-                name: "Sports");
 
             migrationBuilder.DropTable(
                 name: "ScholarshipTypes");

@@ -1,22 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
 
 namespace StudentApplicationModel.Models
 {
     public class CommitteeMember
     {
-        [Key]
         public int MemberID { get; set; }
-
-        [Required]
-        public string Name { get; set; } = string.Empty;
-
-        public int? SportID { get; set; }
-
-        [ForeignKey("SportID")]
-        public Sport Sport { get; set; } = null!;
-        public ICollection<UserRole> UserRoles { get; set; } = new List<UserRole>();
-        public ICollection<UserSport> UserSports { get; set; } = new List<UserSport>();
+        public string UserID { get; set; }
+        public string Name { get; set; }
+        public virtual IdentityUser User { get; set; }
     }
 }

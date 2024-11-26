@@ -64,7 +64,7 @@
 }
 else if (User.IsInRole(RoleNames.CommitteeMember))
 {
-    <p>You are a <strong>Committee Member</strong> for @Model.AssignedSport.</p>
+    <p>You are a <strong>Committee Member</strong> for @string.Join(", ", Model.AssignedSports)</p>
 }
 else
 {

@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using ScholarshipInfoSystem.Data;
-using StudentApplicationModel.Data;
 using StudentApplicationModel.Models;
 using student_application_model.Models;
+using StudentApplication.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,28 +17,16 @@ namespace StudentApplication.Pages.Admin
     public class ManageCommitteeSportsModel : PageModel
     {
         private readonly UserManager<IdentityUser> _userManager;
-        private readonly PrimaryContext _primaryContext;
-        private readonly SecondaryContext _secondaryContext;
+        private readonly ApplicationDbContext _applicationDb;
 
         public ManageCommitteeSportsModel(
             UserManager<IdentityUser> userManager,
-            PrimaryContext primaryContext,
-            SecondaryContext secondaryContext)
+            ApplicationDbContext applicationDb)
         {
             _userManager = userManager;
-            _primaryContext = primaryContext;
-            _secondaryContext = secondaryContext;
+            _applicationDb = applicationDb;
             CommitteeMembers = new List<CommitteeMemberViewModel>();
             SelectedSports = new List<int>();
-        }
-
-        public class CommitteeMemberViewModel
-        {
-            public string UserId { get; set; } = string.Empty;
-            public string UserName { get; set; } = string.Empty;
-            public string Email { get; set; } = string.Empty;
-            public List<int> AssignedSportIds { get; set; } = new List<int>();
-            public List<Sport> AvailableSports { get; set; } = new List<Sport>();
         }
 
         public List<CommitteeMemberViewModel> CommitteeMembers { get; set; }
@@ -54,32 +42,53 @@ namespace StudentApplication.Pages.Admin
             try
             {
                 var committeeMembers = await _userManager.GetUsersInRoleAsync("Committee Member");
-                var sports = await _primaryContext.Sports.ToListAsync();
-                var committeeSportAssignments = await _secondaryContext.Set<CommitteeMemberSport>().ToListAsync();
+
+                Console.WriteLine($"Found {committeeMembers.Count} committee members");
+
+                var sports = await _applicationDb.Sports
+                    .AsNoTracking()
+                    .ToListAsync();
+
+                Console.WriteLine($"Found {sports.Count} sports");
+
+                var userSports = await _applicationDb.UserSports
+                    .AsNoTracking()
+                    .ToListAsync();
 
                 CommitteeMembers = new List<CommitteeMemberViewModel>();
 
                 foreach (var member in committeeMembers)
                 {
-                    var assignedSportIds = committeeSportAssignments
-                        .Where(cs => cs.UserId == member.Id)
-                        .Select(cs => cs.SportId)
+                    var assignedSportIds = userSports
+                        .Where(us => us.UserID == member.Id)
+                        .Select(us => us.SportID)
                         .ToList();
 
-                    CommitteeMembers.Add(new CommitteeMemberViewModel
+                    Console.WriteLine($"User {member.UserName} has {assignedSportIds.Count} assigned sports");
+
+                    var committeeMember = await _applicationDb.CommitteeMembers
+                        .FirstOrDefaultAsync(cm => cm.UserID == member.Id);
+
+                    var viewModel = new CommitteeMemberViewModel
                     {
                         UserId = member.Id,
                         UserName = member.UserName ?? string.Empty,
                         Email = member.Email ?? string.Empty,
+                        Name = committeeMember?.Name ?? member.UserName ?? string.Empty,
                         AssignedSportIds = assignedSportIds,
                         AvailableSports = sports
-                    });
+                    };
+
+                    CommitteeMembers.Add(viewModel);
+
+                    Console.WriteLine($"ViewModel for {viewModel.UserName} has {viewModel.AvailableSports.Count} available sports");
                 }
 
                 return Page();
             }
             catch (Exception ex)
             {
+                Console.WriteLine($"Error in OnGetAsync: {ex}");
                 TempData["ErrorMessage"] = $"Error loading committee members: {ex.Message}";
                 return Page();
             }
@@ -94,34 +103,16 @@ namespace StudentApplication.Pages.Admin
                     return Page();
                 }
 
-                // Debug information
                 var selectedUserId = SelectedUserId?.Trim();
-                Console.WriteLine($"Selected User ID: {selectedUserId}");
 
-                // Verify the user exists in AspNetUsers
-                var userExists = await _secondaryContext.Users.AnyAsync(u => u.Id == selectedUserId);
-                if (!userExists)
-                {
-                    TempData["ErrorMessage"] = $"User with ID {selectedUserId} not found in AspNetUsers.";
-                    return Page();
-                }
-
-                // Verify user roles
                 var user = await _userManager.FindByIdAsync(selectedUserId);
-                if (user == null)
+                if (user == null || !await _userManager.IsInRoleAsync(user, "Committee Member"))
                 {
-                    TempData["ErrorMessage"] = "User not found.";
+                    TempData["ErrorMessage"] = "Invalid user or user is not a committee member.";
                     return Page();
                 }
 
-                if (!await _userManager.IsInRoleAsync(user, "Committee Member"))
-                {
-                    TempData["ErrorMessage"] = $"User {user.Email} is not a committee member.";
-                    return Page();
-                }
-
-                // Verify sports exist in primary context
-                var validSportIds = await _primaryContext.Sports
+                var validSportIds = await _applicationDb.Sports
                     .Where(s => SelectedSports.Contains(s.SportID))
                     .Select(s => s.SportID)
                     .ToListAsync();
@@ -132,50 +123,42 @@ namespace StudentApplication.Pages.Admin
                     return Page();
                 }
 
-                // Begin transaction
-                using var transaction = await _secondaryContext.Database.BeginTransactionAsync();
+                using var transaction = await _applicationDb.Database.BeginTransactionAsync();
                 try
                 {
-                    // Remove existing assignments
-                    var existingAssignments = await _secondaryContext.Set<CommitteeMemberSport>()
-                        .Where(cs => cs.UserId == selectedUserId)
+                    var existingAssignments = await _applicationDb.UserSports
+                        .Where(us => us.UserID == selectedUserId)
                         .ToListAsync();
 
                     if (existingAssignments.Any())
                     {
-                        _secondaryContext.Set<CommitteeMemberSport>().RemoveRange(existingAssignments);
-                        await _secondaryContext.SaveChangesAsync();
+                        _applicationDb.UserSports.RemoveRange(existingAssignments);
+                        await _applicationDb.SaveChangesAsync();
                     }
 
-                    // Add new assignments
                     foreach (var sportId in validSportIds)
                     {
-                        // Create the new assignment
-                        var sql = $@"
-                    INSERT INTO CommitteeMemberSports (UserId, SportId)
-                    VALUES (@p0, @p1)";
-
-                        await _secondaryContext.Database.ExecuteSqlRawAsync(
-                            sql,
-                            selectedUserId,
-                            sportId);
-
-                        Console.WriteLine($"Added sport {sportId} for user {selectedUserId}");
+                        _applicationDb.UserSports.Add(new UserSport
+                        {
+                            UserID = selectedUserId,
+                            SportID = sportId
+                        });
                     }
 
+                    await _applicationDb.SaveChangesAsync();
                     await transaction.CommitAsync();
+
                     TempData["SuccessMessage"] = "Sport assignments updated successfully.";
                     return RedirectToPage();
                 }
-                catch (Exception ex)
+                catch
                 {
                     await transaction.RollbackAsync();
-                    throw new Exception($"Error during transaction: {ex.Message}", ex);
+                    throw;
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in OnPostAsync: {ex}");
                 TempData["ErrorMessage"] = $"Error updating sport assignments: {ex.Message}";
                 await OnGetAsync();
                 return Page();

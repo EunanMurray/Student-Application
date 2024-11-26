@@ -1,22 +1,15 @@
-﻿using StudentApplicationModel.Models;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using student_application_model.Models;
 
-public class UserSport
+namespace StudentApplicationModel.Models
 {
-    [Key]
-    public int UserSportID { get; set; }
+    public class UserSport
+    {
+        public string UserID { get; set; }
+        public int SportID { get; set; }
 
-    [Required]
-    public int UserID { get; set; } 
+        public virtual SportIdentity Sport { get; set; } 
+        public virtual IdentityUser User { get; set; } 
+    }
 
-    [Required]
-    public int SportID { get; set; }
-
-    // Navigation properties
-    [ForeignKey("UserID")]
-    public CommitteeMember User { get; set; }
-
-    [ForeignKey("SportID")]
-    public Sport Sport { get; set; }
 }

@@ -6,119 +6,131 @@
 }
 
 <style>
-    /* Style the tab */
-    .tab {
-        overflow: hidden;
-        background-color: #f1f1f1;
-    }
-    /* Style the buttons inside the tab */
-    .tab button {
-        background-color: inherit;
-        float: left;
-        border: none;
-        outline: none;
-        cursor: pointer;
-        padding: 14px 16px;
-        transition: 0.3s;
-    }
-    /* Change background color of buttons on hover */
-    .tab button:hover {
-        background-color: #ddd;
-    }
-    /* Create an active/current tablink class */
-    .tab button.active {
-        background-color: #ccc;
-    }
-    /* Style the tab content */
-    .tabcontent {
-        display: none;
-        padding: 6px 12px;
-    }
-    .navigation-buttons {
-        margin-top: 20px;
-    }
+    /* Keep your existing styles */
 </style>
 
-<!-- Add Bootstrap CSS -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<div class="container">
+    <h2 class="mb-4">@ViewData["Title"]</h2>
 
-<h2>@ViewData["Title"]</h2>
-
-<!-- Display Error Messages -->
-@if (Model.ErrorMessages.Any())
-{
-    <div class="alert alert-danger">
-        <ul>
-            @foreach (var error in Model.ErrorMessages)
-            {
-                <li>@error</li>
-            }
-        </ul>
-    </div>
-}
-
-<form method="post" id="applicationForm">
-    <!-- Tab Buttons -->
-    <div class="tab">
-        <button type="button" class="tablinks btn btn-light" onclick="openTab(event, 'PersonalDetails')" id="defaultTab">Personal Details</button>
-        <button type="button" class="tablinks btn btn-light" onclick="openTab(event, 'AcademicHistory')">Academic History</button>
-        <button type="button" class="tablinks btn btn-light" onclick="openTab(event, 'SportDetails')">Sport Details</button>
-        <button type="button" class="tablinks btn btn-light" onclick="openTab(event, 'References')">References</button>
-        <button type="button" class="tablinks btn btn-light" onclick="openTab(event, 'Declarations')">Declarations</button>
-        <button type="button" class="tablinks btn btn-light" onclick="openTab(event, 'Review')">Review & Submit</button>
+    <div class="progress-bar-container">
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: 0%"></div>
+        </div>
     </div>
 
-    <!-- Tab Content -->
-    <div id="PersonalDetails" class="tabcontent">
-        @await Html.PartialAsync("~/Pages/Shared/Partials/_PersonalDetails.cshtml", Model.Application)
+    @if (Model.ErrorMessages.Any())
+    {
+        <div class="alert alert-danger alert-dismissible fade show">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <ul class="mb-0">
+                @foreach (var error in Model.ErrorMessages)
+                {
+                    <li>@error</li>
+                }
+            </ul>
+        </div>
+    }
+
+    <div class="loading-overlay">
+        <div class="loading-spinner">
+            <div class="spinner-border text-light" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
     </div>
 
-    <div id="AcademicHistory" class="tabcontent" style="display:none">
-        @await Html.PartialAsync("~/Pages/Shared/Partials/_AcademicHistory.cshtml", Model.Application, new ViewDataDictionary(ViewData) { { "CampusSelectList", Model.CampusSelectList } })
-    </div>
+    <form method="post" id="applicationForm" class="needs-validation" novalidate>
+        @Html.AntiForgeryToken()
 
-    <div id="SportDetails" class="tabcontent" style="display:none">
-        @await Html.PartialAsync("~/Pages/Shared/Partials/_SportDetails.cshtml", Model.Application, new ViewDataDictionary(ViewData) { { "SportSelectList", Model.SportSelectList } })
-    </div>
+        <!-- Tab Buttons -->
+        <div class="tab">
+            <button type="button" class="tablinks btn btn-light" onclick="openTab(event, 'PersonalDetails')" id="defaultTab">
+                <i class="fas fa-user"></i> Personal Details
+            </button>
+            <button type="button" class="tablinks btn btn-light" onclick="openTab(event, 'AcademicHistory')">
+                <i class="fas fa-graduation-cap"></i> Academic History
+            </button>
+            <button type="button" class="tablinks btn btn-light" onclick="openTab(event, 'SportDetails')">
+                <i class="fas fa-running"></i> Sport Details
+            </button>
+            <button type="button" class="tablinks btn btn-light" onclick="openTab(event, 'References')">
+                <i class="fas fa-users"></i> References
+            </button>
+            <button type="button" class="tablinks btn btn-light" onclick="openTab(event, 'Declarations')">
+                <i class="fas fa-check-circle"></i> Declarations
+            </button>
+            <button type="button" class="tablinks btn btn-light" onclick="openTab(event, 'Review')">
+                <i class="fas fa-eye"></i> Review & Submit
+            </button>
+        </div>
 
-    <div id="References" class="tabcontent" style="display:none">
-        @await Html.PartialAsync("~/Pages/Shared/Partials/_References.cshtml", Model.Application)
-    </div>
+        <!-- Tab Content -->
+        <div id="PersonalDetails" class="tabcontent">
+            @await Html.PartialAsync("~/Pages/Shared/Partials/_PersonalDetails.cshtml", Model.Application)
+        </div>
 
-    <div id="Declarations" class="tabcontent" style="display:none">
-        @await Html.PartialAsync("~/Pages/Shared/Partials/_Declerations.cshtml", Model.Application)
-    </div>
+        <div id="AcademicHistory" class="tabcontent">
+            @await Html.PartialAsync("~/Pages/Shared/Partials/_AcademicHistory.cshtml", Model.Application,
+                     new ViewDataDictionary(ViewData) { { "CampusSelectList", Model.CampusSelectList } })
+        </div>
 
-    <div id="Review" class="tabcontent" style="display:none">
-        @await Html.PartialAsync("~/Pages/Shared/Partials/_Review.cshtml", Model.Application)
-    </div>
+        <div id="SportDetails" class="tabcontent">
+            @await Html.PartialAsync("~/Pages/Shared/Partials/_SportDetails.cshtml", Model.Application,
+                     new ViewDataDictionary(ViewData) { { "SportSelectList", Model.SportSelectList } })
+        </div>
 
-    <!-- Navigation Buttons -->
-    <div class="navigation-buttons">
-        <button type="button" id="prevBtn" onclick="nextPrev(-1)" class="btn btn-primary">Previous</button>
-        <button type="button" id="nextBtn" onclick="nextPrev(1)" class="btn btn-primary">Next</button>
-        <button type="submit" id="submitBtn" style="display:none" class="btn btn-success" name="submit" value="submit">Submit Application</button>
-    </div>
-</form>
+        <div id="References" class="tabcontent">
+            @await Html.PartialAsync("~/Pages/Shared/Partials/_References.cshtml", Model.Application)
+        </div>
 
-<!-- Add Bootstrap JS -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <div id="Declarations" class="tabcontent">
+            @await Html.PartialAsync("~/Pages/Shared/Partials/_Declerations.cshtml", Model.Application)
+        </div>
+
+        <div id="Review" class="tabcontent">
+            @await Html.PartialAsync("~/Pages/Shared/Partials/_Review.cshtml", Model.Application)
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="navigation-buttons d-flex justify-content-between mt-4">
+            <button type="button" id="prevBtn" onclick="nextPrev(-1)" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Previous
+            </button>
+            <button type="button" id="nextBtn" onclick="nextPrev(1)" class="btn btn-primary">
+                Next <i class="fas fa-arrow-right"></i>
+            </button>
+            <button type="submit" id="submitBtn" style="display:none" class="btn btn-success" name="submit" value="submit">
+                <i class="fas fa-check"></i> Submit Application
+            </button>
+        </div>
+    </form>
+</div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script src="https://kit.fontawesome.com/your-kit-code.js" crossorigin="anonymous"></script>
+
     <script>
-        var currentTab = 0; // Current tab is set to be the first tab (0)
-        showTab(currentTab); // Display the current tab
+        var currentTab = 0;
+        showTab(currentTab);
+
+        function updateProgress(currentTab) {
+            var tabs = document.getElementsByClassName("tabcontent");
+            var progress = (currentTab / (tabs.length - 1)) * 100;
+            document.querySelector('.progress-bar').style.width = progress + '%';
+        }
 
         function showTab(n) {
             var tabs = document.getElementsByClassName("tabcontent");
+            // Hide all tabs
+            for (var i = 0; i < tabs.length; i++) {
+                tabs[i].style.display = "none";
+            }
+            // Show the current tab
             tabs[n].style.display = "block";
 
-            if (n == 0) {
-                document.getElementById("prevBtn").style.display = "none";
-            } else {
-                document.getElementById("prevBtn").style.display = "inline";
-            }
+            // Update buttons
+            document.getElementById("prevBtn").style.display = (n == 0) ? "none" : "inline";
             if (n == (tabs.length - 1)) {
                 document.getElementById("nextBtn").style.display = "none";
                 document.getElementById("submitBtn").style.display = "inline";
@@ -126,17 +138,55 @@
                 document.getElementById("nextBtn").style.display = "inline";
                 document.getElementById("submitBtn").style.display = "none";
             }
+
+            updateProgress(n);
             updateTabButtons(n);
+        }
+
+        function updateTabButtons(n) {
+            var tablinks = document.getElementsByClassName("tablinks");
+            for (var i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            tablinks[n].className += " active";
+        }
+
+        function validateTab(n) {
+            var currentTab = document.getElementsByClassName("tabcontent")[n];
+            var inputs = currentTab.querySelectorAll("input[required], select[required], textarea[required]");
+            var isValid = true;
+
+            inputs.forEach(function(input) {
+                if (!input.value) {
+                    isValid = false;
+                    input.classList.add('input-validation-error');
+                } else {
+                    input.classList.remove('input-validation-error');
+                }
+            });
+
+            return isValid;
         }
 
         function nextPrev(n) {
             var tabs = document.getElementsByClassName("tabcontent");
-            tabs[currentTab].style.display = "none";
-            currentTab = currentTab + n;
-            if (currentTab >= tabs.length) {
-                document.getElementById("applicationForm").submit();
+
+            // Validate current tab if moving forward
+            if (n > 0 && !validateTab(currentTab)) {
+                alert('Please fill in all required fields before proceeding.');
                 return false;
             }
+
+            tabs[currentTab].style.display = "none";
+            currentTab = currentTab + n;
+
+            if (currentTab >= tabs.length) {
+                if (validateTab(tabs.length - 1)) {
+                    document.getElementById("applicationForm").submit();
+                }
+                return false;
+            }
+
             showTab(currentTab);
         }
 
@@ -152,21 +202,11 @@
             }
             document.getElementById(tabName).style.display = "block";
             evt.currentTarget.className += " active";
-            currentTab = Array.prototype.indexOf.call(tabcontent, document.getElementById(tabName));
+            currentTab = Array.from(tabcontent).findIndex(tab => tab.id === tabName);
             showTab(currentTab);
         }
 
-        function updateTabButtons(n) {
-            var tablinks = document.getElementsByClassName("tablinks");
-            for (var i = 0; i < tablinks.length; i++) {
-                if (i == n) {
-                    tablinks[i].className += " active";
-                } else {
-                    tablinks[i].className = tablinks[i].className.replace(" active", "");
-                }
-            }
-        }
-
+        // Initialize
         document.getElementById("defaultTab").click();
     </script>
 }

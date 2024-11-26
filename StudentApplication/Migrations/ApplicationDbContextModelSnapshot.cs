@@ -4,11 +4,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using StudentApplicationPages.Data;
 
 #nullable disable
 
-namespace StudentApplication.Migrations.ApplicationDb
+namespace StudentApplication.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -220,6 +219,62 @@ namespace StudentApplication.Migrations.ApplicationDb
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("StudentApplicationModel.Models.CommitteeMember", b =>
+                {
+                    b.Property<int>("MemberID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MemberID"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("MemberID");
+
+                    b.HasIndex("UserID")
+                        .IsUnique();
+
+                    b.ToTable("CommitteeMembers", (string)null);
+                });
+
+            modelBuilder.Entity("StudentApplicationModel.Models.UserSport", b =>
+                {
+                    b.Property<string>("UserID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("SportID")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserID", "SportID");
+
+                    b.HasIndex("SportID");
+
+                    b.ToTable("UserSports", (string)null);
+                });
+
+            modelBuilder.Entity("student_application_model.Models.SportIdentity", b =>
+                {
+                    b.Property<int>("SportID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SportID"));
+
+                    b.Property<string>("SportName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("SportID");
+
+                    b.ToTable("IdentitySports", (string)null);
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -269,6 +324,41 @@ namespace StudentApplication.Migrations.ApplicationDb
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("StudentApplicationModel.Models.CommitteeMember", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                        .WithOne()
+                        .HasForeignKey("StudentApplicationModel.Models.CommitteeMember", "UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("StudentApplicationModel.Models.UserSport", b =>
+                {
+                    b.HasOne("student_application_model.Models.SportIdentity", "Sport")
+                        .WithMany("UserSports")
+                        .HasForeignKey("SportID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Sport");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("student_application_model.Models.SportIdentity", b =>
+                {
+                    b.Navigation("UserSports");
                 });
 #pragma warning restore 612, 618
         }
