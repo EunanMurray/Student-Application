@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace StudentApplication.Migrations.ApplicationDb
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class Tet : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

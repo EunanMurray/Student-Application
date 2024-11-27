@@ -113,6 +113,10 @@ namespace StudentApplication.Pages.Admin
                     Name = a.Name,
                     DateOfBirth = a.DateOfBirth,
                     SportingDetails = a.SportPositionOrCategory,
+                    SportingAchievements = a.SportingAchievements,
+                    SportingGoals = a.SportingGoals,
+                    PastClubs = a.PastClubs,
+                    HighestCompetitionLevel = a.HighestCompetitionLevel,
                     Referees = a.Referees.Select(r => new RefereeViewModel
                     {
                         Name = r.Name,
@@ -141,6 +145,10 @@ namespace StudentApplication.Pages.Admin
         public string Name { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public string SportingDetails { get; set; }
+        public string SportingAchievements { get; set; }
+        public string SportingGoals { get; set; }
+        public string PastClubs { get; set; }
+        public string HighestCompetitionLevel { get; set; }
         public List<RefereeViewModel> Referees { get; set; }
     }
 

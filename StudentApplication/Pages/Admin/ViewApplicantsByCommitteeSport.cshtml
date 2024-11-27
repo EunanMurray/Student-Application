@@ -1,69 +1,99 @@
 ﻿@page
 @model StudentApplication.Pages.Admin.ViewApplicantsByCommitteeSportModel
-@{
-    ViewData["Title"] = "View Applicants by Committee Sport";
-}
 
-<h2>@ViewData["Title"]</h2>
+<style>
+    .applicants-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        padding: 20px;
+    }
 
-@if (TempData["SuccessMessage"] != null)
-{
-    <div class="alert alert-success alert-dismissible fade show">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        @TempData["SuccessMessage"]
-    </div>
-}
+    .applicant-card {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 16px;
+        background: white;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
 
-@if (TempData["ErrorMessage"] != null)
-{
-    <div class="alert alert-danger alert-dismissible fade show">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        @TempData["ErrorMessage"]
-    </div>
-}
+    .applicant-info {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
 
-<div class="container">
-    <div class="row">
-        <div class="col-12">
-            @if (Model.Applicants != null && Model.Applicants.Any())
-            {
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Date of Birth</th>
-                            <th>Sporting Details</th>
-                            <th>Referees</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var applicant in Model.Applicants)
+    .info-row {
+        border-bottom: 1px solid #eee;
+        padding-bottom: 8px;
+    }
+
+    .info-label {
+        font-weight: bold;
+        color: #555;
+        margin-bottom: 4px;
+    }
+
+    .referee-info {
+        background: #f5f5f5;
+        padding: 8px;
+        border-radius: 4px;
+        margin-top: 4px;
+    }
+</style>
+
+<div class="applicants-grid">
+    @if (Model.Applicants != null && Model.Applicants.Any())
+    {
+        @foreach (var applicant in Model.Applicants)
+        {
+            <div class="applicant-card">
+                <div class="applicant-info">
+                    <div class="info-row">
+                        <div class="info-label">Name</div>
+                        <div>@applicant.Name</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">Date of Birth</div>
+                        <div>@applicant.DateOfBirth?.ToString("yyyy-MM-dd")</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">Sporting Details</div>
+                        <div>@applicant.SportingDetails</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">Sporting Achievements</div>
+                        <div>@applicant.SportingAchievements</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">Sporting Goals</div>
+                        <div>@applicant.SportingGoals</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">Past Clubs</div>
+                        <div>@applicant.PastClubs</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">Highest Competition Level</div>
+                        <div>@applicant.HighestCompetitionLevel</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">Referees</div>
+                        @foreach (var referee in applicant.Referees)
                         {
-                            <tr>
-                                <td>@applicant.Name</td>
-                                <td>@applicant.DateOfBirth?.ToString("yyyy-MM-dd")</td>
-                                <td>@applicant.SportingDetails</td>
-                                <td>
-                                    <ul>
-                                        @foreach (var referee in applicant.Referees)
-                                        {
-                                            <li>
-                                                <strong>@referee.Name</strong> (@referee.TitleOrRole)<br>
-                                                Phone: @referee.PhoneNumber<br>
-                                                Email: @referee.Email
-                                            </li>
-                                        }
-                                    </ul>
-                                </td>
-                            </tr>
+                            <div class="referee-info">
+                                <strong>@referee.Name</strong> (@referee.TitleOrRole)<br>
+                                Phone: @referee.PhoneNumber<br>
+                                Email: @referee.Email
+                            </div>
                         }
-                    </tbody>
-                </table>
-            }
-            else
-            {
-                <p>No applicants found for your assigned sports.</p>
-            }
-        </div>
-    </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <p>No applicants found for your assigned sports.</p>
+    }
 </div>

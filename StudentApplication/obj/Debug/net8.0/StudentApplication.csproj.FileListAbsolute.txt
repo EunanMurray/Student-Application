@@ -294,15 +294,11 @@ C:\Users\S00235207\Documents\Student-Application-master\StudentApplication\obj\D
 C:\Users\S00235207\Documents\Student-Application-master\StudentApplication\obj\Debug\net8.0\StudentApplication.pdb
 C:\Users\S00235207\Documents\Student-Application-master\StudentApplication\obj\Debug\net8.0\StudentApplication.genruntimeconfig.cache
 C:\Users\S00235207\Documents\Student-Application-master\StudentApplication\obj\Debug\net8.0\ref\StudentApplication.dll
+C:\Users\eunan\Downloads\StudentApplication\StudentApplication\bin\Debug\net8.0\StudentApplication.exe
 C:\Users\eunan\Downloads\StudentApplication\StudentApplication\bin\Debug\net8.0\appsettings.Development.json
 C:\Users\eunan\Downloads\StudentApplication\StudentApplication\bin\Debug\net8.0\appsettings.json
 C:\Users\eunan\Downloads\StudentApplication\StudentApplication\bin\Debug\net8.0\StudentApplication.staticwebassets.runtime.json
 C:\Users\eunan\Downloads\StudentApplication\StudentApplication\bin\Debug\net8.0\StudentApplication.staticwebassets.endpoints.json
-C:\Users\eunan\Downloads\StudentApplication\StudentApplication\bin\Debug\net8.0\StudentApplication.exe
-C:\Users\eunan\Downloads\StudentApplication\StudentApplication\bin\Debug\net8.0\StudentApplication.deps.json
-C:\Users\eunan\Downloads\StudentApplication\StudentApplication\bin\Debug\net8.0\StudentApplication.runtimeconfig.json
-C:\Users\eunan\Downloads\StudentApplication\StudentApplication\bin\Debug\net8.0\StudentApplication.dll
-C:\Users\eunan\Downloads\StudentApplication\StudentApplication\bin\Debug\net8.0\StudentApplication.pdb
 C:\Users\eunan\Downloads\StudentApplication\StudentApplication\bin\Debug\net8.0\Azure.Core.dll
 C:\Users\eunan\Downloads\StudentApplication\StudentApplication\bin\Debug\net8.0\Azure.Identity.dll
 C:\Users\eunan\Downloads\StudentApplication\StudentApplication\bin\Debug\net8.0\Humanizer.dll
@@ -445,5 +441,9 @@ C:\Users\eunan\Downloads\StudentApplication\StudentApplication\obj\Debug\net8.0\
 C:\Users\eunan\Downloads\StudentApplication\StudentApplication\obj\Debug\net8.0\StudentApplication.dll
 C:\Users\eunan\Downloads\StudentApplication\StudentApplication\obj\Debug\net8.0\refint\StudentApplication.dll
 C:\Users\eunan\Downloads\StudentApplication\StudentApplication\obj\Debug\net8.0\StudentApplication.pdb
+C:\Users\eunan\Downloads\StudentApplication\StudentApplication\bin\Debug\net8.0\StudentApplication.deps.json
+C:\Users\eunan\Downloads\StudentApplication\StudentApplication\bin\Debug\net8.0\StudentApplication.runtimeconfig.json
+C:\Users\eunan\Downloads\StudentApplication\StudentApplication\bin\Debug\net8.0\StudentApplication.dll
+C:\Users\eunan\Downloads\StudentApplication\StudentApplication\bin\Debug\net8.0\StudentApplication.pdb
 C:\Users\eunan\Downloads\StudentApplication\StudentApplication\obj\Debug\net8.0\StudentApplication.genruntimeconfig.cache
 C:\Users\eunan\Downloads\StudentApplication\StudentApplication\obj\Debug\net8.0\ref\StudentApplication.dll

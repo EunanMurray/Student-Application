@@ -158,11 +158,7 @@ namespace ScholarshipInfoSystem.Data
                             SecondarySchoolAttended = "Galway Community School",
                             PriorThirdLevelAttendance = false,
                             CourseSelectionReasons = "Interest in sports science and performance analysis.",
-                            CourseCodes = new List<CourseCode>
-                            {
-                                new CourseCode { Code = "SPT101" },
-                                new CourseCode { Code = "SPT202" }
-                            },
+                            CourseCodes = new List<CourseCode> { new CourseCode { Code = "SPT101" }, new CourseCode { Code = "SPT202" } },
                             CurrentClub = "Galway Rugby Club",
                             PastClubs = "School Rugby Team",
                             HighestCompetitionLevel = "Provincial",
@@ -170,10 +166,7 @@ namespace ScholarshipInfoSystem.Data
                             SportPositionOrCategory = "Flanker",
                             SportingGoals = "Professional rugby career",
                             IsDeclarationConfirmed = true,
-                            ApplicantSports = new[]
-                            {
-                                new ApplicantSport { SportID = 3 }
-                            }.ToList(),
+                            ApplicantSports = new[] { new ApplicantSport { SportID = 4 } }.ToList(),
                             ContactDetail = new ContactDetail
                             {
                                 PhoneNumber = "087-555-1234",
@@ -181,20 +174,13 @@ namespace ScholarshipInfoSystem.Data
                                 ParentsPhoneNumber = "087-555-5678",
                                 ParentsEmail = "parent.oconnor@email.com"
                             },
-                            HomeDetail = new HomeDetail
-                            {
-                                Address = "15 Castle Road, Galway"
-                            },
-                            Referees = new[]
-                            {
-                                new Referee
-                                {
-                                    Name = "Coach Patrick",
-                                    TitleOrRole = "Rugby Head Coach",
-                                    PhoneNumber = "087-555-9012",
-                                    Email = "patrick.coach@email.com"
-                                }
-                            }.ToList()
+                            HomeDetail = new HomeDetail { Address = "15 Castle Road, Galway" },
+                            Referees = new[] { new Referee {
+                                Name = "Coach Patrick",
+                                TitleOrRole = "Rugby Head Coach",
+                                PhoneNumber = "087-555-9012",
+                                Email = "patrick.coach@email.com"
+                            } }.ToList()
                         },
                         new Applicant
                         {
@@ -207,22 +193,15 @@ namespace ScholarshipInfoSystem.Data
                             SecondarySchoolAttended = "Dublin Academy",
                             PriorThirdLevelAttendance = false,
                             CourseSelectionReasons = "Passionate about basketball and sports management.",
-                            CourseCodes = new List<CourseCode>
-                            {
-                                new CourseCode { Code = "SPT301" },
-                                new CourseCode { Code = "MGT101" }
-                            },
+                            CourseCodes = new List<CourseCode> { new CourseCode { Code = "SPT301" }, new CourseCode { Code = "MGT101" } },
                             CurrentClub = "Dublin Wildcats",
                             PastClubs = "Youth Basketball Association",
                             HighestCompetitionLevel = "National",
                             SportingAchievements = "National U20 Basketball Team Player",
-                            SportPositionOrCategory = "Flanker",
+                            SportPositionOrCategory = "Point Guard",
                             SportingGoals = "Become a professional basketball coach",
                             IsDeclarationConfirmed = true,
-                            ApplicantSports = new[]
-                            {
-                                new ApplicantSport { SportID = 2 }
-                            }.ToList(),
+                            ApplicantSports = new[] { new ApplicantSport { SportID = 5 } }.ToList(),
                             ContactDetail = new ContactDetail
                             {
                                 PhoneNumber = "085-123-4567",
@@ -230,20 +209,13 @@ namespace ScholarshipInfoSystem.Data
                                 ParentsPhoneNumber = "085-765-4321",
                                 ParentsEmail = "kelly.parents@email.com"
                             },
-                            HomeDetail = new HomeDetail
-                            {
-                                Address = "78 Oak Avenue, Dublin"
-                            },
-                            Referees = new[]
-                            {
-                                new Referee
-                                {
-                                    Name = "Coach Lisa",
-                                    TitleOrRole = "Basketball Coach",
-                                    PhoneNumber = "085-999-8888",
-                                    Email = "lisa.coach@email.com"
-                                }
-                            }.ToList()
+                            HomeDetail = new HomeDetail { Address = "78 Oak Avenue, Dublin" },
+                            Referees = new[] { new Referee {
+                                Name = "Coach Lisa",
+                                TitleOrRole = "Basketball Coach",
+                                PhoneNumber = "085-999-8888",
+                                Email = "lisa.coach@email.com"
+                            } }.ToList()
                         },
                         new Applicant
                         {
@@ -256,22 +228,15 @@ namespace ScholarshipInfoSystem.Data
                             SecondarySchoolAttended = "Cork Sports Academy",
                             PriorThirdLevelAttendance = false,
                             CourseSelectionReasons = "Dedicated to swimming and sports therapy.",
-                            CourseCodes = new List<CourseCode>
-                            {
-                                new CourseCode { Code = "SPT401" },
-                                new CourseCode { Code = "BIO101" }
-                            },
+                            CourseCodes = new List<CourseCode> { new CourseCode { Code = "SPT401" }, new CourseCode { Code = "BIO101" } },
                             CurrentClub = "Cork Swimming Club",
                             PastClubs = "Dolphin Swimming Academy",
                             HighestCompetitionLevel = "International",
                             SportingAchievements = "National Swimming Championship Finalist",
-                            SportPositionOrCategory = "Flanker",
+                            SportPositionOrCategory = "Freestyle Specialist",
                             SportingGoals = "Olympic qualification",
                             IsDeclarationConfirmed = true,
-                            ApplicantSports = new[]
-                            {
-                                new ApplicantSport { SportID = 4 }
-                            }.ToList(),
+                            ApplicantSports = new[] { new ApplicantSport { SportID = 7 } }.ToList(),
                             ContactDetail = new ContactDetail
                             {
                                 PhoneNumber = "089-222-3333",
@@ -279,20 +244,13 @@ namespace ScholarshipInfoSystem.Data
                                 ParentsPhoneNumber = "089-444-5555",
                                 ParentsEmail = "murphy.parents@email.com"
                             },
-                            HomeDetail = new HomeDetail
-                            {
-                                Address = "25 Marina View, Cork"
-                            },
-                            Referees = new[]
-                            {
-                                new Referee
-                                {
-                                    Name = "Coach James",
-                                    TitleOrRole = "Swimming Head Coach",
-                                    PhoneNumber = "089-666-7777",
-                                    Email = "james.coach@email.com"
-                                }
-                            }.ToList()
+                            HomeDetail = new HomeDetail { Address = "25 Marina View, Cork" },
+                            Referees = new[] { new Referee {
+                                Name = "Coach James",
+                                TitleOrRole = "Swimming Head Coach",
+                                PhoneNumber = "089-666-7777",
+                                Email = "james.coach@email.com"
+                            } }.ToList()
                         },
                         new Applicant
                         {
@@ -304,23 +262,16 @@ namespace ScholarshipInfoSystem.Data
                             CampusID = 1,
                             SecondarySchoolAttended = "Limerick Sports School",
                             PriorThirdLevelAttendance = true,
-                            CourseSelectionReasons = "Passionate about volleyball and sports education.",
-                            CourseCodes = new List<CourseCode>
-                            {
-                                new CourseCode { Code = "EDU201" },
-                                new CourseCode { Code = "SPT301" }
-                            },
-                            CurrentClub = "Limerick Volleyball Club",
-                            PastClubs = "School Volleyball Team",
+                            CourseSelectionReasons = "Passionate about tennis and sports education.",
+                            CourseCodes = new List<CourseCode> { new CourseCode { Code = "EDU201" }, new CourseCode { Code = "SPT301" } },
+                            CurrentClub = "Limerick Tennis Club",
+                            PastClubs = "School Tennis Team",
                             HighestCompetitionLevel = "National",
                             SportingAchievements = "Best Server Award 2023",
-                            SportPositionOrCategory = "Flanker",
+                            SportPositionOrCategory = "Singles Player",
                             SportingGoals = "National team selection and coaching career",
                             IsDeclarationConfirmed = true,
-                            ApplicantSports = new[]
-                            {
-                                new ApplicantSport { SportID = 5 }
-                            }.ToList(),
+                            ApplicantSports = new[] { new ApplicantSport { SportID = 10 } }.ToList(),
                             ContactDetail = new ContactDetail
                             {
                                 PhoneNumber = "083-111-2222",
@@ -328,20 +279,13 @@ namespace ScholarshipInfoSystem.Data
                                 ParentsPhoneNumber = "083-333-4444",
                                 ParentsEmail = "walsh.family@email.com"
                             },
-                            HomeDetail = new HomeDetail
-                            {
-                                Address = "92 River Walk, Limerick"
-                            },
-                            Referees = new[]
-                            {
-                                new Referee
-                                {
-                                    Name = "Coach Sarah",
-                                    TitleOrRole = "Volleyball Coach",
-                                    PhoneNumber = "083-555-6666",
-                                    Email = "sarah.volleyball@email.com"
-                                }
-                            }.ToList()
+                            HomeDetail = new HomeDetail { Address = "92 River Walk, Limerick" },
+                            Referees = new[] { new Referee {
+                                Name = "Coach Sarah",
+                                TitleOrRole = "Tennis Coach",
+                                PhoneNumber = "083-555-6666",
+                                Email = "sarah.tennis@email.com"
+                            } }.ToList()
                         },
                         new Applicant
                         {
@@ -354,22 +298,15 @@ namespace ScholarshipInfoSystem.Data
                             SecondarySchoolAttended = "Waterford College",
                             PriorThirdLevelAttendance = false,
                             CourseSelectionReasons = "Dedicated to GAA and sports psychology.",
-                            CourseCodes = new List<CourseCode>
-                            {
-                                new CourseCode { Code = "PSY101" },
-                                new CourseCode { Code = "SPT202" }
-                            },
+                            CourseCodes = new List<CourseCode> { new CourseCode { Code = "PSY101" }, new CourseCode { Code = "SPT202" } },
                             CurrentClub = "Waterford GAA Club",
                             PastClubs = "Junior GAA Club",
                             HighestCompetitionLevel = "County",
                             SportingAchievements = "County Minor Championship Winner",
-                            SportPositionOrCategory = "Flanker",
+                            SportPositionOrCategory = "Midfielder",
                             SportingGoals = "Senior inter-county player",
                             IsDeclarationConfirmed = true,
-                            ApplicantSports = new[]
-                            {
-                                new ApplicantSport { SportID = 7 }
-                            }.ToList(),
+                            ApplicantSports = new[] { new ApplicantSport { SportID = 2 } }.ToList(),
                             ContactDetail = new ContactDetail
                             {
                                 PhoneNumber = "086-777-8888",
@@ -377,20 +314,13 @@ namespace ScholarshipInfoSystem.Data
                                 ParentsPhoneNumber = "086-999-0000",
                                 ParentsEmail = "ryan.parents@email.com"
                             },
-                            HomeDetail = new HomeDetail
-                            {
-                                Address = "56 Quay Street, Waterford"
-                            },
-                            Referees = new[]
-                            {
-                                new Referee
-                                {
-                                    Name = "Coach Brendan",
-                                    TitleOrRole = "GAA Coach",
-                                    PhoneNumber = "086-111-2222",
-                                    Email = "brendan.gaa@email.com"
-                                }
-                            }.ToList()
+                            HomeDetail = new HomeDetail { Address = "56 Quay Street, Waterford" },
+                            Referees = new[] { new Referee {
+                                Name = "Coach Brendan",
+                                TitleOrRole = "GAA Coach",
+                                PhoneNumber = "086-111-2222",
+                                Email = "brendan.gaa@email.com"
+                            } }.ToList()
                         },
                         new Applicant
                         {
@@ -403,22 +333,15 @@ namespace ScholarshipInfoSystem.Data
                             SecondarySchoolAttended = "Kilkenny Sports Institute",
                             PriorThirdLevelAttendance = false,
                             CourseSelectionReasons = "Passionate about tennis and sports nutrition.",
-                            CourseCodes = new List<CourseCode>
-                            {
-                                new CourseCode { Code = "NUT101" },
-                                new CourseCode { Code = "SPT401" }
-                            },
+                            CourseCodes = new List<CourseCode> { new CourseCode { Code = "NUT101" }, new CourseCode { Code = "SPT401" } },
                             CurrentClub = "Kilkenny Tennis Club",
                             PastClubs = "Youth Tennis Academy",
                             HighestCompetitionLevel = "Provincial",
                             SportingAchievements = "Leinster Junior Champion 2022",
-                            SportPositionOrCategory = "Flanker",
+                            SportPositionOrCategory = "Singles Player",
                             SportingGoals = "Professional tennis career and coaching",
                             IsDeclarationConfirmed = true,
-                            ApplicantSports = new[]
-                            {
-                                new ApplicantSport { SportID = 8 }
-                            }.ToList(),
+                            ApplicantSports = new[] { new ApplicantSport { SportID = 10 } }.ToList(),
                             ContactDetail = new ContactDetail
                             {
                                 PhoneNumber = "085-333-4444",
@@ -426,20 +349,13 @@ namespace ScholarshipInfoSystem.Data
                                 ParentsPhoneNumber = "085-555-6666",
                                 ParentsEmail = "byrne.family@email.com"
                             },
-                            HomeDetail = new HomeDetail
-                            {
-                                Address = "17 Castle View, Kilkenny"
-                            },
-                            Referees = new[]
-                            {
-                                new Referee
-                                {
-                                    Name = "Coach Maria",
-                                    TitleOrRole = "Tennis Head Coach",
-                                    PhoneNumber = "085-777-8888",
-                                    Email = "maria.tennis@email.com"
-                                }
-                            }.ToList()
+                            HomeDetail = new HomeDetail { Address = "17 Castle View, Kilkenny" },
+                            Referees = new[] { new Referee {
+                                Name = "Coach Maria",
+                                TitleOrRole = "Tennis Head Coach",
+                                PhoneNumber = "085-777-8888",
+                                Email = "maria.tennis@email.com"
+                            } }.ToList()
                         },
                         new Applicant
                         {
@@ -452,22 +368,15 @@ namespace ScholarshipInfoSystem.Data
                             SecondarySchoolAttended = "Wexford Academy",
                             PriorThirdLevelAttendance = true,
                             CourseSelectionReasons = "Focus on strength and conditioning coaching.",
-                            CourseCodes = new List<CourseCode>
-                            {
-                                new CourseCode { Code = "STR101" },
-                                new CourseCode { Code = "SPT302" }
-                            },
+                            CourseCodes = new List<CourseCode> { new CourseCode { Code = "STR101" }, new CourseCode { Code = "SPT302" } },
                             CurrentClub = "Wexford Weightlifting",
                             PastClubs = "CrossFit Wexford",
                             HighestCompetitionLevel = "National",
                             SportingAchievements = "National Weightlifting Championship Medalist",
-                            SportPositionOrCategory = "Flanker",
+                            SportPositionOrCategory = "Weightlifting/Strength Events",
                             SportingGoals = "Open own strength and conditioning facility",
                             IsDeclarationConfirmed = true,
-                            ApplicantSports = new[]
-                            {
-                                new ApplicantSport { SportID = 9 }
-                            }.ToList(),
+                            ApplicantSports = new[] { new ApplicantSport { SportID = 6 } }.ToList(),
                             ContactDetail = new ContactDetail
                             {
                                 PhoneNumber = "087-999-0000",
@@ -475,20 +384,13 @@ namespace ScholarshipInfoSystem.Data
                                 ParentsPhoneNumber = "087-111-2222",
                                 ParentsEmail = "obrien.parents@email.com"
                             },
-                            HomeDetail = new HomeDetail
-                            {
-                                Address = "34 Harbor View, Wexford"
-                            },
-                            Referees = new[]
-                            {
-                                new Referee
-                                {
-                                    Name = "Coach Daniel",
-                                    TitleOrRole = "Strength Coach",
-                                    PhoneNumber = "087-333-4444",
-                                    Email = "daniel.strength@email.com"
-                                }
-                            }.ToList()
+                            HomeDetail = new HomeDetail { Address = "34 Harbor View, Wexford" },
+                            Referees = new[] { new Referee {
+                                Name = "Coach Daniel",
+                                TitleOrRole = "Strength Coach",
+                                PhoneNumber = "087-333-4444",
+                                Email = "daniel.strength@email.com"
+                            } }.ToList()
                         },
                         new Applicant
                         {
@@ -500,23 +402,16 @@ namespace ScholarshipInfoSystem.Data
                             CampusID = 3,
                             SecondarySchoolAttended = "Carlow Sports School",
                             PriorThirdLevelAttendance = false,
-                            CourseSelectionReasons = "Passionate about hockey and sports development.",
-                            CourseCodes = new List<CourseCode>
-                            {
-                                new CourseCode { Code = "SPT201" },
-                                new CourseCode { Code = "DEV101" }
-                            },
-                            CurrentClub = "Carlow Hockey Club",
-                            PastClubs = "School Hockey Team",
+                            CourseSelectionReasons = "Passionate about tennis and sports development.",
+                            CourseCodes = new List<CourseCode> { new CourseCode { Code = "SPT201" }, new CourseCode { Code = "DEV101" } },
+                            CurrentClub = "Carlow Tennis Club",
+                            PastClubs = "School Tennis Team",
                             HighestCompetitionLevel = "Provincial",
                             SportingAchievements = "Provincial Team Captain",
-                            SportPositionOrCategory = "Flanker",
+                            SportPositionOrCategory = "Doubles Specialist",
                             SportingGoals = "National team selection",
                             IsDeclarationConfirmed = true,
-                            ApplicantSports = new[]
-                            {
-                                new ApplicantSport { SportID = 10 }
-                            }.ToList(),
+                            ApplicantSports = new[] { new ApplicantSport { SportID = 10 } }.ToList(),
                             ContactDetail = new ContactDetail
                             {
                                 PhoneNumber = "089-555-6666",
@@ -524,20 +419,13 @@ namespace ScholarshipInfoSystem.Data
                                 ParentsPhoneNumber = "089-777-8888",
                                 ParentsEmail = "fitzgerald.family@email.com"
                             },
-                            HomeDetail = new HomeDetail
-                            {
-                                Address = "45 Green Lane, Carlow"
-                            },
-                            Referees = new[]
-                            {
-                                new Referee
-                                {
-                                    Name = "Coach Rebecca",
-                                    TitleOrRole = "Hockey Coach",
-                                    PhoneNumber = "089-999-0000",
-                                    Email = "rebecca.hockey@email.com"
-                                }
-                            }.ToList()
+                            HomeDetail = new HomeDetail { Address = "45 Green Lane, Carlow" },
+                            Referees = new[] { new Referee {
+                                Name = "Coach Rebecca",
+                                TitleOrRole = "Tennis Coach",
+                                PhoneNumber = "089-999-0000",
+                                Email = "rebecca.tennis@email.com"
+                            } }.ToList()
                         }
                     };
 

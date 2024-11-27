@@ -3,36 +3,34 @@
   "WorkspaceRootPath": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Migrations\\ApplicationDb\\20241127174559_Tet.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Migrations\\ApplicationDb\\20241127174559_Tet.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DCF9FE37-9021-45B6-8200-2FC3CF3734B3}|StudentApplication.csproj|c:\\users\\eunan\\downloads\\studentapplication\\studentapplication\\migrations\\20241127174208_123.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DCF9FE37-9021-45B6-8200-2FC3CF3734B3}|StudentApplication.csproj|solutionrelative:migrations\\20241127174208_123.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{DCF9FE37-9021-45B6-8200-2FC3CF3734B3}|StudentApplication.csproj|c:\\users\\eunan\\downloads\\studentapplication\\studentapplication\\data\\dbinitializer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DCF9FE37-9021-45B6-8200-2FC3CF3734B3}|StudentApplication.csproj|solutionrelative:data\\dbinitializer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Migrations\\ApplicationDb\\20241127135723_Initial.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Migrations\\ApplicationDb\\20241127135723_Initial.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DCF9FE37-9021-45B6-8200-2FC3CF3734B3}|StudentApplication.csproj|c:\\users\\eunan\\downloads\\studentapplication\\studentapplication\\pages\\admin\\viewapplicantsbycommitteesport.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DCF9FE37-9021-45B6-8200-2FC3CF3734B3}|StudentApplication.csproj|solutionrelative:pages\\admin\\viewapplicantsbycommitteesport.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Migrations\\20241127135708_Initial.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Migrations\\20241127135708_Initial.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DCF9FE37-9021-45B6-8200-2FC3CF3734B3}|StudentApplication.csproj|c:\\users\\eunan\\downloads\\studentapplication\\studentapplication\\pages\\admin\\viewapplicantsbycommitteesport.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{DCF9FE37-9021-45B6-8200-2FC3CF3734B3}|StudentApplication.csproj|solutionrelative:pages\\admin\\viewapplicantsbycommitteesport.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EAB16AEF-9DF6-4BE1-977F-A606A782703D}|..\\student-application-model\\student-application-model.csproj|c:\\users\\eunan\\downloads\\studentapplication\\student-application-model\\models\\applicant.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EAB16AEF-9DF6-4BE1-977F-A606A782703D}|..\\student-application-model\\student-application-model.csproj|c:\\users\\eunan\\downloads\\studentapplication\\student-application-model\\models\\applicantsport.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DCF9FE37-9021-45B6-8200-2FC3CF3734B3}|StudentApplication.csproj|c:\\users\\eunan\\downloads\\studentapplication\\studentapplication\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DCF9FE37-9021-45B6-8200-2FC3CF3734B3}|StudentApplication.csproj|solutionrelative:data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Migrations\\ApplicationDb\\20241127133246_Initial.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Migrations\\ApplicationDb\\20241127133246_Initial.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Migrations\\20241127133231_Initial.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Migrations\\20241127133231_Initial.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Migrations\\ApplicationDb\\20241127132049_Initial.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Migrations\\ApplicationDb\\20241127132049_Initial.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Migrations\\20241127132031_Initial.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Migrations\\20241127132031_Initial.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DCF9FE37-9021-45B6-8200-2FC3CF3734B3}|StudentApplication.csproj|c:\\users\\eunan\\downloads\\studentapplication\\studentapplication\\pages\\admin\\managecommitteesports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -47,10 +45,6 @@
       "RelativeMoniker": "D:0:0:{DCF9FE37-9021-45B6-8200-2FC3CF3734B3}|StudentApplication.csproj|solutionrelative:pages\\admin\\managecommitteesports.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DCF9FE37-9021-45B6-8200-2FC3CF3734B3}|StudentApplication.csproj|c:\\users\\eunan\\downloads\\studentapplication\\studentapplication\\pages\\admin\\viewapplicantsbycommitteesport.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DCF9FE37-9021-45B6-8200-2FC3CF3734B3}|StudentApplication.csproj|solutionrelative:pages\\admin\\viewapplicantsbycommitteesport.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{DCF9FE37-9021-45B6-8200-2FC3CF3734B3}|StudentApplication.csproj|c:\\users\\eunan\\downloads\\studentapplication\\studentapplication\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{DCF9FE37-9021-45B6-8200-2FC3CF3734B3}|StudentApplication.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
@@ -59,10 +53,6 @@
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/ScholarshipProjectDB/True/SqlTable/dbo.Applicants.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DCF9FE37-9021-45B6-8200-2FC3CF3734B3}|StudentApplication.csproj|c:\\users\\eunan\\downloads\\studentapplication\\studentapplication\\pages\\admin\\viewapplicantsbycommitteesport.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{DCF9FE37-9021-45B6-8200-2FC3CF3734B3}|StudentApplication.csproj|solutionrelative:pages\\admin\\viewapplicantsbycommitteesport.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DCF9FE37-9021-45B6-8200-2FC3CF3734B3}|StudentApplication.csproj|c:\\users\\eunan\\downloads\\studentapplication\\studentapplication\\pages\\admin\\roletest.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -263,7 +253,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -274,30 +264,46 @@
               "Name": "ST:0:0:{fbcae063-e2c0-4ab1-a516-996ea3dafb72}"
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "20241127135723_Initial.cs",
-              "DocumentMoniker": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Migrations\\ApplicationDb\\20241127135723_Initial.cs",
-              "RelativeDocumentMoniker": "Migrations\\ApplicationDb\\20241127135723_Initial.cs",
-              "ToolTip": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Migrations\\ApplicationDb\\20241127135723_Initial.cs",
-              "RelativeToolTip": "Migrations\\ApplicationDb\\20241127135723_Initial.cs",
+              "DocumentIndex": 0,
+              "Title": "20241127174559_Tet.cs",
+              "DocumentMoniker": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Migrations\\ApplicationDb\\20241127174559_Tet.cs",
+              "RelativeDocumentMoniker": "Migrations\\ApplicationDb\\20241127174559_Tet.cs",
+              "ToolTip": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Migrations\\ApplicationDb\\20241127174559_Tet.cs",
+              "RelativeToolTip": "Migrations\\ApplicationDb\\20241127174559_Tet.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-27T13:57:23.893Z",
+              "WhenOpened": "2024-11-27T17:46:00.481Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "20241127135708_Initial.cs",
-              "DocumentMoniker": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Migrations\\20241127135708_Initial.cs",
-              "RelativeDocumentMoniker": "Migrations\\20241127135708_Initial.cs",
-              "ToolTip": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Migrations\\20241127135708_Initial.cs",
-              "RelativeToolTip": "Migrations\\20241127135708_Initial.cs",
+              "DocumentIndex": 1,
+              "Title": "20241127174208_123.cs",
+              "DocumentMoniker": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Migrations\\20241127174208_123.cs",
+              "RelativeDocumentMoniker": "Migrations\\20241127174208_123.cs",
+              "ToolTip": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Migrations\\20241127174208_123.cs",
+              "RelativeToolTip": "Migrations\\20241127174208_123.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-27T13:57:08.813Z",
+              "WhenOpened": "2024-11-27T17:42:08.959Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Applicant.cs",
+              "DocumentMoniker": "C:\\Users\\eunan\\Downloads\\StudentApplication\\student-application-model\\Models\\Applicant.cs",
+              "RelativeDocumentMoniker": "..\\student-application-model\\Models\\Applicant.cs",
+              "ToolTip": "C:\\Users\\eunan\\Downloads\\StudentApplication\\student-application-model\\Models\\Applicant.cs",
+              "RelativeToolTip": "..\\student-application-model\\Models\\Applicant.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAowCcAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-27T17:23:35.976Z"
             },
             {
               "$type": "Bookmark",
@@ -309,33 +315,55 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
+              "Title": "ViewApplicantsByCommitteeSport.cshtml",
+              "DocumentMoniker": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Pages\\Admin\\ViewApplicantsByCommitteeSport.cshtml",
+              "RelativeDocumentMoniker": "Pages\\Admin\\ViewApplicantsByCommitteeSport.cshtml",
+              "ToolTip": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Pages\\Admin\\ViewApplicantsByCommitteeSport.cshtml",
+              "RelativeToolTip": "Pages\\Admin\\ViewApplicantsByCommitteeSport.cshtml",
+              "ViewState": "AgIAADoAAAAAAAAAAAAmwGIAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-27T11:30:05.145Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "DbInitializer.cs",
               "DocumentMoniker": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Data\\DbInitializer.cs",
               "RelativeDocumentMoniker": "Data\\DbInitializer.cs",
               "ToolTip": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Data\\DbInitializer.cs",
               "RelativeToolTip": "Data\\DbInitializer.cs",
-              "ViewState": "AgIAAH4AAAAAAAAAAAAuwKkAAABAAAAAAAAAAA==",
+              "ViewState": "AgIAAJYBAAAAAAAAAAAAAJYAAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-18T12:18:42.847Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "20241127133246_Initial.cs",
-              "DocumentMoniker": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Migrations\\ApplicationDb\\20241127133246_Initial.cs",
-              "RelativeDocumentMoniker": "Migrations\\ApplicationDb\\20241127133246_Initial.cs",
-              "ToolTip": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Migrations\\ApplicationDb\\20241127133246_Initial.cs",
-              "RelativeToolTip": "Migrations\\ApplicationDb\\20241127133246_Initial.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-27T13:32:46.608Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-18T12:18:42.847Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
+              "Title": "ViewApplicantsByCommitteeSport.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Pages\\Admin\\ViewApplicantsByCommitteeSport.cshtml.cs",
+              "RelativeDocumentMoniker": "Pages\\Admin\\ViewApplicantsByCommitteeSport.cshtml.cs",
+              "ToolTip": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Pages\\Admin\\ViewApplicantsByCommitteeSport.cshtml.cs",
+              "RelativeToolTip": "Pages\\Admin\\ViewApplicantsByCommitteeSport.cshtml.cs",
+              "ViewState": "AgIAAFkAAAAAAAAAAIAwwHMAAAA+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-27T11:31:39.182Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ApplicantSport.cs",
+              "DocumentMoniker": "C:\\Users\\eunan\\Downloads\\StudentApplication\\student-application-model\\Models\\ApplicantSport.cs",
+              "RelativeDocumentMoniker": "..\\student-application-model\\Models\\ApplicantSport.cs",
+              "ToolTip": "C:\\Users\\eunan\\Downloads\\StudentApplication\\student-application-model\\Models\\ApplicantSport.cs",
+              "RelativeToolTip": "..\\student-application-model\\Models\\ApplicantSport.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-27T17:24:30.268Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
               "Title": "ApplicationDbContext.cs",
               "DocumentMoniker": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Data\\ApplicationDbContext.cs",
               "RelativeDocumentMoniker": "Data\\ApplicationDbContext.cs",
@@ -343,51 +371,11 @@
               "RelativeToolTip": "Data\\ApplicationDbContext.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAAuwBIAAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-18T12:19:09.314Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-18T12:19:09.314Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "20241127133231_Initial.cs",
-              "DocumentMoniker": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Migrations\\20241127133231_Initial.cs",
-              "RelativeDocumentMoniker": "Migrations\\20241127133231_Initial.cs",
-              "ToolTip": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Migrations\\20241127133231_Initial.cs",
-              "RelativeToolTip": "Migrations\\20241127133231_Initial.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-27T13:32:32.18Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "20241127132049_Initial.cs",
-              "DocumentMoniker": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Migrations\\ApplicationDb\\20241127132049_Initial.cs",
-              "RelativeDocumentMoniker": "Migrations\\ApplicationDb\\20241127132049_Initial.cs",
-              "ToolTip": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Migrations\\ApplicationDb\\20241127132049_Initial.cs",
-              "RelativeToolTip": "Migrations\\ApplicationDb\\20241127132049_Initial.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-27T13:20:49.448Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "20241127132031_Initial.cs",
-              "DocumentMoniker": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Migrations\\20241127132031_Initial.cs",
-              "RelativeDocumentMoniker": "Migrations\\20241127132031_Initial.cs",
-              "ToolTip": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Migrations\\20241127132031_Initial.cs",
-              "RelativeToolTip": "Migrations\\20241127132031_Initial.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-27T13:20:32.308Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 11,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\appsettings.json",
               "RelativeDocumentMoniker": "appsettings.json",
@@ -423,18 +411,6 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "ViewApplicantsByCommitteeSport.cshtml.cs",
-              "DocumentMoniker": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Pages\\Admin\\ViewApplicantsByCommitteeSport.cshtml.cs",
-              "RelativeDocumentMoniker": "Pages\\Admin\\ViewApplicantsByCommitteeSport.cshtml.cs",
-              "ToolTip": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Pages\\Admin\\ViewApplicantsByCommitteeSport.cshtml.cs",
-              "RelativeToolTip": "Pages\\Admin\\ViewApplicantsByCommitteeSport.cshtml.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAiwBoAAAAqAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-27T11:31:39.182Z"
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 10,
               "Title": "ManageCommitteeSports.cshtml.cs",
               "DocumentMoniker": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Pages\\Admin\\ManageCommitteeSports.cshtml.cs",
@@ -447,7 +423,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 12,
               "Title": "dbo.ApplicantSports.sql",
               "DocumentMoniker": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/ScholarshipProjectDB/True/SqlTable/dbo.ApplicantSports.sql",
               "ToolTip": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/ScholarshipProjectDB/True/SqlTable/dbo.ApplicantSports.sql",
@@ -456,7 +432,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 13,
               "Title": "dbo.Applicants.sql",
               "DocumentMoniker": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/ScholarshipProjectDB/True/SqlTable/dbo.Applicants.sql",
               "ToolTip": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/ScholarshipProjectDB/True/SqlTable/dbo.Applicants.sql",
@@ -465,7 +441,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 14,
               "Title": "RoleTest.cshtml.cs",
               "DocumentMoniker": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Pages\\Admin\\RoleTest.cshtml.cs",
               "RelativeDocumentMoniker": "Pages\\Admin\\RoleTest.cshtml.cs",
@@ -478,18 +454,6 @@
             {
               "$type": "Document",
               "DocumentIndex": 15,
-              "Title": "ViewApplicantsByCommitteeSport.cshtml",
-              "DocumentMoniker": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Pages\\Admin\\ViewApplicantsByCommitteeSport.cshtml",
-              "RelativeDocumentMoniker": "Pages\\Admin\\ViewApplicantsByCommitteeSport.cshtml",
-              "ToolTip": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Pages\\Admin\\ViewApplicantsByCommitteeSport.cshtml",
-              "RelativeToolTip": "Pages\\Admin\\ViewApplicantsByCommitteeSport.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEQAAAAGAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-11-27T11:30:05.145Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
               "Title": "_LoginPartial.cshtml",
               "DocumentMoniker": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Pages\\Shared\\_LoginPartial.cshtml",
               "RelativeDocumentMoniker": "Pages\\Shared\\_LoginPartial.cshtml",
@@ -501,7 +465,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 16,
               "Title": "_Layout.cshtml",
               "DocumentMoniker": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Pages\\Shared\\_Layout.cshtml",
               "RelativeDocumentMoniker": "Pages\\Shared\\_Layout.cshtml",
@@ -513,7 +477,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 17,
               "Title": "SportIdentity.cs",
               "DocumentMoniker": "C:\\Users\\eunan\\Downloads\\StudentApplication\\student-application-model\\Models\\SportIdentity.cs",
               "RelativeDocumentMoniker": "..\\student-application-model\\Models\\SportIdentity.cs",
@@ -524,12 +488,8 @@
               "WhenOpened": "2024-11-26T19:24:00.159Z"
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
-            },
-            {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 18,
               "Title": "UserSport.cs",
               "DocumentMoniker": "C:\\Users\\eunan\\Downloads\\StudentApplication\\student-application-model\\Models\\UserSport.cs",
               "RelativeDocumentMoniker": "..\\student-application-model\\Models\\UserSport.cs",
@@ -541,7 +501,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 19,
               "Title": "ApplicantViewModel.cs",
               "DocumentMoniker": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\ViewModels\\ApplicantViewModel.cs",
               "RelativeDocumentMoniker": "ViewModels\\ApplicantViewModel.cs",
@@ -553,7 +513,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 20,
               "Title": "PrimaryContext.cs",
               "DocumentMoniker": "C:\\Users\\eunan\\Downloads\\StudentApplication\\student-application-model\\Data\\PrimaryContext.cs",
               "RelativeDocumentMoniker": "..\\student-application-model\\Data\\PrimaryContext.cs",
@@ -565,151 +525,139 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 21,
               "Title": "20241126213042_Initial.cs",
               "DocumentMoniker": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Migrations\\Primary\\20241126213042_Initial.cs",
               "RelativeDocumentMoniker": "Migrations\\Primary\\20241126213042_Initial.cs",
               "ToolTip": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Migrations\\Primary\\20241126213042_Initial.cs",
               "RelativeToolTip": "Migrations\\Primary\\20241126213042_Initial.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-26T21:30:42.963Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 22,
               "Title": "20241126213030_Initial.cs",
               "DocumentMoniker": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Migrations\\20241126213030_Initial.cs",
               "RelativeDocumentMoniker": "Migrations\\20241126213030_Initial.cs",
               "ToolTip": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Migrations\\20241126213030_Initial.cs",
               "RelativeToolTip": "Migrations\\20241126213030_Initial.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-26T21:30:31.176Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 23,
               "Title": "20241126211754_Initial.cs",
               "DocumentMoniker": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Migrations\\ApplicationDb\\20241126211754_Initial.cs",
               "RelativeDocumentMoniker": "Migrations\\ApplicationDb\\20241126211754_Initial.cs",
               "ToolTip": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Migrations\\ApplicationDb\\20241126211754_Initial.cs",
               "RelativeToolTip": "Migrations\\ApplicationDb\\20241126211754_Initial.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-26T21:17:54.192Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 24,
               "Title": "20241126211747_Inital.cs",
               "DocumentMoniker": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Migrations\\20241126211747_Inital.cs",
               "RelativeDocumentMoniker": "Migrations\\20241126211747_Inital.cs",
               "ToolTip": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Migrations\\20241126211747_Inital.cs",
               "RelativeToolTip": "Migrations\\20241126211747_Inital.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-26T21:17:47.618Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 25,
               "Title": "20241126211709_Initial.cs",
               "DocumentMoniker": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Migrations\\ApplicationDb\\20241126211709_Initial.cs",
               "RelativeDocumentMoniker": "Migrations\\ApplicationDb\\20241126211709_Initial.cs",
               "ToolTip": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Migrations\\ApplicationDb\\20241126211709_Initial.cs",
               "RelativeToolTip": "Migrations\\ApplicationDb\\20241126211709_Initial.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-26T21:17:10.388Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 26,
               "Title": "20241126211702_Inital.cs",
               "DocumentMoniker": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Migrations\\20241126211702_Inital.cs",
               "RelativeDocumentMoniker": "Migrations\\20241126211702_Inital.cs",
               "ToolTip": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Migrations\\20241126211702_Inital.cs",
               "RelativeToolTip": "Migrations\\20241126211702_Inital.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-26T21:17:02.612Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 27,
               "Title": "20241126204321_Initial.cs",
               "DocumentMoniker": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Migrations\\ApplicationDb\\20241126204321_Initial.cs",
               "RelativeDocumentMoniker": "Migrations\\ApplicationDb\\20241126204321_Initial.cs",
               "ToolTip": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Migrations\\ApplicationDb\\20241126204321_Initial.cs",
               "RelativeToolTip": "Migrations\\ApplicationDb\\20241126204321_Initial.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-26T20:43:21.684Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 28,
               "Title": "20241126204258_Inital.cs",
               "DocumentMoniker": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Migrations\\20241126204258_Inital.cs",
               "RelativeDocumentMoniker": "Migrations\\20241126204258_Inital.cs",
               "ToolTip": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Migrations\\20241126204258_Inital.cs",
               "RelativeToolTip": "Migrations\\20241126204258_Inital.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-26T20:42:58.159Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 29,
               "Title": "20241126203915_Inital.cs",
               "DocumentMoniker": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Migrations\\ApplicationDb\\20241126203915_Inital.cs",
               "RelativeDocumentMoniker": "Migrations\\ApplicationDb\\20241126203915_Inital.cs",
               "ToolTip": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Migrations\\ApplicationDb\\20241126203915_Inital.cs",
               "RelativeToolTip": "Migrations\\ApplicationDb\\20241126203915_Inital.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-26T20:39:15.544Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 30,
               "Title": "20241126203907_Inital.cs",
               "DocumentMoniker": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Migrations\\20241126203907_Inital.cs",
               "RelativeDocumentMoniker": "Migrations\\20241126203907_Inital.cs",
               "ToolTip": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Migrations\\20241126203907_Inital.cs",
               "RelativeToolTip": "Migrations\\20241126203907_Inital.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-26T20:39:07.868Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 31,
               "Title": "20241126203814_Inital.cs",
               "DocumentMoniker": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Migrations\\ApplicationDb\\20241126203814_Inital.cs",
               "RelativeDocumentMoniker": "Migrations\\ApplicationDb\\20241126203814_Inital.cs",
               "ToolTip": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Migrations\\ApplicationDb\\20241126203814_Inital.cs",
               "RelativeToolTip": "Migrations\\ApplicationDb\\20241126203814_Inital.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-26T20:38:14.723Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 32,
               "Title": "20241126203807_Inital.cs",
               "DocumentMoniker": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Migrations\\20241126203807_Inital.cs",
               "RelativeDocumentMoniker": "Migrations\\20241126203807_Inital.cs",
               "ToolTip": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Migrations\\20241126203807_Inital.cs",
               "RelativeToolTip": "Migrations\\20241126203807_Inital.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-26T20:38:08.085Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 33,
               "Title": "CommitteeMemberViewModel.cs",
               "DocumentMoniker": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\ViewModels\\CommitteeMemberViewModel.cs",
               "RelativeDocumentMoniker": "ViewModels\\CommitteeMemberViewModel.cs",
@@ -721,7 +669,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 39,
+              "DocumentIndex": 37,
               "Title": "20241126194041_Load1.cs",
               "DocumentMoniker": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Migrations\\Primary\\20241126194041_Load1.cs",
               "RelativeDocumentMoniker": "Migrations\\Primary\\20241126194041_Load1.cs",
@@ -732,7 +680,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 37,
+              "DocumentIndex": 35,
               "Title": "Apply.cshtml",
               "DocumentMoniker": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Pages\\Applications\\Apply.cshtml",
               "RelativeDocumentMoniker": "Pages\\Applications\\Apply.cshtml",
@@ -744,7 +692,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 38,
+              "DocumentIndex": 36,
               "Title": "Apply.cshtml.cs",
               "DocumentMoniker": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Pages\\Applications\\Apply.cshtml.cs",
               "RelativeDocumentMoniker": "Pages\\Applications\\Apply.cshtml.cs",
@@ -756,7 +704,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 40,
+              "DocumentIndex": 38,
               "Title": "20241126194035_Load1.cs",
               "DocumentMoniker": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Migrations\\20241126194035_Load1.cs",
               "RelativeDocumentMoniker": "Migrations\\20241126194035_Load1.cs",
@@ -767,7 +715,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 41,
+              "DocumentIndex": 39,
               "Title": "20241126193426_Load1.cs",
               "DocumentMoniker": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Migrations\\20241126193426_Load1.cs",
               "RelativeDocumentMoniker": "Migrations\\20241126193426_Load1.cs",
@@ -778,7 +726,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 34,
               "Title": "CommitteeMember.cs",
               "DocumentMoniker": "C:\\Users\\eunan\\Downloads\\StudentApplication\\student-application-model\\Models\\CommitteeMember.cs",
               "RelativeDocumentMoniker": "..\\student-application-model\\Models\\CommitteeMember.cs",
@@ -790,7 +738,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 42,
+              "DocumentIndex": 40,
               "Title": "Sport.cs",
               "DocumentMoniker": "C:\\Users\\eunan\\Downloads\\StudentApplication\\student-application-model\\Models\\Sport.cs",
               "RelativeDocumentMoniker": "..\\student-application-model\\Models\\Sport.cs",
@@ -802,7 +750,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 43,
+              "DocumentIndex": 41,
               "Title": "20241126192203_Load1.cs",
               "DocumentMoniker": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Migrations\\20241126192203_Load1.cs",
               "RelativeDocumentMoniker": "Migrations\\20241126192203_Load1.cs",
@@ -813,7 +761,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 44,
+              "DocumentIndex": 42,
               "Title": "ApplicantReview.cshtml.cs",
               "DocumentMoniker": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Pages\\CommitteeMembers\\ApplicantReview.cshtml.cs",
               "RelativeDocumentMoniker": "Pages\\CommitteeMembers\\ApplicantReview.cshtml.cs",
@@ -825,7 +773,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 45,
+              "DocumentIndex": 43,
               "Title": "RoleTest.cshtml",
               "DocumentMoniker": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Pages\\Admin\\RoleTest.cshtml",
               "RelativeDocumentMoniker": "Pages\\Admin\\RoleTest.cshtml",
@@ -837,7 +785,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 46,
+              "DocumentIndex": 44,
               "Title": "20241121130514_Test45.cs",
               "DocumentMoniker": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Migrations\\20241121130514_Test45.cs",
               "RelativeDocumentMoniker": "Migrations\\20241121130514_Test45.cs",
@@ -848,7 +796,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 48,
+              "DocumentIndex": 46,
               "Title": "20241118122929_InitialSetup3.cs",
               "DocumentMoniker": "C:\\Users\\S00235207\\Documents\\ProjectRebuild\\StudentApplication\\Migrations\\20241118122929_InitialSetup3.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\S00235207\\Documents\\ProjectRebuild\\StudentApplication\\Migrations\\20241118122929_InitialSetup3.cs",
@@ -859,7 +807,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 47,
+              "DocumentIndex": 45,
               "Title": "20241118124202_InitialSetup4.cs",
               "DocumentMoniker": "C:\\Users\\S00235207\\Documents\\ProjectRebuild\\StudentApplication\\Migrations\\Secondary\\20241118124202_InitialSetup4.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\S00235207\\Documents\\ProjectRebuild\\StudentApplication\\Migrations\\Secondary\\20241118124202_InitialSetup4.cs",
@@ -870,7 +818,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 49,
+              "DocumentIndex": 47,
               "Title": "20241118122556_InitialSetup2.cs",
               "DocumentMoniker": "C:\\Users\\S00235207\\Documents\\ProjectRebuild\\StudentApplication\\Migrations\\Secondary\\20241118122556_InitialSetup2.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\S00235207\\Documents\\ProjectRebuild\\StudentApplication\\Migrations\\Secondary\\20241118122556_InitialSetup2.cs",
@@ -881,7 +829,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 51,
+              "DocumentIndex": 49,
               "Title": "PrimaryContext.cs",
               "DocumentMoniker": "C:\\Users\\S00235207\\Documents\\ProjectRebuild\\student-application-model\\Data\\PrimaryContext.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\S00235207\\Documents\\ProjectRebuild\\student-application-model\\Data\\PrimaryContext.cs",
@@ -892,7 +840,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 52,
+              "DocumentIndex": 50,
               "Title": "Applicant.cs",
               "DocumentMoniker": "C:\\Users\\S00235207\\Documents\\ProjectRebuild\\student-application-model\\Models\\Applicant.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\S00235207\\Documents\\ProjectRebuild\\student-application-model\\Models\\Applicant.cs",
@@ -903,7 +851,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 50,
+              "DocumentIndex": 48,
               "Title": "20241118122544_InitialSetup1.cs",
               "DocumentMoniker": "C:\\Users\\S00235207\\Documents\\ProjectRebuild\\StudentApplication\\Migrations\\20241118122544_InitialSetup1.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\S00235207\\Documents\\ProjectRebuild\\StudentApplication\\Migrations\\20241118122544_InitialSetup1.cs",
@@ -914,7 +862,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 53,
+              "DocumentIndex": 51,
               "Title": "student-application-model.csproj",
               "DocumentMoniker": "C:\\Users\\S00235207\\Documents\\ProjectRebuild\\student-application-model\\student-application-model.csproj",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\S00235207\\Documents\\ProjectRebuild\\student-application-model\\student-application-model.csproj",
@@ -925,7 +873,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 54,
+              "DocumentIndex": 52,
               "Title": "UserSport.cs",
               "DocumentMoniker": "C:\\Users\\S00235207\\Documents\\ProjectRebuild\\student-application-model\\Models\\UserSport.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\S00235207\\Documents\\ProjectRebuild\\student-application-model\\Models\\UserSport.cs",
@@ -936,7 +884,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 55,
+              "DocumentIndex": 53,
               "Title": "Campus.cs",
               "DocumentMoniker": "C:\\Users\\S00235207\\Documents\\ProjectRebuild\\student-application-model\\Models\\Campus.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\S00235207\\Documents\\ProjectRebuild\\student-application-model\\Models\\Campus.cs",
@@ -947,7 +895,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 56,
+              "DocumentIndex": 54,
               "Title": "UserRole.cs",
               "DocumentMoniker": "C:\\Users\\S00235207\\Documents\\ProjectRebuild\\student-application-model\\Models\\UserRole.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\S00235207\\Documents\\ProjectRebuild\\student-application-model\\Models\\UserRole.cs",
@@ -958,7 +906,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 57,
+              "DocumentIndex": 55,
               "Title": "Sport.cs",
               "DocumentMoniker": "C:\\Users\\S00235207\\Documents\\ProjectRebuild\\student-application-model\\Models\\Sport.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\S00235207\\Documents\\ProjectRebuild\\student-application-model\\Models\\Sport.cs",
@@ -969,7 +917,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 58,
+              "DocumentIndex": 56,
               "Title": "ScholarshipType.cs",
               "DocumentMoniker": "C:\\Users\\S00235207\\Documents\\ProjectRebuild\\student-application-model\\Models\\ScholarshipType.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\S00235207\\Documents\\ProjectRebuild\\student-application-model\\Models\\ScholarshipType.cs",
@@ -980,7 +928,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 59,
+              "DocumentIndex": 57,
               "Title": "ScholarshipOfferHistory.cs",
               "DocumentMoniker": "C:\\Users\\S00235207\\Documents\\ProjectRebuild\\student-application-model\\Models\\ScholarshipOfferHistory.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\S00235207\\Documents\\ProjectRebuild\\student-application-model\\Models\\ScholarshipOfferHistory.cs",
@@ -991,7 +939,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 60,
+              "DocumentIndex": 58,
               "Title": "ScholarshipApplication.cs",
               "DocumentMoniker": "C:\\Users\\S00235207\\Documents\\ProjectRebuild\\student-application-model\\Models\\ScholarshipApplication.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\S00235207\\Documents\\ProjectRebuild\\student-application-model\\Models\\ScholarshipApplication.cs",
@@ -1002,7 +950,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 61,
+              "DocumentIndex": 59,
               "Title": "Scholarship.cs",
               "DocumentMoniker": "C:\\Users\\S00235207\\Documents\\ProjectRebuild\\student-application-model\\Models\\Scholarship.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\S00235207\\Documents\\ProjectRebuild\\student-application-model\\Models\\Scholarship.cs",
@@ -1013,7 +961,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 62,
+              "DocumentIndex": 60,
               "Title": "RoleClaim.cs",
               "DocumentMoniker": "C:\\Users\\S00235207\\Documents\\ProjectRebuild\\student-application-model\\Models\\RoleClaim.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\S00235207\\Documents\\ProjectRebuild\\student-application-model\\Models\\RoleClaim.cs",
@@ -1024,7 +972,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 63,
+              "DocumentIndex": 61,
               "Title": "Role.cs",
               "DocumentMoniker": "C:\\Users\\S00235207\\Documents\\ProjectRebuild\\student-application-model\\Models\\Role.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\S00235207\\Documents\\ProjectRebuild\\student-application-model\\Models\\Role.cs",
@@ -1035,7 +983,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 64,
+              "DocumentIndex": 62,
               "Title": "Referee.cs",
               "DocumentMoniker": "C:\\Users\\S00235207\\Documents\\ProjectRebuild\\student-application-model\\Models\\Referee.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\S00235207\\Documents\\ProjectRebuild\\student-application-model\\Models\\Referee.cs",
@@ -1046,7 +994,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 65,
+              "DocumentIndex": 63,
               "Title": "HomeDetail.cs",
               "DocumentMoniker": "C:\\Users\\S00235207\\Documents\\ProjectRebuild\\student-application-model\\Models\\HomeDetail.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\S00235207\\Documents\\ProjectRebuild\\student-application-model\\Models\\HomeDetail.cs",
@@ -1057,7 +1005,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 66,
+              "DocumentIndex": 64,
               "Title": "CourseCode.cs",
               "DocumentMoniker": "C:\\Users\\S00235207\\Documents\\ProjectRebuild\\student-application-model\\Models\\CourseCode.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\S00235207\\Documents\\ProjectRebuild\\student-application-model\\Models\\CourseCode.cs",
@@ -1068,7 +1016,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 67,
+              "DocumentIndex": 65,
               "Title": "ContactDetail.cs",
               "DocumentMoniker": "C:\\Users\\S00235207\\Documents\\ProjectRebuild\\student-application-model\\Models\\ContactDetail.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\S00235207\\Documents\\ProjectRebuild\\student-application-model\\Models\\ContactDetail.cs",
@@ -1079,7 +1027,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 68,
+              "DocumentIndex": 66,
               "Title": "CommitteeMember.cs",
               "DocumentMoniker": "C:\\Users\\S00235207\\Documents\\ProjectRebuild\\student-application-model\\Models\\CommitteeMember.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\S00235207\\Documents\\ProjectRebuild\\student-application-model\\Models\\CommitteeMember.cs",
@@ -1090,7 +1038,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 69,
+              "DocumentIndex": 67,
               "Title": "ApplicantSport.cs",
               "DocumentMoniker": "C:\\Users\\S00235207\\Documents\\ProjectRebuild\\student-application-model\\Models\\ApplicantSport.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\S00235207\\Documents\\ProjectRebuild\\student-application-model\\Models\\ApplicantSport.cs",
@@ -1101,7 +1049,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 70,
+              "DocumentIndex": 68,
               "Title": "Class1.cs",
               "DocumentMoniker": "C:\\Users\\S00235207\\Documents\\ProjectRebuild\\student-application-model\\Class1.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\S00235207\\Documents\\ProjectRebuild\\student-application-model\\Class1.cs",
