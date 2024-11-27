@@ -8,10 +8,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace StudentApplication.Migrations
+namespace StudentApplication.Migrations.ApplicationDb
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241126214610_Initial")]
+    [Migration("20241127135723_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -264,10 +264,7 @@ namespace StudentApplication.Migrations
             modelBuilder.Entity("student_application_model.Models.SportIdentity", b =>
                 {
                     b.Property<int>("SportID")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SportID"));
 
                     b.Property<string>("SportName")
                         .IsRequired()

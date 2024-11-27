@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace StudentApplication.Migrations
+namespace StudentApplication.Migrations.ApplicationDb
 {
     /// <inheritdoc />
     public partial class Initial : Migration
@@ -54,8 +54,7 @@ namespace StudentApplication.Migrations
                 name: "IdentitySports",
                 columns: table => new
                 {
-                    SportID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SportID = table.Column<int>(type: "int", nullable: false),
                     SportName = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>

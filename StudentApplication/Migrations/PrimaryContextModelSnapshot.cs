@@ -8,7 +8,7 @@ using StudentApplicationModel.Data;
 
 #nullable disable
 
-namespace StudentApplication.Migrations.Primary
+namespace StudentApplication.Migrations
 {
     [DbContext(typeof(PrimaryContext))]
     partial class PrimaryContextModelSnapshot : ModelSnapshot

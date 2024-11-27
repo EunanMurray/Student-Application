@@ -9,7 +9,16 @@
         {
             <li class="nav-item me-3">
                 <a class="nav-link btn btn-outline-light" asp-page="/Admin/RoleTest" style="border-width: 2px;">In-House Portal</a>
-            </li> <!--In house protal navigation added-->
+            </li>
+        }
+
+        @if (User.IsInRole("Committee Member"))
+        {
+            <div class="row">
+                <div class="col-12 text-right">
+                    <a asp-page="/Admin/ViewApplicantsByCommitteeSport" class="btn btn-primary">View Applicants by Committee Sport</a>
+                </div>
+            </div>
         }
         <li class="nav-item">
             <a class="nav-link text-light" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>

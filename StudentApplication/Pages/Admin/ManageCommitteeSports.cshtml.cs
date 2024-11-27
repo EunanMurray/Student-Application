@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using StudentApplicationModel.Data;
 
 namespace StudentApplication.Pages.Admin
 {
@@ -18,13 +19,16 @@ namespace StudentApplication.Pages.Admin
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ApplicationDbContext _applicationDb;
+        private readonly PrimaryContext _primaryContext;
 
         public ManageCommitteeSportsModel(
             UserManager<IdentityUser> userManager,
-            ApplicationDbContext applicationDb)
+            ApplicationDbContext applicationDb,
+            PrimaryContext primaryContext)
         {
             _userManager = userManager;
             _applicationDb = applicationDb;
+            _primaryContext = primaryContext;
             CommitteeMembers = new List<CommitteeMemberViewModel>();
             SelectedSports = new List<int>();
         }
@@ -162,6 +166,41 @@ namespace StudentApplication.Pages.Admin
                 TempData["ErrorMessage"] = $"Error updating sport assignments: {ex.Message}";
                 await OnGetAsync();
                 return Page();
+            }
+        }
+
+        public async Task<IActionResult> OnPostInitializeIdentitySportsAsync()
+        {
+            try
+            {
+                var sports = await _primaryContext.Sports.ToListAsync();
+                var existingIdentitySports = await _applicationDb.Sports.Select(s => s.SportName).ToListAsync();
+
+                var newIdentitySports = sports.Where(s => !existingIdentitySports.Contains(s.SportName))
+                    .Select(s => new SportIdentity
+                    {
+                        SportName = s.SportName
+                    })
+                    .ToList();
+
+                if (newIdentitySports.Any())
+                {
+                    _applicationDb.Sports.AddRange(newIdentitySports);
+                    await _applicationDb.SaveChangesAsync();
+
+                    TempData["SuccessMessage"] = "IdentitySports table initialized successfully.";
+                }
+                else
+                {
+                    TempData["SuccessMessage"] = "IdentitySports table is already up-to-date.";
+                }
+
+                return RedirectToPage();
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = $"Error initializing IdentitySports table: {ex.Message}";
+                return RedirectToPage();
             }
         }
     }

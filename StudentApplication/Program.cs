@@ -8,6 +8,11 @@ using Microsoft.Extensions.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// **Add the following logging configuration:**
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+builder.Logging.SetMinimumLevel(LogLevel.Information);
+
 // Connection strings
 var connectionString = builder.Configuration.GetConnectionString("Project300Database")
     ?? throw new InvalidOperationException("Connection string 'Project300Database' not found.");
@@ -71,6 +76,7 @@ using (var scope = app.Services.CreateScope())
                 if (currentRoles.Any())
                 {
                     await userManager.RemoveFromRolesAsync(user, currentRoles);
+                    logger.LogInformation($"Removed existing roles from user {userEmail}: {string.Join(", ", currentRoles)}");
                 }
 
                 // Assign the new role
@@ -81,9 +87,17 @@ using (var scope = app.Services.CreateScope())
                 }
                 else
                 {
-                    logger.LogWarning($"Failed to assign role {roleToAssign} to {userEmail}: {string.Join(", ", result.Errors)}");
+                    logger.LogWarning($"Failed to assign role {roleToAssign} to {userEmail}: {string.Join(", ", result.Errors.Select(e => e.Description))}");
                 }
             }
+            else
+            {
+                logger.LogInformation($"User {userEmail} is already in role {roleToAssign}");
+            }
+        }
+        else
+        {
+            logger.LogWarning($"User {userEmail} not found.");
         }
     }
     catch (Exception ex)
@@ -95,6 +109,7 @@ using (var scope = app.Services.CreateScope())
 // Configure the HTTP request pipeline
 if (app.Environment.IsDevelopment())
 {
+    app.UseDeveloperExceptionPage();
     app.UseMigrationsEndPoint();
 }
 else

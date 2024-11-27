@@ -9,10 +9,10 @@ using StudentApplicationModel.Data;
 
 #nullable disable
 
-namespace StudentApplication.Migrations.Primary
+namespace StudentApplication.Migrations
 {
     [DbContext(typeof(PrimaryContext))]
-    [Migration("20241126214617_Initial")]
+    [Migration("20241127135708_Initial")]
     partial class Initial
     {
         /// <inheritdoc />

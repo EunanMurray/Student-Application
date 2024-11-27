@@ -22,6 +22,8 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser>
         {
             entity.ToTable("IdentitySports");
             entity.HasKey(e => e.SportID);
+            entity.Property(e => e.SportID)
+              .ValueGeneratedNever();
             entity.Property(e => e.SportName).IsRequired();
         });
 

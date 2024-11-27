@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace StudentApplication.Migrations
+namespace StudentApplication.Migrations.ApplicationDb
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -261,10 +261,7 @@ namespace StudentApplication.Migrations
             modelBuilder.Entity("student_application_model.Models.SportIdentity", b =>
                 {
                     b.Property<int>("SportID")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SportID"));
 
                     b.Property<string>("SportName")
                         .IsRequired()
