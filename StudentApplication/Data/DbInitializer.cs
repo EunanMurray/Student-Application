@@ -23,6 +23,7 @@ namespace ScholarshipInfoSystem.Data
             InitializeCampuses(primaryContext);
             InitializeSports(primaryContext, applicationContext);
             InitializeDefaultAdmin(userManager).Wait();
+            InitializeDefaultCommitteeMember(userManager).Wait();
             InitializeTestApplicants(primaryContext);
         }
 
@@ -135,6 +136,28 @@ namespace ScholarshipInfoSystem.Data
                 if (result.Succeeded)
                 {
                     await userManager.AddToRoleAsync(admin, "Admin");
+                }
+            }
+        }
+
+        private static async Task InitializeDefaultCommitteeMember(UserManager<IdentityUser> userManager)
+        {
+            const string committeeMemberEmail = "member@example.com";
+            const string committeeMemberPassword = "Member123!";
+
+            if (await userManager.FindByEmailAsync(committeeMemberEmail) == null)
+            {
+                var committeeMember = new IdentityUser
+                {
+                    UserName = committeeMemberEmail,
+                    Email = committeeMemberEmail,
+                    EmailConfirmed = true
+                };
+
+                var result = await userManager.CreateAsync(committeeMember, committeeMemberPassword);
+                if (result.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(committeeMember, "Committee Member");
                 }
             }
         }

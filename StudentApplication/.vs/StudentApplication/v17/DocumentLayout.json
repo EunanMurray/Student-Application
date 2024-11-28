@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{DCF9FE37-9021-45B6-8200-2FC3CF3734B3}|StudentApplication.csproj|c:\\users\\eunan\\downloads\\studentapplication\\studentapplication\\data\\dbinitializer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DCF9FE37-9021-45B6-8200-2FC3CF3734B3}|StudentApplication.csproj|solutionrelative:data\\dbinitializer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{DCF9FE37-9021-45B6-8200-2FC3CF3734B3}|StudentApplication.csproj|c:\\users\\eunan\\downloads\\studentapplication\\studentapplication\\documentation.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
       "RelativeMoniker": "D:0:0:{DCF9FE37-9021-45B6-8200-2FC3CF3734B3}|StudentApplication.csproj|solutionrelative:documentation.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
@@ -13,10 +17,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{DCF9FE37-9021-45B6-8200-2FC3CF3734B3}|StudentApplication.csproj|c:\\users\\eunan\\downloads\\studentapplication\\studentapplication\\migrations\\20241127174208_123.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DCF9FE37-9021-45B6-8200-2FC3CF3734B3}|StudentApplication.csproj|solutionrelative:migrations\\20241127174208_123.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DCF9FE37-9021-45B6-8200-2FC3CF3734B3}|StudentApplication.csproj|c:\\users\\eunan\\downloads\\studentapplication\\studentapplication\\data\\dbinitializer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DCF9FE37-9021-45B6-8200-2FC3CF3734B3}|StudentApplication.csproj|solutionrelative:data\\dbinitializer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DCF9FE37-9021-45B6-8200-2FC3CF3734B3}|StudentApplication.csproj|c:\\users\\eunan\\downloads\\studentapplication\\studentapplication\\pages\\admin\\viewapplicantsbycommitteesport.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -257,7 +257,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Bookmark",
@@ -273,33 +273,50 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Documentation.txt",
               "DocumentMoniker": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Documentation.txt",
               "RelativeDocumentMoniker": "Documentation.txt",
               "ToolTip": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Documentation.txt",
               "RelativeToolTip": "Documentation.txt",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAEoAAAAAAAAAAAAwwHQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
-              "WhenOpened": "2024-11-28T12:49:17.952Z",
+              "WhenOpened": "2024-11-28T13:06:51.122Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "DbInitializer.cs",
+              "DocumentMoniker": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Data\\DbInitializer.cs",
+              "RelativeDocumentMoniker": "Data\\DbInitializer.cs",
+              "ToolTip": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Data\\DbInitializer.cs",
+              "RelativeToolTip": "Data\\DbInitializer.cs",
+              "ViewState": "AgIAAHUAAAAAAAAAAAArwBoAAAA1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-18T12:18:42.847Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "20241127174559_Tet.cs",
               "DocumentMoniker": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Migrations\\ApplicationDb\\20241127174559_Tet.cs",
               "RelativeDocumentMoniker": "Migrations\\ApplicationDb\\20241127174559_Tet.cs",
               "ToolTip": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Migrations\\ApplicationDb\\20241127174559_Tet.cs",
               "RelativeToolTip": "Migrations\\ApplicationDb\\20241127174559_Tet.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-27T17:46:00.481Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "20241127174208_123.cs",
               "DocumentMoniker": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Migrations\\20241127174208_123.cs",
               "RelativeDocumentMoniker": "Migrations\\20241127174208_123.cs",
@@ -332,18 +349,6 @@
               "ViewState": "AgIAADoAAAAAAAAAAAAmwGIAAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2024-11-27T11:30:05.145Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "DbInitializer.cs",
-              "DocumentMoniker": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Data\\DbInitializer.cs",
-              "RelativeDocumentMoniker": "Data\\DbInitializer.cs",
-              "ToolTip": "C:\\Users\\eunan\\Downloads\\StudentApplication\\StudentApplication\\Data\\DbInitializer.cs",
-              "RelativeToolTip": "Data\\DbInitializer.cs",
-              "ViewState": "AgIAAJYBAAAAAAAAAAAAAJYAAAAWAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-18T12:18:42.847Z"
             },
             {
               "$type": "Document",
@@ -1069,10 +1074,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
             },
             {
               "$type": "Bookmark",
