@@ -63,6 +63,10 @@ The following outlines the core structure of the project directory:
    Add-Migration -Context PrimaryContext InitialCreate
    Update-Database -Context PrimaryContext
    ```
+    If you encoutner any issues with migrations do the following:
+      1: Make sure database is not already in existance, if it is stop the program and delete it in sql object explorer.
+      2: Make sure to clear your migrations folder, You may have migrations already using the same name
+      3: If other issue normally stack overflow helps me or just send me (Eunan) a message, have probably already stumbled upon it.
 
 4. **Run the Application**:
    Use the IDE 
