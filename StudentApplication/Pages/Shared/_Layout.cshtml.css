@@ -1,48 +1,53 @@
-﻿/* Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
-
-a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+﻿.navbar {
+    background-color: #015b5e !important;
+    padding: 1rem;
 }
 
-a {
-  color: #0077cc;
+.navbar-brand {
+    color: white !important;
+    font-weight: 500;
 }
 
-.btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+.navbar-nav .nav-link {
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-weight: 400;
+    text-transform: uppercase;
+    padding: 0.5rem 1rem;
 }
 
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    .navbar-nav .nav-link:hover {
+        color: #f8f9fa !important;
+        text-decoration: underline;
+    }
+
+.navbar-nav .dropdown-menu {
+    background-color: #015b5e;
+    border: none;
+    color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
-.border-top {
-  border-top: 1px solid #e5e5e5;
-}
-.border-bottom {
-  border-bottom: 1px solid #e5e5e5;
+.dropdown-item {
+    color: white;
 }
 
-.box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+    .dropdown-item:hover {
+        background-color: #014446;
+    }
+
+.navbar-toggler {
+    border-color: rgba(255, 255, 255, 0.8);
 }
 
-button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px;
+    position: relative;
+    width: 100%;
+    text-align: center;
+    padding: 1rem 0;
+    background-color: #f8f9fa;
+    color: #6c757d;
 }

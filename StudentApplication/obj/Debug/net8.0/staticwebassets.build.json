@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "gbq0L1NRllo2fbBQP0EdpBJO4eFaDgleG0aEBM+yGH0=",
+  "Hash": "h9QDGjvLPDTvyOSXYDAudMJ0dct5tycEOsn0mLj25Z8=",
   "Source": "StudentApplication",
   "BasePath": "_content/StudentApplication",
   "Mode": "Default",
@@ -1291,8 +1291,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "ScopedCss",
       "AssetTraitValue": "ApplicationBundle",
-      "Fingerprint": "jxlfkqvvgz",
-      "Integrity": "Off2PSaywBTF14lFaNEaShTjqdy5CmSZzOkFQTyjB74=",
+      "Fingerprint": "un1vpvrjfm",
+      "Integrity": "1uByUlMpIn3IXWIJqgxuNiWmEEhJWHUMo7LOY5XPwsM=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\eunan\\Source\\Repos\\Student-Application\\StudentApplication\\obj\\Debug\\net8.0\\scopedcss\\bundle\\StudentApplication.styles.css"
@@ -1312,8 +1312,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "ScopedCss",
       "AssetTraitValue": "ProjectBundle",
-      "Fingerprint": "jxlfkqvvgz",
-      "Integrity": "Off2PSaywBTF14lFaNEaShTjqdy5CmSZzOkFQTyjB74=",
+      "Fingerprint": "un1vpvrjfm",
+      "Integrity": "1uByUlMpIn3IXWIJqgxuNiWmEEhJWHUMo7LOY5XPwsM=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\eunan\\Source\\Repos\\Student-Application\\StudentApplication\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\StudentApplication.bundle.scp.css"
@@ -1333,8 +1333,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "590yafbpl1",
-      "Integrity": "N/T0sUHiyczm5qprtI2wPGAsMJcwctYm60NKRidXHYw=",
+      "Fingerprint": "7f4k56s94y",
+      "Integrity": "na8vWIpbhnGbfPsZhjzditzinkFZ5rGX98zvwwtC49c=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\site.css"
@@ -2644,7 +2644,7 @@
   ],
   "Endpoints": [
     {
-      "Route": "css/site.590yafbpl1.css",
+      "Route": "css/site.7f4k56s94y.css",
       "AssetFile": "C:\\Users\\eunan\\Source\\Repos\\Student-Application\\StudentApplication\\wwwroot\\css\\site.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -2654,7 +2654,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "430"
+          "Value": "5456"
         },
         {
           "Name": "Content-Type",
@@ -2662,11 +2662,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"N/T0sUHiyczm5qprtI2wPGAsMJcwctYm60NKRidXHYw=\""
+          "Value": "\"na8vWIpbhnGbfPsZhjzditzinkFZ5rGX98zvwwtC49c=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 20:29:52 GMT"
+          "Value": "Wed, 04 Dec 2024 22:05:45 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2676,7 +2676,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "590yafbpl1"
+          "Value": "7f4k56s94y"
         },
         {
           "Name": "label",
@@ -2684,7 +2684,7 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-N/T0sUHiyczm5qprtI2wPGAsMJcwctYm60NKRidXHYw="
+          "Value": "sha256-na8vWIpbhnGbfPsZhjzditzinkFZ5rGX98zvwwtC49c="
         }
       ]
     },
@@ -2699,7 +2699,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "430"
+          "Value": "5456"
         },
         {
           "Name": "Content-Type",
@@ -2707,11 +2707,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"N/T0sUHiyczm5qprtI2wPGAsMJcwctYm60NKRidXHYw=\""
+          "Value": "\"na8vWIpbhnGbfPsZhjzditzinkFZ5rGX98zvwwtC49c=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 20:29:52 GMT"
+          "Value": "Wed, 04 Dec 2024 22:05:45 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2721,7 +2721,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-N/T0sUHiyczm5qprtI2wPGAsMJcwctYm60NKRidXHYw="
+          "Value": "sha256-na8vWIpbhnGbfPsZhjzditzinkFZ5rGX98zvwwtC49c="
         }
       ]
     },
@@ -10040,7 +10040,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1136"
+          "Value": "1428"
         },
         {
           "Name": "Content-Type",
@@ -10048,11 +10048,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"Off2PSaywBTF14lFaNEaShTjqdy5CmSZzOkFQTyjB74=\""
+          "Value": "\"1uByUlMpIn3IXWIJqgxuNiWmEEhJWHUMo7LOY5XPwsM=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 20:52:41 GMT"
+          "Value": "Wed, 04 Dec 2024 22:14:45 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -10062,97 +10062,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-Off2PSaywBTF14lFaNEaShTjqdy5CmSZzOkFQTyjB74="
-        }
-      ]
-    },
-    {
-      "Route": "StudentApplication.jxlfkqvvgz.bundle.scp.css",
-      "AssetFile": "C:\\Users\\eunan\\Source\\Repos\\Student-Application\\StudentApplication\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\StudentApplication.bundle.scp.css",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "1136"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"Off2PSaywBTF14lFaNEaShTjqdy5CmSZzOkFQTyjB74=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 20:52:41 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "jxlfkqvvgz"
-        },
-        {
-          "Name": "label",
-          "Value": "StudentApplication.bundle.scp.css"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-Off2PSaywBTF14lFaNEaShTjqdy5CmSZzOkFQTyjB74="
-        }
-      ]
-    },
-    {
-      "Route": "StudentApplication.jxlfkqvvgz.styles.css",
-      "AssetFile": "C:\\Users\\eunan\\Source\\Repos\\Student-Application\\StudentApplication\\obj\\Debug\\net8.0\\scopedcss\\bundle\\StudentApplication.styles.css",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "1136"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"Off2PSaywBTF14lFaNEaShTjqdy5CmSZzOkFQTyjB74=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 20:52:41 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "jxlfkqvvgz"
-        },
-        {
-          "Name": "label",
-          "Value": "StudentApplication.styles.css"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-Off2PSaywBTF14lFaNEaShTjqdy5CmSZzOkFQTyjB74="
+          "Value": "sha256-1uByUlMpIn3IXWIJqgxuNiWmEEhJWHUMo7LOY5XPwsM="
         }
       ]
     },
@@ -10167,7 +10077,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1136"
+          "Value": "1428"
         },
         {
           "Name": "Content-Type",
@@ -10175,11 +10085,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"Off2PSaywBTF14lFaNEaShTjqdy5CmSZzOkFQTyjB74=\""
+          "Value": "\"1uByUlMpIn3IXWIJqgxuNiWmEEhJWHUMo7LOY5XPwsM=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 20:52:41 GMT"
+          "Value": "Wed, 04 Dec 2024 22:14:45 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -10189,7 +10099,97 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-Off2PSaywBTF14lFaNEaShTjqdy5CmSZzOkFQTyjB74="
+          "Value": "sha256-1uByUlMpIn3IXWIJqgxuNiWmEEhJWHUMo7LOY5XPwsM="
+        }
+      ]
+    },
+    {
+      "Route": "StudentApplication.un1vpvrjfm.bundle.scp.css",
+      "AssetFile": "C:\\Users\\eunan\\Source\\Repos\\Student-Application\\StudentApplication\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\StudentApplication.bundle.scp.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1428"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"1uByUlMpIn3IXWIJqgxuNiWmEEhJWHUMo7LOY5XPwsM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 04 Dec 2024 22:14:45 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "un1vpvrjfm"
+        },
+        {
+          "Name": "label",
+          "Value": "StudentApplication.bundle.scp.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-1uByUlMpIn3IXWIJqgxuNiWmEEhJWHUMo7LOY5XPwsM="
+        }
+      ]
+    },
+    {
+      "Route": "StudentApplication.un1vpvrjfm.styles.css",
+      "AssetFile": "C:\\Users\\eunan\\Source\\Repos\\Student-Application\\StudentApplication\\obj\\Debug\\net8.0\\scopedcss\\bundle\\StudentApplication.styles.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1428"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"1uByUlMpIn3IXWIJqgxuNiWmEEhJWHUMo7LOY5XPwsM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 04 Dec 2024 22:14:45 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "un1vpvrjfm"
+        },
+        {
+          "Name": "label",
+          "Value": "StudentApplication.styles.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-1uByUlMpIn3IXWIJqgxuNiWmEEhJWHUMo7LOY5XPwsM="
         }
       ]
     }

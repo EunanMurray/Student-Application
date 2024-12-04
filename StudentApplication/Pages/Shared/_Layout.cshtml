@@ -3,26 +3,29 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - StudentApplicationPages</title>
+    <title>@ViewData["Title"] - Application Portal</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/StudentApplicationPages.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/_Layout.cshtml.css" asp-append-version="true" />
     <link rel="icon" href="~/images/favicon.ico" type="image/svg+xml">
+    <script src="~/js/site.js" asp-append-version="true"></script>
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark border-bottom box-shadow mb-3" style="background-color: #015b5e !important;">
-            <div class="container">
+            <div class="container-fluid">
                 <a class="navbar-brand d-flex align-items-center" href="/">
                     <img src="~/images/ATULogo2.svg" alt="ATU Logo" style="height: 105px; margin-right: 10px;">
                 </a>
-
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/">Home</a>
+                        </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="aboutDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">About</a>
                             <ul class="dropdown-menu" aria-labelledby="aboutDropdown">
@@ -54,6 +57,21 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#">International</a>
                         </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Management</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><h6 class="dropdown-header">Admin Controls</h6></li>
+                                <li><a class="dropdown-item" href="/Admin/ViewApplicantsByCommitteeSport">View Applicants</a></li>
+                                <li><a class="dropdown-item" href="/Admin/ManageCommitteeSports">Manage Roles</a></li>
+                                <li><h6 class="dropdown-header">Committee Member</h6></li>
+                                <li><a class="dropdown-item" href="/Committee/AssignedApplicants">Assigned Applicants</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Contact">Contact</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
                             <partial name="_LoginPartial" />            
                         </li>   
@@ -62,17 +80,17 @@
             </div>
         </nav>
     </header>
-
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
+    <main role="main" class="container pb-3">
+        @RenderBody()
+    </main>
+    <footer class="footer mt-auto py-3 bg-light">
+        <div class="container">
+            <span class="text-muted">&copy; 2024 - Application Portal</span>
+        </div>
+    </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
