@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace StudentApplication.Migrations.ApplicationDb
+namespace StudentApplication.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241127174559_Tet")]
-    partial class Tet
+    [Migration("20241204212742_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,6 +23,23 @@ namespace StudentApplication.Migrations.ApplicationDb
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("IdentitySport", b =>
+                {
+                    b.Property<int>("SportID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SportID"));
+
+                    b.Property<string>("SportName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("SportID");
+
+                    b.ToTable("Sports", (string)null);
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -261,20 +278,6 @@ namespace StudentApplication.Migrations.ApplicationDb
                     b.ToTable("UserSports", (string)null);
                 });
 
-            modelBuilder.Entity("student_application_model.Models.SportIdentity", b =>
-                {
-                    b.Property<int>("SportID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("SportName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("SportID");
-
-                    b.ToTable("IdentitySports", (string)null);
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -339,7 +342,7 @@ namespace StudentApplication.Migrations.ApplicationDb
 
             modelBuilder.Entity("StudentApplicationModel.Models.UserSport", b =>
                 {
-                    b.HasOne("student_application_model.Models.SportIdentity", "Sport")
+                    b.HasOne("IdentitySport", "Sport")
                         .WithMany("UserSports")
                         .HasForeignKey("SportID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -356,7 +359,7 @@ namespace StudentApplication.Migrations.ApplicationDb
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("student_application_model.Models.SportIdentity", b =>
+            modelBuilder.Entity("IdentitySport", b =>
                 {
                     b.Navigation("UserSports");
                 });

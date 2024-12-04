@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace StudentApplication.Migrations
+namespace StudentApplication.Migrations.Primary
 {
     /// <inheritdoc />
-    public partial class _123 : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -36,19 +36,6 @@ namespace StudentApplication.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ScholarshipTypes", x => x.ScholarshipTypeID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Sports",
-                columns: table => new
-                {
-                    SportID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    SportName = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Sports", x => x.SportID);
                 });
 
             migrationBuilder.CreateTable(
@@ -376,9 +363,6 @@ namespace StudentApplication.Migrations
 
             migrationBuilder.DropTable(
                 name: "Applicants");
-
-            migrationBuilder.DropTable(
-                name: "Sports");
 
             migrationBuilder.DropTable(
                 name: "Campuses");

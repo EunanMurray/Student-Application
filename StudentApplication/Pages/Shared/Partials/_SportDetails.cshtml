@@ -1,7 +1,5 @@
 ﻿@model StudentApplicationPages.ViewModels.ApplicantViewModel
-@{
-    var sportSelectList = ViewData["SportSelectList"] as MultiSelectList;
-}
+@inject ApplicationDbContext _applicationDb
 
 <div class="container">
     <h3>Sport Details</h3>
@@ -9,8 +7,12 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label for="SportIDs">Main Sport</label>
-                <select asp-for="SportIDs" asp-items="sportSelectList" multiple="multiple" class="form-control">
-                    <!-- Options populated from the PageModel -->
+                <select asp-for="SportIDs" asp-items="@(new MultiSelectList(_applicationDb.Sports
+                        .Select(s => new IdentitySport
+                        {
+                            SportID = s.SportID,
+                            SportName = s.SportName
+                        }), "SportID", "SportName"))" multiple="multiple" class="form-control">
                 </select>
                 <span asp-validation-for="SportIDs" class="text-danger"></span>
             </div>

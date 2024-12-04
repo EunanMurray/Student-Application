@@ -9,11 +9,11 @@ using StudentApplicationModel.Data;
 
 #nullable disable
 
-namespace StudentApplication.Migrations
+namespace StudentApplication.Migrations.Primary
 {
     [DbContext(typeof(PrimaryContext))]
-    [Migration("20241127174208_123")]
-    partial class _123
+    [Migration("20241204212753_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -387,7 +387,10 @@ namespace StudentApplication.Migrations
 
                     b.HasKey("SportID");
 
-                    b.ToTable("Sports");
+                    b.ToTable("Sports", null, t =>
+                        {
+                            t.ExcludeFromMigrations();
+                        });
                 });
 
             modelBuilder.Entity("Applicant", b =>

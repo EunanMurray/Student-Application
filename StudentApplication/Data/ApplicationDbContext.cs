@@ -9,8 +9,12 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser>
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
     {
+        Sports = Set<IdentitySport>();
+        UserSports = Set<UserSport>();
+        CommitteeMembers = Set<CommitteeMember>();
     }
-    public DbSet<SportIdentity> Sports { get; set; }
+
+    public DbSet<IdentitySport> Sports { get; set; }
     public DbSet<UserSport> UserSports { get; set; }
     public DbSet<CommitteeMember> CommitteeMembers { get; set; }
 
@@ -18,26 +22,23 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser>
     {
         base.OnModelCreating(builder);
 
-        builder.Entity<SportIdentity>(entity =>
+        builder.Entity<IdentitySport>(entity =>
         {
-            entity.ToTable("IdentitySports");
+            entity.ToTable("Sports");
             entity.HasKey(e => e.SportID);
-            entity.Property(e => e.SportID)
-              .ValueGeneratedNever();
+            entity.Property(e => e.SportID).ValueGeneratedNever();
             entity.Property(e => e.SportName).IsRequired();
         });
 
         builder.Entity<UserSport>(entity =>
         {
             entity.ToTable("UserSports");
-            entity.HasKey(us => new { us.UserID, us.SportID }); // Composite Key
-
-            entity.HasOne(us => us.User) 
+            entity.HasKey(us => new { us.UserID, us.SportID });
+            entity.HasOne(us => us.User)
                 .WithMany()
                 .HasForeignKey(us => us.UserID)
                 .OnDelete(DeleteBehavior.Cascade);
-
-            entity.HasOne(us => us.Sport) 
+            entity.HasOne(us => us.Sport)
                 .WithMany(s => s.UserSports)
                 .HasForeignKey(us => us.SportID)
                 .OnDelete(DeleteBehavior.Cascade);
@@ -47,11 +48,14 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser>
         {
             entity.ToTable("CommitteeMembers");
             entity.HasKey(cm => cm.MemberID);
-
             entity.HasOne(cm => cm.User)
                 .WithOne()
                 .HasForeignKey<CommitteeMember>(cm => cm.UserID)
                 .OnDelete(DeleteBehavior.Cascade);
         });
+
+        builder.Ignore<Sport>();
+        builder.Ignore<ApplicantSport>();
+        builder.Ignore<ScholarshipOfferHistory>();
     }
 }

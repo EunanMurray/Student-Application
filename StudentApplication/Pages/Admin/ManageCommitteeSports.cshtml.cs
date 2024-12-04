@@ -80,7 +80,11 @@ namespace StudentApplication.Pages.Admin
                         Email = member.Email ?? string.Empty,
                         Name = committeeMember?.Name ?? member.UserName ?? string.Empty,
                         AssignedSportIds = assignedSportIds,
-                        AvailableSports = sports
+                        AvailableSports = sports.Select(s => new IdentitySport
+                        {
+                            SportID = s.SportID,
+                            SportName = s.SportName
+                        }).ToList()
                     };
 
                     CommitteeMembers.Add(viewModel);
@@ -177,8 +181,9 @@ namespace StudentApplication.Pages.Admin
                 var existingIdentitySports = await _applicationDb.Sports.Select(s => s.SportName).ToListAsync();
 
                 var newIdentitySports = sports.Where(s => !existingIdentitySports.Contains(s.SportName))
-                    .Select(s => new SportIdentity
+                    .Select(s => new IdentitySport
                     {
+                        SportID = s.SportID,
                         SportName = s.SportName
                     })
                     .ToList();
@@ -187,12 +192,11 @@ namespace StudentApplication.Pages.Admin
                 {
                     _applicationDb.Sports.AddRange(newIdentitySports);
                     await _applicationDb.SaveChangesAsync();
-
-                    TempData["SuccessMessage"] = "IdentitySports table initialized successfully.";
+                    TempData["SuccessMessage"] = "Sports table initialized successfully.";
                 }
                 else
                 {
-                    TempData["SuccessMessage"] = "IdentitySports table is already up-to-date.";
+                    TempData["SuccessMessage"] = "Sports table is already up-to-date.";
                 }
 
                 return RedirectToPage();

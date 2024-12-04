@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using student_application_model.Models;
 using StudentApplicationModel.Models;
@@ -10,6 +10,18 @@ namespace StudentApplicationModel.Data
         public PrimaryContext(DbContextOptions<PrimaryContext> options)
         : base(options)
         {
+            Scholarships = Set<Scholarship>();
+            ScholarshipTypes = Set<ScholarshipType>();
+            ScholarshipApplications = Set<ScholarshipApplication>();
+            ScholarshipOfferHistories = Set<ScholarshipOfferHistory>();
+            Applicants = Set<Applicant>();
+            ApplicantSports = Set<ApplicantSport>();
+            ContactDetails = Set<ContactDetail>();
+            HomeDetails = Set<HomeDetail>();
+            Referees = Set<Referee>();
+            CourseCodes = Set<CourseCode>();
+            Campuses = Set<Campus>();
+            Sports = Set<Sport>();
         }
 
         public DbSet<Scholarship> Scholarships { get; set; }
@@ -65,6 +77,18 @@ namespace StudentApplicationModel.Data
                 .WithOne(s => s.ScholarshipType)
                 .HasForeignKey(s => s.ScholarshipTypeID);
 
+            modelBuilder.Entity<Sport>(entity =>
+            {
+                entity.ToTable("Sports");
+                entity.HasKey(e => e.SportID);
+                entity.Property(e => e.SportName).IsRequired();
+                entity.Property<int>("SportID").ValueGeneratedOnAdd();
+            });
+
+            modelBuilder.Entity<ScholarshipType>()
+                .Property(s => s.PaymentAmount)
+                .HasPrecision(18, 2);
+
             modelBuilder.Entity<Applicant>()
                 .HasIndex(a => a.CAONumber)
                 .IsUnique();
@@ -73,7 +97,7 @@ namespace StudentApplicationModel.Data
                 .HasIndex(s => new { s.ApplicantID, s.ScholarshipID });
 
             modelBuilder.Ignore<CommitteeMember>();
-            modelBuilder.Ignore<SportIdentity>();
+            modelBuilder.Ignore<IdentitySport>();
             modelBuilder.Ignore<UserSport>();
             modelBuilder.Ignore<IdentityUser>();
         }

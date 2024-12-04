@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace StudentApplication.Migrations.ApplicationDb
+namespace StudentApplication.Migrations
 {
     /// <inheritdoc />
-    public partial class Tet : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -51,15 +51,16 @@ namespace StudentApplication.Migrations.ApplicationDb
                 });
 
             migrationBuilder.CreateTable(
-                name: "IdentitySports",
+                name: "Sports",
                 columns: table => new
                 {
-                    SportID = table.Column<int>(type: "int", nullable: false),
+                    SportID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     SportName = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_IdentitySports", x => x.SportID);
+                    table.PrimaryKey("PK_Sports", x => x.SportID);
                 });
 
             migrationBuilder.CreateTable(
@@ -205,9 +206,9 @@ namespace StudentApplication.Migrations.ApplicationDb
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_UserSports_IdentitySports_SportID",
+                        name: "FK_UserSports_Sports_SportID",
                         column: x => x.SportID,
-                        principalTable: "IdentitySports",
+                        principalTable: "Sports",
                         principalColumn: "SportID",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -294,7 +295,7 @@ namespace StudentApplication.Migrations.ApplicationDb
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "IdentitySports");
+                name: "Sports");
         }
     }
 }

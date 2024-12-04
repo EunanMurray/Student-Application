@@ -67,41 +67,35 @@ namespace ScholarshipInfoSystem.Data
 
         private static void InitializeSports(PrimaryContext primaryContext, ApplicationDbContext applicationContext)
         {
-            if (!primaryContext.Sports.Any())
+            if (!applicationContext.Sports.Any())
             {
-                Console.WriteLine("Adding sports to PrimaryContext.");
+                Console.WriteLine("Adding sports to ApplicationDbContext.");
 
-                var sports = new[]
+                var sportNames = new[]
                 {
-                        new Sport { SportName = "Soccer" },
-                        new Sport { SportName = "Gaelic Football" },
-                        new Sport { SportName = "Hurling" },
-                        new Sport { SportName = "Rugby" },
-                        new Sport { SportName = "Basketball" },
-                        new Sport { SportName = "Athletics" },
-                        new Sport { SportName = "Swimming" },
-                        new Sport { SportName = "Cycling" },
-                        new Sport { SportName = "Golf" },
-                        new Sport { SportName = "Tennis" }
-                    };
+            "Soccer", "Gaelic Football", "Hurling", "Rugby",
+            "Basketball", "Athletics", "Swimming", "Cycling",
+            "Golf", "Tennis"
+        };
 
-                primaryContext.Sports.AddRange(sports);
-                primaryContext.SaveChanges();
-                Console.WriteLine($"Added {sports.Length} sports to PrimaryContext.");
-
-                if (!applicationContext.Sports.Any())
+                foreach (var sportName in sportNames)
                 {
-                    Console.WriteLine("Synchronizing sports with ApplicationDbContext.");
-                    var identitySports = sports.Select(s => new SportIdentity
-                    {
-                        SportID = s.SportID,
-                        SportName = s.SportName
-                    }).ToList();
-
-                    applicationContext.Sports.AddRange(identitySports);
+                    // Add to ApplicationDbContext
+                    var identitySport = new IdentitySport { SportName = sportName };
+                    applicationContext.Sports.Add(identitySport);
                     applicationContext.SaveChanges();
-                    Console.WriteLine($"Synchronized {identitySports.Count} sports with ApplicationDbContext.");
+
+                    // Add to PrimaryContext
+                    var sport = new Sport
+                    {
+                        SportID = identitySport.SportID,
+                        SportName = sportName
+                    };
+                    primaryContext.Sports.Add(sport);
+                    primaryContext.SaveChanges();
                 }
+
+                Console.WriteLine($"Added {sportNames.Length} sports.");
             }
         }
 

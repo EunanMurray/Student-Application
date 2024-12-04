@@ -5,11 +5,11 @@ namespace StudentApplicationModel.Models
 {
     public class UserSport
     {
-        public string UserID { get; set; }
+        public required string UserID { get; set; }
         public int SportID { get; set; }
 
-        public virtual SportIdentity Sport { get; set; } 
-        public virtual IdentityUser User { get; set; } 
+        public virtual IdentitySport? Sport { get; set; }
+        public virtual IdentityUser? User { get; set; }
     }
 
 }
