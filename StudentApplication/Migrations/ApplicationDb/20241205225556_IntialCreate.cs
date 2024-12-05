@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace StudentApplication.Migrations
+namespace StudentApplication.Migrations.ApplicationDb
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class IntialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -48,19 +48,6 @@ namespace StudentApplication.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Sports",
-                columns: table => new
-                {
-                    SportID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    SportName = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Sports", x => x.SportID);
                 });
 
             migrationBuilder.CreateTable(
@@ -189,30 +176,6 @@ namespace StudentApplication.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "UserSports",
-                columns: table => new
-                {
-                    UserID = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    SportID = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserSports", x => new { x.UserID, x.SportID });
-                    table.ForeignKey(
-                        name: "FK_UserSports_AspNetUsers_UserID",
-                        column: x => x.UserID,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_UserSports_Sports_SportID",
-                        column: x => x.SportID,
-                        principalTable: "Sports",
-                        principalColumn: "SportID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -257,11 +220,6 @@ namespace StudentApplication.Migrations
                 table: "CommitteeMembers",
                 column: "UserID",
                 unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserSports_SportID",
-                table: "UserSports",
-                column: "SportID");
         }
 
         /// <inheritdoc />
@@ -286,16 +244,10 @@ namespace StudentApplication.Migrations
                 name: "CommitteeMembers");
 
             migrationBuilder.DropTable(
-                name: "UserSports");
-
-            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "Sports");
         }
     }
 }

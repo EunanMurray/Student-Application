@@ -1,7 +1,13 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\student-application-model",
+    "\\student-application-model\\Data",
+    "\\StudentApplication",
+    "\\StudentApplication\\Data",
+    "\\StudentApplication\\Pages",
+    "\\StudentApplication\\Pages\\Admin"
   ],
-  "SelectedNode": "\\StudentApplication.sln",
+  "SelectedNode": "\\StudentApplication\\Pages",
   "PreviewInSolutionExplorer": false
 }

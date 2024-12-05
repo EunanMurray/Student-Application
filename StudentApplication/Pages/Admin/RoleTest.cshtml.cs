@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using StudentApplicationModel.Data;
 
 [Authorize]
 public class RoleTestModel : PageModel
@@ -16,6 +17,7 @@ public class RoleTestModel : PageModel
     private readonly UserManager<IdentityUser> _userManager;
     private readonly RoleManager<IdentityRole> _roleManager;
     private readonly ApplicationDbContext _applicationDb;
+    private readonly PrimaryContext _primaryContext;
     private readonly ILogger<RoleTestModel> _logger;
 
     public List<UserWithRoleViewModel> Users { get; set; } = new List<UserWithRoleViewModel>();
@@ -26,11 +28,13 @@ public class RoleTestModel : PageModel
         UserManager<IdentityUser> userManager,
         RoleManager<IdentityRole> roleManager,
         ApplicationDbContext applicationDb,
+        PrimaryContext primaryContext,
         ILogger<RoleTestModel> logger)
     {
         _userManager = userManager;
         _roleManager = roleManager;
         _applicationDb = applicationDb;
+        _primaryContext = primaryContext;
         _logger = logger;
     }
 
@@ -47,10 +51,9 @@ public class RoleTestModel : PageModel
 
             if (User.IsInRole(RoleNames.CommitteeMember))
             {
-                // Get assigned sports for committee member
-                AssignedSports = await _applicationDb.UserSports
+                AssignedSports = await _primaryContext.UserSports
                     .Where(us => us.UserID == currentUser.Id)
-                    .Join(_applicationDb.Sports,
+                    .Join(_primaryContext.Sports,
                         us => us.SportID,
                         s => s.SportID,
                         (us, s) => s.SportName)
@@ -108,14 +111,12 @@ public class RoleTestModel : PageModel
                 return RedirectToPage();
             }
 
-            // Remove all current roles
             var currentRoles = await _userManager.GetRolesAsync(user);
             if (currentRoles.Any())
             {
                 await _userManager.RemoveFromRolesAsync(user, currentRoles);
             }
 
-            // Add the new role if provided
             if (!string.IsNullOrEmpty(selectedRole))
             {
                 var roleExists = await _roleManager.RoleExistsAsync(selectedRole);
@@ -124,17 +125,16 @@ public class RoleTestModel : PageModel
                     await _userManager.AddToRoleAsync(user, selectedRole);
                     TempData["SuccessMessage"] = $"Role for {email} updated to {selectedRole}.";
 
-                    // If user is no longer a committee member, remove their sport assignments
                     if (selectedRole != RoleNames.CommitteeMember)
                     {
-                        var userSports = await _applicationDb.UserSports
+                        var userSports = await _primaryContext.UserSports
                             .Where(us => us.UserID == user.Id)
                             .ToListAsync();
 
                         if (userSports.Any())
                         {
-                            _applicationDb.UserSports.RemoveRange(userSports);
-                            await _applicationDb.SaveChangesAsync();
+                            _primaryContext.UserSports.RemoveRange(userSports);
+                            await _primaryContext.SaveChangesAsync();
                         }
                     }
                 }

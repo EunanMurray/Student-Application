@@ -25,6 +25,7 @@ namespace ScholarshipInfoSystem.Data
             InitializeDefaultAdmin(userManager).Wait();
             InitializeDefaultCommitteeMember(userManager).Wait();
             InitializeTestApplicants(primaryContext);
+            InitializeUserSports(primaryContext, userManager);
         }
 
         private static void InitializeScholarshipTypes(PrimaryContext primaryContext)
@@ -80,15 +81,9 @@ namespace ScholarshipInfoSystem.Data
 
                 foreach (var sportName in sportNames)
                 {
-                    // Add to ApplicationDbContext
-                    //var identitySport = new IdentitySport { SportName = sportName };
-                    //applicationContext.Sports.Add(identitySport);
-                    //applicationContext.SaveChanges();
-
                     // Add to PrimaryContext
                     var sport = new Sport
                     {
-                        //SportID = identitySport.SportID
                         SportName = sportName
                     };
                     primaryContext.Sports.Add(sport);
@@ -98,6 +93,54 @@ namespace ScholarshipInfoSystem.Data
                 Console.WriteLine($"Added {sportNames.Length} sports.");
             }
         }
+
+        private static void InitializeUserSports(PrimaryContext primaryContext, UserManager<IdentityUser> userManager)
+        {
+            try
+            {
+                var testUser = userManager.Users.FirstOrDefault(u => u.Email == "member@example.com");
+                if (testUser == null)
+                {
+                    Console.WriteLine("Test user not found");
+                    return;
+                }
+
+                var existingUserSport = primaryContext.UserSports
+                    .AsNoTracking()
+                    .FirstOrDefault(us => us.UserID == testUser.Id);
+
+                if (existingUserSport == null)
+                {
+                    var soccer = primaryContext.Sports.FirstOrDefault(s => s.SportName == "Soccer");
+                    if (soccer != null)
+                    {
+                        var userSport = new UserSport
+                        {
+                            UserID = testUser.Id,
+                            SportID = soccer.SportID
+                        };
+
+                        primaryContext.UserSports.Add(userSport);
+                        primaryContext.SaveChanges();
+                        Console.WriteLine("Added user sport successfully");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Soccer sport not found");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("User sport already exists");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in InitializeUserSports: {ex.Message}");
+            }
+        }
+
+
 
         private static async Task InitializeRoles(RoleManager<IdentityRole> roleManager)
         {

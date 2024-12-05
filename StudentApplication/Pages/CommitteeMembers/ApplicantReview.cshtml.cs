@@ -51,8 +51,7 @@ public class ApplicantReviewModel : PageModel
                 return NotFound("User not found.");
             }
 
-            // Get sports assigned to this committee member from ApplicationDbContext
-            var assignedSportIds = await _applicationDb.UserSports
+            var assignedSportIds = await _primaryContext.UserSports
                 .Where(us => us.UserID == user.Id)
                 .Select(us => us.SportID)
                 .ToListAsync();
@@ -63,13 +62,11 @@ public class ApplicantReviewModel : PageModel
                 return Page();
             }
 
-            // Get sport names from PrimaryContext
             AssignedSports = await _primaryContext.Sports
                 .Where(s => assignedSportIds.Contains(s.SportID))
                 .Select(s => s.SportName)
                 .ToListAsync();
 
-            // Get applicants who have applied for any of the assigned sports
             var applicants = await _primaryContext.Applicants
                 .Include(a => a.ApplicantSports)
                 .ThenInclude(a => a.Sport)

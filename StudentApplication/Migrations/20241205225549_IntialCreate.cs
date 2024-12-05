@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace StudentApplication.Migrations.Primary
+namespace StudentApplication.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class IntialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -31,11 +31,24 @@ namespace StudentApplication.Migrations.Primary
                     ScholarshipTypeID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ScholarshipLevelName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PaymentAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    PaymentAmount = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ScholarshipTypes", x => x.ScholarshipTypeID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Sports",
+                columns: table => new
+                {
+                    SportID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SportName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Sports", x => x.SportID);
                 });
 
             migrationBuilder.CreateTable(
@@ -55,6 +68,24 @@ namespace StudentApplication.Migrations.Primary
                         column: x => x.ScholarshipTypeID,
                         principalTable: "ScholarshipTypes",
                         principalColumn: "ScholarshipTypeID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserSports",
+                columns: table => new
+                {
+                    UserID = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    SportID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserSports", x => new { x.UserID, x.SportID });
+                    table.ForeignKey(
+                        name: "FK_UserSports_Sports_SportID",
+                        column: x => x.SportID,
+                        principalTable: "Sports",
+                        principalColumn: "SportID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -335,6 +366,11 @@ namespace StudentApplication.Migrations.Primary
                 name: "IX_Scholarships_ScholarshipTypeID",
                 table: "Scholarships",
                 column: "ScholarshipTypeID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserSports_SportID",
+                table: "UserSports",
+                column: "SportID");
         }
 
         /// <inheritdoc />
@@ -362,7 +398,13 @@ namespace StudentApplication.Migrations.Primary
                 name: "ScholarshipOfferHistories");
 
             migrationBuilder.DropTable(
+                name: "UserSports");
+
+            migrationBuilder.DropTable(
                 name: "Applicants");
+
+            migrationBuilder.DropTable(
+                name: "Sports");
 
             migrationBuilder.DropTable(
                 name: "Campuses");

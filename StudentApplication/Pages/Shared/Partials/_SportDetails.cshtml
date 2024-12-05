@@ -1,5 +1,7 @@
-﻿@model StudentApplicationPages.ViewModels.ApplicantViewModel
+﻿@using StudentApplicationModel.Data
+@model StudentApplicationPages.ViewModels.ApplicantViewModel
 @inject ApplicationDbContext _applicationDb
+@inject PrimaryContext _primaryContext
 
 <div class="container">
     <h3>Sport Details</h3>
@@ -7,12 +9,10 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label for="SportIDs">Main Sport</label>
-                <select asp-for="SportIDs" asp-items="@(new MultiSelectList(_applicationDb.Sports
-                        .Select(s => new IdentitySport
-                        {
-                            SportID = s.SportID,
-                            SportName = s.SportName
-                        }), "SportID", "SportName"))" multiple="multiple" class="form-control">
+                <select asp-for="SportIDs" asp-items="@(new MultiSelectList(
+                        _primaryContext.Sports.ToList(), "SportID", "SportName"))"
+                        multiple="multiple"
+                        class="form-control">
                 </select>
                 <span asp-validation-for="SportIDs" class="text-danger"></span>
             </div>

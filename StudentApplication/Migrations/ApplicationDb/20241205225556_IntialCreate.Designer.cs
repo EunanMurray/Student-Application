@@ -3,16 +3,19 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace StudentApplication.Migrations
+namespace StudentApplication.Migrations.ApplicationDb
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241205225556_IntialCreate")]
+    partial class IntialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -20,23 +23,6 @@ namespace StudentApplication.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("IdentitySport", b =>
-                {
-                    b.Property<int>("SportID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SportID"));
-
-                    b.Property<string>("SportName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("SportID");
-
-                    b.ToTable("Sports", (string)null);
-                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -260,21 +246,6 @@ namespace StudentApplication.Migrations
                     b.ToTable("CommitteeMembers", (string)null);
                 });
 
-            modelBuilder.Entity("StudentApplicationModel.Models.UserSport", b =>
-                {
-                    b.Property<string>("UserID")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("SportID")
-                        .HasColumnType("int");
-
-                    b.HasKey("UserID", "SportID");
-
-                    b.HasIndex("SportID");
-
-                    b.ToTable("UserSports", (string)null);
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -335,30 +306,6 @@ namespace StudentApplication.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("StudentApplicationModel.Models.UserSport", b =>
-                {
-                    b.HasOne("IdentitySport", "Sport")
-                        .WithMany("UserSports")
-                        .HasForeignKey("SportID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Sport");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("IdentitySport", b =>
-                {
-                    b.Navigation("UserSports");
                 });
 #pragma warning restore 612, 618
         }

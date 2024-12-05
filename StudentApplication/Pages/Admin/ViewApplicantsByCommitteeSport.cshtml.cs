@@ -64,10 +64,11 @@ namespace StudentApplication.Pages.Admin
 
                 // Retrieve the sports assigned to the user
                 _logger.LogInformation("Retrieving user sports.");
-                var userSports = await _applicationDbContext.UserSports
+                var userSports = await _primaryContext.UserSports
                     .Where(us => us.UserID == currentUser.Id)
                     .Select(us => us.SportID)
                     .ToListAsync();
+
 
                 _logger.LogInformation($"UserSports for user {currentUser.UserName}: {string.Join(", ", userSports)}");
 

@@ -22,6 +22,7 @@ namespace StudentApplicationModel.Data
             CourseCodes = Set<CourseCode>();
             Campuses = Set<Campus>();
             Sports = Set<Sport>();
+            UserSports = Set<UserSport>();
         }
 
         public DbSet<Scholarship> Scholarships { get; set; }
@@ -36,9 +37,26 @@ namespace StudentApplicationModel.Data
         public DbSet<CourseCode> CourseCodes { get; set; }
         public DbSet<Campus> Campuses { get; set; }
         public DbSet<Sport> Sports { get; set; }
+        public DbSet<UserSport> UserSports { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<UserSport>()
+                .HasKey(us => new { us.UserID, us.SportID });
+
+            modelBuilder.Entity<UserSport>()
+                .HasOne(us => us.User)
+                .WithMany()
+                .HasForeignKey(us => us.UserID)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<UserSport>()
+                .HasOne(us => us.Sport)
+                .WithMany(s => s.UserSports)
+                .HasForeignKey(us => us.SportID)
+                .OnDelete(DeleteBehavior.Cascade);
+
             modelBuilder.Entity<ApplicantSport>()
                 .HasKey(a => new { a.ApplicantID, a.SportID });
 
@@ -61,6 +79,7 @@ namespace StudentApplicationModel.Data
                 .HasMany(a => a.Referees)
                 .WithOne(r => r.Applicant)
                 .HasForeignKey(r => r.ApplicantID);
+
 
             modelBuilder.Entity<Sport>()
                 .HasMany(s => s.ApplicantSports)
@@ -97,8 +116,6 @@ namespace StudentApplicationModel.Data
                 .HasIndex(s => new { s.ApplicantID, s.ScholarshipID });
 
             modelBuilder.Ignore<CommitteeMember>();
-            modelBuilder.Ignore<IdentitySport>();
-            modelBuilder.Ignore<UserSport>();
             modelBuilder.Ignore<IdentityUser>();
         }
     }

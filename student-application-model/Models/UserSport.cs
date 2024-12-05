@@ -8,7 +8,7 @@ namespace StudentApplicationModel.Models
         public required string UserID { get; set; }
         public int SportID { get; set; }
 
-        //public virtual IdentitySport? Sport { get; set; }
+        public virtual Sport Sport { get; set; }
         public virtual IdentityUser? User { get; set; }
     }
 

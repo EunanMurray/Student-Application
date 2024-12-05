@@ -9,11 +9,11 @@ using StudentApplicationModel.Data;
 
 #nullable disable
 
-namespace StudentApplication.Migrations.Primary
+namespace StudentApplication.Migrations
 {
     [DbContext(typeof(PrimaryContext))]
-    [Migration("20241204212753_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20241205225549_IntialCreate")]
+    partial class IntialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -362,6 +362,7 @@ namespace StudentApplication.Migrations.Primary
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ScholarshipTypeID"));
 
                     b.Property<decimal>("PaymentAmount")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("ScholarshipLevelName")
@@ -387,10 +388,22 @@ namespace StudentApplication.Migrations.Primary
 
                     b.HasKey("SportID");
 
-                    b.ToTable("Sports", null, t =>
-                        {
-                            t.ExcludeFromMigrations();
-                        });
+                    b.ToTable("Sports", (string)null);
+                });
+
+            modelBuilder.Entity("StudentApplicationModel.Models.UserSport", b =>
+                {
+                    b.Property<string>("UserID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("SportID")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserID", "SportID");
+
+                    b.HasIndex("SportID");
+
+                    b.ToTable("UserSports");
                 });
 
             modelBuilder.Entity("Applicant", b =>
@@ -518,6 +531,17 @@ namespace StudentApplication.Migrations.Primary
                     b.Navigation("Sport");
                 });
 
+            modelBuilder.Entity("StudentApplicationModel.Models.UserSport", b =>
+                {
+                    b.HasOne("StudentApplicationModel.Models.Sport", "Sport")
+                        .WithMany("UserSports")
+                        .HasForeignKey("SportID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Sport");
+                });
+
             modelBuilder.Entity("Applicant", b =>
                 {
                     b.Navigation("ApplicantSports");
@@ -550,6 +574,8 @@ namespace StudentApplication.Migrations.Primary
                     b.Navigation("ApplicantSports");
 
                     b.Navigation("ScholarshipOfferHistories");
+
+                    b.Navigation("UserSports");
                 });
 #pragma warning restore 612, 618
         }
