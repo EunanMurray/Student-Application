@@ -9,12 +9,12 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser>
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
     {
-        Sports = Set<IdentitySport>();
+        //Sports = Set<IdentitySport>();
         UserSports = Set<UserSport>();
         CommitteeMembers = Set<CommitteeMember>();
     }
 
-    public DbSet<IdentitySport> Sports { get; set; }
+    //public DbSet<IdentitySport> Sports { get; set; }
     public DbSet<UserSport> UserSports { get; set; }
     public DbSet<CommitteeMember> CommitteeMembers { get; set; }
 
@@ -22,13 +22,13 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser>
     {
         base.OnModelCreating(builder);
 
-        builder.Entity<IdentitySport>(entity =>
-        {
-            entity.ToTable("Sports");
-            entity.HasKey(e => e.SportID);
-            entity.Property(e => e.SportID).ValueGeneratedNever();
-            entity.Property(e => e.SportName).IsRequired();
-        });
+        //builder.Entity<IdentitySport>(entity =>
+        //{
+        //    entity.ToTable("Sports");
+        //    entity.HasKey(e => e.SportID);
+        //    entity.Property(e => e.SportID).ValueGeneratedNever();
+        //    entity.Property(e => e.SportName).IsRequired();
+        //});
 
         builder.Entity<UserSport>(entity =>
         {

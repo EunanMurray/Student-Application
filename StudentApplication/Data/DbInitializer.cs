@@ -21,7 +21,7 @@ namespace ScholarshipInfoSystem.Data
 
             InitializeScholarshipTypes(primaryContext);
             InitializeCampuses(primaryContext);
-            InitializeSports(primaryContext, applicationContext);
+            InitializeSports(primaryContext);
             InitializeDefaultAdmin(userManager).Wait();
             InitializeDefaultCommitteeMember(userManager).Wait();
             InitializeTestApplicants(primaryContext);
@@ -65,9 +65,9 @@ namespace ScholarshipInfoSystem.Data
             }
         }
 
-        private static void InitializeSports(PrimaryContext primaryContext, ApplicationDbContext applicationContext)
+        private static void InitializeSports(PrimaryContext primaryContext)
         {
-            if (!applicationContext.Sports.Any())
+            if (!primaryContext.Sports.Any())
             {
                 Console.WriteLine("Adding sports to ApplicationDbContext.");
 
@@ -81,14 +81,14 @@ namespace ScholarshipInfoSystem.Data
                 foreach (var sportName in sportNames)
                 {
                     // Add to ApplicationDbContext
-                    var identitySport = new IdentitySport { SportName = sportName };
-                    applicationContext.Sports.Add(identitySport);
-                    applicationContext.SaveChanges();
+                    //var identitySport = new IdentitySport { SportName = sportName };
+                    //applicationContext.Sports.Add(identitySport);
+                    //applicationContext.SaveChanges();
 
                     // Add to PrimaryContext
                     var sport = new Sport
                     {
-                        SportID = identitySport.SportID,
+                        //SportID = identitySport.SportID
                         SportName = sportName
                     };
                     primaryContext.Sports.Add(sport);

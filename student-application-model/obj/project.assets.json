@@ -4558,11 +4558,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\eunan\\Source\\Repos\\Student-Application\\student-application-model\\student-application-model.csproj",
+      "projectUniqueName": "C:\\Users\\eunan\\source\\repos\\EunanMurray\\Student-Application\\student-application-model\\student-application-model.csproj",
       "projectName": "student-application-model",
-      "projectPath": "C:\\Users\\eunan\\Source\\Repos\\Student-Application\\student-application-model\\student-application-model.csproj",
+      "projectPath": "C:\\Users\\eunan\\source\\repos\\EunanMurray\\Student-Application\\student-application-model\\student-application-model.csproj",
       "packagesPath": "C:\\Users\\eunan\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\eunan\\Source\\Repos\\Student-Application\\student-application-model\\obj\\",
+      "outputPath": "C:\\Users\\eunan\\source\\repos\\EunanMurray\\Student-Application\\student-application-model\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
