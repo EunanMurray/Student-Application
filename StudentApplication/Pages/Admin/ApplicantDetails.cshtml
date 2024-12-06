@@ -1,0 +1,99 @@
+﻿@page "{name}"
+@model StudentApplication.Pages.Admin.ApplicantDetailsModel
+<style>
+    .applicants-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .applicant-card {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 16px;
+        background: white;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .applicant-info {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .info-row {
+        border-bottom: 1px solid #eee;
+        padding-bottom: 8px;
+    }
+
+    .info-label {
+        font-weight: bold;
+        color: #555;
+        margin-bottom: 4px;
+    }
+
+    .referee-info {
+        background: #f5f5f5;
+        padding: 8px;
+        border-radius: 4px;
+        margin-top: 4px;
+    }
+</style>
+<div class="applicant-card">
+    @if (Model.Applicant == null)
+    {
+        <p>Applicant not found.</p>
+    }
+    else
+    {
+        <div class="applicant-info">
+            <div class="info-row">
+                <div class="info-label">Name</div>
+                <div>@Model.Applicant.Name</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Date of Birth</div>
+                <div>@Model.Applicant.DateOfBirth?.ToString("yyyy-MM-dd")</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Sporting Details</div>
+                <div>@Model.Applicant.SportingDetails</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Sporting Achievements</div>
+                <div>@Model.Applicant.SportingAchievements</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Sporting Goals</div>
+                <div>@Model.Applicant.SportingGoals</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Past Clubs</div>
+                <div>@Model.Applicant.PastClubs</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Highest Competition Level</div>
+                <div>@Model.Applicant.HighestCompetitionLevel</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Referees</div>
+                @if (Model.Applicant.Referees != null && Model.Applicant.Referees.Any())
+                {
+                    @foreach (var referee in Model.Applicant.Referees)
+                    {
+                        <div class="referee-info">
+                            <strong>@referee.Name</strong> (@referee.TitleOrRole)<br />
+                            Phone: @referee.PhoneNumber<br />
+                            Email: @referee.Email
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p>No referees available.</p>
+                }
+            </div>
+        </div>
+    }
+</div>
