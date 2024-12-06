@@ -53,41 +53,8 @@
                         <div class="info-label">Name</div>
                         <div>@applicant.Name</div>
                     </div>
-                    <div class="info-row">
-                        <div class="info-label">Date of Birth</div>
-                        <div>@applicant.DateOfBirth?.ToString("yyyy-MM-dd")</div>
-                    </div>
-                    <div class="info-row">
-                        <div class="info-label">Sporting Details</div>
-                        <div>@applicant.SportingDetails</div>
-                    </div>
-                    <div class="info-row">
-                        <div class="info-label">Sporting Achievements</div>
-                        <div>@applicant.SportingAchievements</div>
-                    </div>
-                    <div class="info-row">
-                        <div class="info-label">Sporting Goals</div>
-                        <div>@applicant.SportingGoals</div>
-                    </div>
-                    <div class="info-row">
-                        <div class="info-label">Past Clubs</div>
-                        <div>@applicant.PastClubs</div>
-                    </div>
-                    <div class="info-row">
-                        <div class="info-label">Highest Competition Level</div>
-                        <div>@applicant.HighestCompetitionLevel</div>
-                    </div>
-                    <div class="info-row">
-                        <div class="info-label">Referees</div>
-                        @foreach (var referee in applicant.Referees)
-                        {
-                            <div class="referee-info">
-                                <strong>@referee.Name</strong> (@referee.TitleOrRole)<br>
-                                Phone: @referee.PhoneNumber<br>
-                                Email: @referee.Email
-                            </div>
-                        }
-                    </div>
+                    
+                    
                 </div>
             </div>
         }
