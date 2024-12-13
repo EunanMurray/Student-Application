@@ -1,0 +1,54 @@
+/* _content/StudentApplication/Pages/Shared/_Layout.cshtml.rz.scp.css */
+.navbar[b-xd7y7eeq48] {
+    background-color: #015b5e !important;
+    padding: 1rem;
+}
+
+.navbar-brand[b-xd7y7eeq48] {
+    color: white !important;
+    font-weight: 500;
+}
+
+.navbar-nav .nav-link[b-xd7y7eeq48] {
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-weight: 400;
+    text-transform: uppercase;
+    padding: 0.5rem 1rem;
+}
+
+    .navbar-nav .nav-link:hover[b-xd7y7eeq48] {
+        color: #f8f9fa !important;
+        text-decoration: underline;
+    }
+
+.navbar-nav .dropdown-menu[b-xd7y7eeq48] {
+    background-color: #015b5e;
+    border: none;
+    color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.dropdown-item[b-xd7y7eeq48] {
+    color: white;
+}
+
+    .dropdown-item:hover[b-xd7y7eeq48] {
+        background-color: #014446;
+    }
+
+.navbar-toggler[b-xd7y7eeq48] {
+    border-color: rgba(255, 255, 255, 0.8);
+}
+
+.navbar-toggler-icon[b-xd7y7eeq48] {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+.footer[b-xd7y7eeq48] {
+    position: relative;
+    width: 100%;
+    text-align: center;
+    padding: 1rem 0;
+    background-color: #f8f9fa;
+    color: #6c757d;
+}
