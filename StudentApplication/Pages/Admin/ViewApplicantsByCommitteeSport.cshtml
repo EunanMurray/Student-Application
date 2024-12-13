@@ -1,0 +1,70 @@
+﻿@page
+@model StudentApplication.Pages.Admin.ViewApplicantsByCommitteeSportModel
+
+<style>
+    .applicants-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .applicant-card {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 16px;
+        background: white;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .applicant-info {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .info-row {
+        border-bottom: 1px solid #eee;
+        padding-bottom: 8px;
+    }
+
+    .info-label {
+        font-weight: bold;
+        color: #555;
+        margin-bottom: 4px;
+    }
+
+    .referee-info {
+        background: #f5f5f5;
+        padding: 8px;
+        border-radius: 4px;
+        margin-top: 4px;
+    }
+</style>
+
+<div class="applicants-grid">
+    @if (Model.Applicants != null && Model.Applicants.Any())
+    {
+        @foreach (var applicant in Model.Applicants)
+        {
+            <div class="applicant-card">
+                <div class="applicant-info">
+                    <div class="info-row">
+                        <div class="info-label">Name</div>
+                        <div>@applicant.Name</div>
+                    </div>
+                    <a asp-page="./ApplicantDetails" asp-route-name="@applicant.Name" class="btn btn-primary">
+                        View Applicant Details
+                    </a>
+
+                    
+                    
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <p>No applicants found for your assigned sports.</p>
+    }
+</div>

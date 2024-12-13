@@ -1,0 +1,116 @@
+1. Project Overview
+-------------------
+This project is a **Scholarship Application Management System**, designed to manage:
+- Applicant submissions, including personal details, academic history, references, and sports involvement.
+- Role-based access control for administrators and committee members to manage applications and scholarships.
+- Scholarships, their types, and applicant offer histories.
+
+It is built with **ASP.NET Core**, using **Razor Pages** for the front-end and **Entity Framework Core** for database management.
+
+----------------------------------------------------------
+
+2. Directory Structure
+----------------------
+The following outlines the core structure of the project directory:
+
+- **Program.cs**: Entry point for the application. Configures services, middleware, and initialises the database.
+- **appsettings.json**: Contains database connection strings and logging configurations.
+- **Pages/**
+  - **Applications/**: Handles applicant submissions and confirmation workflows.
+    - `Apply.cshtml` and `Apply.cshtml.cs`: Form for applicant submissions.
+    - `Confirmation.cshtml` and `Confirmation.cshtml.cs`: Confirmation page for successful submissions.
+  - **Admin/**: Admin and committee functionalities.
+    - `ManageCommitteeSports.cshtml`: Admin interface for assigning committee members to sports.
+    - `ViewApplicantsByCommitteeSport.cshtml`: Allows committee members to view applicants linked to their assigned sports.
+  - **Shared/Partials/**: Modular components used across pages.
+    - `_PersonalDetails.cshtml`: Displays and manages personal details of applicants.
+    - `_SportDetails.cshtml`: Handles sport-related details.
+- **Models/**: Contains entity classes representing database tables, such as `Applicant.cs`, `Sport.cs`, and `Scholarship.cs`.
+- **Data/**: Manages database contexts and initialisation.
+  - `PrimaryContext.cs`: Core application data (e.g., Applicants, Scholarships).
+  - `ApplicationDbContext.cs`: Identity and role management.
+  - `DbInitializer.cs`: Seeds default data for roles, admin users, and test applicants.
+
+----------------------------------------------------------
+
+3. Setting Up the Project
+-------------------------
+
+### Prerequisites:
+- **.NET 6 SDK** installed on your machine.
+- **SQL Server** (local or hosted instance).
+- An IDE such as **Visual Studio 2022**.
+
+### Steps:
+1. **Clone the Repository**:
+   ```
+   git clone <repository_url>
+   cd ScholarshipApplicationSystem
+   ```
+
+2. **Configure Database Connection**:
+   Update the connection strings in `appsettings.json`:
+   ```json
+   "Project300Database": "Server=(localdb)\mssqllocaldb;Database=ScholarshipProjectDB;Trusted_Connection=True;MultipleActiveResultSets=true",
+   ```
+
+3. **Apply Migrations**:
+   Run the following commands to set up the database:
+   ```
+   Add-Migration -Context ApplicationDbContext InitialCreate
+   Update-Database -Context ApplicationDbContext
+
+   Add-Migration -Context PrimaryContext InitialCreate
+   Update-Database -Context PrimaryContext
+   ```
+    If you encoutner any issues with migrations do the following:
+      1: Make sure database is not already in existance, if it is stop the program and delete it in sql object explorer.
+      2: Make sure to clear your migrations folder, You may have migrations already using the same name
+      3: If other issue normally stack overflow helps me or just send me (Eunan) a message, have probably already stumbled upon it.
+
+4. **Run the Application**:
+   Use the IDE 
+----------------------------------------------------------
+
+4. Database Setup
+-----------------
+The project uses two separate database contexts:
+- PrimaryContext:
+  - Handles core application entities like `Applicants`, `Scholarships`, and `Sports`.
+- ApplicationDbContext:
+  - Manages user identity and roles.
+
+----------------------------------------------------------
+
+5. Core Components
+------------------
+
+Applicants
+- Applicants submit applications with personal, academic, and sports details.
+- Data is validated and stored in the database.
+
+Role-Based Access Control
+- Admins can assign roles and permissions.
+- Committee members can review applications based on their assigned sports.
+
+Scholarships
+- Scholarship types (e.g., Gold, Silver, Bronze) are linked to applicants.
+- Offer histories are maintained for tracking.
+
+----------------------------------------------------------
+
+6. Key Features
+---------------
+- Applicant Management:
+  - Submission of detailed applications with validation.
+  - Tracking of applicant progress and scholarship offers.
+
+- Role Management:
+  - Admins assign roles dynamically (e.g., Admin, Committee Member).
+  - Committee members are limited to viewing applications for their assigned sports.
+
+- Sport and Scholarship Management:
+  - Sports are assigned to both applicants and committee members.
+  - Scholarships are categorised and linked to applicants.
+
+----------------------------------------------------------

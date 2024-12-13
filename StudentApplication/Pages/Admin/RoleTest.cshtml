@@ -1,0 +1,72 @@
+﻿@page
+@model RoleTestModel
+@using Microsoft.AspNetCore.Identity
+@{
+    ViewData["Title"] = "Role Test";
+}
+
+<h2>Role Testing Page</h2>
+
+<p>Welcome, @User.Identity.Name!</p>
+
+@if (User.IsInRole(RoleNames.Admin))
+{
+    <p>You are an <strong>Admin</strong>.</p>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+
+    <h3>Manage User Roles</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>User</th>
+                <th>Email</th>
+                <th>Current Role</th>
+                <th>New Role</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model.Users)
+            {
+                <tr>
+                    <td>@user.UserName</td>
+                    <td>@user.Email</td>
+                    <td>@user.CurrentRole</td>
+                    <td colspan="2">
+                        <form method="post">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="email" value="@user.Email" />
+                            <div class="form-group">
+                                <select name="selectedRole" class="form-control" asp-items="Model.RoleSelectList">
+                                    <option value="">Select role</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Update Role</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else if (User.IsInRole(RoleNames.CommitteeMember))
+{
+    <p>You are a <strong>Committee Member</strong> for @string.Join(", ", Model.AssignedSports)</p>
+}
+else
+{
+    <p>You are a <strong>Viewer</strong>.</p>
+}
