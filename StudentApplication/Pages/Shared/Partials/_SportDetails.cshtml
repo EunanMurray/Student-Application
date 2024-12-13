@@ -1,0 +1,53 @@
+﻿@using StudentApplicationModel.Data
+@model StudentApplicationPages.ViewModels.ApplicantViewModel
+@inject ApplicationDbContext _applicationDb
+@inject PrimaryContext _primaryContext
+
+<div class="container">
+    <h3>Sport Details</h3>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="SportIDs">Main Sport</label>
+                <select asp-for="SportIDs" asp-items="@(new MultiSelectList(
+                        _primaryContext.Sports.ToList(), "SportID", "SportName"))"
+                        multiple="multiple"
+                        class="form-control">
+                </select>
+                <span asp-validation-for="SportIDs" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="SportPositionOrCategory">Sport Position or Category</label>
+                <input asp-for="SportPositionOrCategory" class="form-control" />
+                <span asp-validation-for="SportPositionOrCategory" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="CurrentClub">Current Club</label>
+                <input asp-for="CurrentClub" class="form-control" />
+                <span asp-validation-for="CurrentClub" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="PastClubs">Past Clubs</label>
+                <input asp-for="PastClubs" class="form-control" />
+                <span asp-validation-for="PastClubs" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="HighestCompetitionLevel">Highest Competition Level</label>
+                <input asp-for="HighestCompetitionLevel" class="form-control" />
+                <span asp-validation-for="HighestCompetitionLevel" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="SportingAchievements">Sporting Achievements</label>
+                <textarea asp-for="SportingAchievements" class="form-control"></textarea>
+                <span asp-validation-for="SportingAchievements" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="SportingGoals">Sporting Goals</label>
+                <textarea asp-for="SportingGoals" class="form-control"></textarea>
+                <span asp-validation-for="SportingGoals" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+</div>
