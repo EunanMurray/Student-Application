@@ -2076,7 +2076,10 @@
           "Microsoft.EntityFrameworkCore.SqlServer": "8.0.5"
         },
         "runtime": {
-          "student-application-model.dll": {}
+          "student-application-model.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       }
     }

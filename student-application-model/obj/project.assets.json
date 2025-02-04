@@ -4552,24 +4552,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\S00238375\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\evanb\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\S00238375\\Source\\Repos\\Student-Application\\student-application-model\\student-application-model.csproj",
+      "projectUniqueName": "C:\\Users\\evanb\\Source\\Repos\\Student-Application1\\student-application-model\\student-application-model.csproj",
       "projectName": "student-application-model",
-      "projectPath": "C:\\Users\\S00238375\\Source\\Repos\\Student-Application\\student-application-model\\student-application-model.csproj",
-      "packagesPath": "C:\\Users\\S00238375\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\S00238375\\Source\\Repos\\Student-Application\\student-application-model\\obj\\",
+      "projectPath": "C:\\Users\\evanb\\Source\\Repos\\Student-Application1\\student-application-model\\student-application-model.csproj",
+      "packagesPath": "C:\\Users\\evanb\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\evanb\\Source\\Repos\\Student-Application1\\student-application-model\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\S00238375\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\evanb\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -4640,7 +4635,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
