@@ -1,5 +1,6 @@
 ﻿@page "{name}"
 @model StudentApplication.Pages.Admin.ApplicantDetailsModel
+
 <style>
     .applicants-grid {
         display: grid;
@@ -39,7 +40,43 @@
         border-radius: 4px;
         margin-top: 4px;
     }
+
+    .scholarship-buttons {
+        display: flex;
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    .bronze-btn {
+        background: #cd7f32;
+        color: white;
+    }
+
+    .silver-btn {
+        background: #c0c0c0;
+        color: black;
+    }
+
+    .gold-btn {
+        background: #ffd700;
+        color: black;
+    }
+    
+    .reject-btn
+    {
+        background: red;
+        color: black;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+    }
 </style>
+
 <div class="applicant-card">
     @if (Model.Applicant == null)
     {
@@ -93,6 +130,14 @@
                 {
                     <p>No referees available.</p>
                 }
+            </div>
+
+            <div class="scholarship-buttons">
+                <button class="btn bronze-btn">Bronze</button>
+                <button class="btn silver-btn">Silver</button>
+                <button class="btn gold-btn">Gold</button>
+                <button class="btn reject-btn">Reject</button>
+
             </div>
         </div>
     }
