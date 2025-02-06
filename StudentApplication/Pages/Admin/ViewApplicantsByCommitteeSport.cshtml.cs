@@ -117,6 +117,7 @@ namespace StudentApplication.Pages.Admin
                     SportingAchievements = a.SportingAchievements,
                     SportingGoals = a.SportingGoals,
                     PastClubs = a.PastClubs,
+                    ApplicationStatus = a.ApplicationStatus,
                     HighestCompetitionLevel = a.HighestCompetitionLevel,
                     Referees = a.Referees.Select(r => new RefereeViewModel
                     {
@@ -149,6 +150,7 @@ namespace StudentApplication.Pages.Admin
         public string SportingAchievements { get; set; }
         public string SportingGoals { get; set; }
         public string PastClubs { get; set; }
+        public string ApplicationStatus { get; set; } = "notReviewed";
         public string HighestCompetitionLevel { get; set; }
         public List<RefereeViewModel> Referees { get; set; }
     }
