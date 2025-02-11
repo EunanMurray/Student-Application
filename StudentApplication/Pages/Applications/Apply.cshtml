@@ -6,7 +6,61 @@
 }
 
 <style>
-    /* Keep your existing styles */
+    .progress-bar-container {
+        margin-bottom: 20px;
+    }
+
+    .tab {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+
+    .tablinks {
+        flex: 1;
+        min-width: 150px;
+        padding: 10px;
+        border: none;
+        background-color: #f8f9fa;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+        .tablinks.active {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .tablinks:hover {
+            background-color: #e9ecef;
+        }
+
+        .tablinks.active:hover {
+            background-color: #0056b3;
+        }
+
+    .loading-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+    }
+
+    .loading-spinner {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .input-validation-error {
+        border-color: #dc3545;
+    }
 </style>
 
 <div class="container">
@@ -105,12 +159,90 @@
         </div>
     </form>
 </div>
-
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
     <script src="https://kit.fontawesome.com/your-kit-code.js" crossorigin="anonymous"></script>
 
     <script>
+        let formData = {};
+
+        function updateFormData() {
+            const form = document.getElementById('applicationForm');
+            const formElements = form.elements;
+
+            for (let element of formElements) {
+                if (element.name) {
+                    if (element.type === 'checkbox') {
+                        formData[element.name] = element.checked;
+                    } else if (element.type === 'select-multiple') {
+                        formData[element.name] = Array.from(element.selectedOptions).map(option => option.value);
+                    } else {
+                        formData[element.name] = element.value;
+                    }
+                }
+            }
+        }
+
+        function updateReviewField(fieldName, value) {
+            const element = document.querySelector(`[data-review-field="${fieldName}"]`);
+            if (element) {
+                element.textContent = value || '';
+            }
+        }
+
+        function updateReviewTab() {
+            updateFormData();
+
+            updateReviewField('Name', formData['Name']);
+            updateReviewField('Email', formData['Email']);
+            updateReviewField('Gender', formData['Gender']);
+            updateReviewField('DateOfBirth', formData['DateOfBirth']);
+            updateReviewField('MobilePhoneNumber', formData['MobilePhoneNumber']);
+            updateReviewField('Address', formData['Address']);
+
+            const parentEmail = formData['ParentEmail'] || formData['Applicant.ParentEmail'];
+            const parentPhone = formData['ParentPhoneNumber'] || formData['Applicant.ParentPhoneNumber'];
+            updateReviewField('ParentEmail', formData['ParentEmail']);
+            updateReviewField('ParentPhoneNumber', formData['ParentPhoneNumber']);
+            updateReviewField('SecondarySchoolAttended', formData['SecondarySchoolAttended']);
+            updateReviewField('PriorThirdLevelAttendance', formData['PriorThirdLevelAttendance'] ? 'Yes' : 'No');
+            updateReviewField('CAONumber', formData['CAONumber']);
+
+            const campusSelect = document.querySelector('select[name="CampusID"]');
+            if (campusSelect && formData['CampusID']) {
+                const selectedOption = campusSelect.options[campusSelect.selectedIndex];
+                updateReviewField('Campus', selectedOption ? selectedOption.text : '');
+            }
+
+            const courseCodes = Array.from(document.getElementsByName('CourseCodes'))
+                .map(input => input.value)
+                .filter(value => value);
+            updateReviewField('Course Codes', courseCodes.join(', '));
+
+            const sportSelect = document.querySelector('select[name="SportIDs"]');
+            if (sportSelect) {
+                const selectedSports = Array.from(sportSelect.selectedOptions).map(option => option.text);
+                updateReviewField('Main Sports', selectedSports.join(', '));
+            }
+
+            updateReviewField('SportPositionOrCategory', formData['SportPositionOrCategory']);
+            updateReviewField('CurrentClub', formData['CurrentClub']);
+            updateReviewField('PastClubs', formData['PastClubs']);
+            updateReviewField('HighestCompetitionLevel', formData['HighestCompetitionLevel']);
+            updateReviewField('SportingAchievements', formData['SportingAchievements']);
+            updateReviewField('SportingGoals', formData['SportingGoals']);
+            updateReviewField('Referee1Name', formData['Referees[0].Name']);
+            updateReviewField('Referee1Role', formData['Referees[0].TitleOrRole']);
+            updateReviewField('Referee1Phone', formData['Referees[0].PhoneNumber']);
+            updateReviewField('Referee1Email', formData['Referees[0].Email']);
+            updateReviewField('Referee2Name', formData['Referees[1].Name']);
+            updateReviewField('Referee2Role', formData['Referees[1].TitleOrRole']);
+            updateReviewField('Referee2Phone', formData['Referees[1].PhoneNumber']);
+            updateReviewField('Referee2Email', formData['Referees[1].Email']);
+            updateReviewField('PreferredLeisurewearSize', formData['PreferredLeisurewearSize']);
+            updateReviewField('Declaration Confirmed', formData['IsDeclarationConfirmed'] ? 'Yes' : 'No');
+        }
+
         var currentTab = 0;
         showTab(currentTab);
 
@@ -122,14 +254,11 @@
 
         function showTab(n) {
             var tabs = document.getElementsByClassName("tabcontent");
-            // Hide all tabs
             for (var i = 0; i < tabs.length; i++) {
                 tabs[i].style.display = "none";
             }
-            // Show the current tab
             tabs[n].style.display = "block";
 
-            // Update buttons
             document.getElementById("prevBtn").style.display = (n == 0) ? "none" : "inline";
             if (n == (tabs.length - 1)) {
                 document.getElementById("nextBtn").style.display = "none";
@@ -141,6 +270,10 @@
 
             updateProgress(n);
             updateTabButtons(n);
+
+            if (tabs[n].id === 'Review') {
+                updateReviewTab();
+            }
         }
 
         function updateTabButtons(n) {
@@ -171,7 +304,6 @@
         function nextPrev(n) {
             var tabs = document.getElementsByClassName("tabcontent");
 
-            // Validate current tab if moving forward
             if (n > 0 && !validateTab(currentTab)) {
                 alert('Please fill in all required fields before proceeding.');
                 return false;
@@ -203,10 +335,18 @@
             document.getElementById(tabName).style.display = "block";
             evt.currentTarget.className += " active";
             currentTab = Array.from(tabcontent).findIndex(tab => tab.id === tabName);
+
+            if (tabName === 'Review') {
+                updateReviewTab();
+            }
+
             showTab(currentTab);
         }
 
-        // Initialize
+        document.getElementById('applicationForm').addEventListener('change', function() {
+            updateFormData();
+        });
+
         document.getElementById("defaultTab").click();
     </script>
 }

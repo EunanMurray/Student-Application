@@ -10,6 +10,8 @@ namespace StudentApplicationModel.Models
 
         public string OtherDetails { get; set; }
 
+        public bool hasAccepted { get; set; }
+
         // Foreign Key
         public int ScholarshipTypeID { get; set; }
 

@@ -1,39 +1,113 @@
 ﻿@model StudentApplicationPages.ViewModels.ApplicantViewModel
 
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
 <div class="container">
-    <h3>Review Your Application</h3>
-    <div class="card">
+    <h3 class="text-center mb-4">Review Your Application</h3>
+
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0"><i class="fas fa-user"></i> Personal Details</h4>
+        </div>
         <div class="card-body">
-            <h4>Personal Details</h4>
-            <p><strong>Name:</strong> @Model.Name</p>
-            <p><strong>Email:</strong> @Model.Email</p>
-            <!-- Add other personal details -->
-
-            <h4>Academic History</h4>
-            <p><strong>CAO Number:</strong> @Model.CAONumber</p>
-            <p><strong>Campus:</strong> @(Model.CampusID == 1 ? "Sligo" : Model.CampusID == 2 ? "Galway" : "Letterkenny")</p>
-            <!-- Add other academic details -->
-
-            <h4>Sport Details</h4>
-            <p><strong>Main Sports:</strong> @string.Join(", ", Model.SportIDs)</p>
-            <!-- Add other sport details -->
-
-            <h4>References</h4>
-            @for (int i = 0; i < Model.Referees.Count; i++)
-            {
-                <p><strong>Referee @(i + 1) Name:</strong> @Model.Referees[i].Name</p>
-                <!-- Add other referee details -->
-            }
-
-            <h4>Declaration</h4>
-            <p><strong>Preferred Leisurewear Size:</strong> @Model.PreferredLeisurewearSize</p>
-            <p><strong>Declaration Confirmed:</strong> @(Model.IsDeclarationConfirmed ? "Yes" : "No")</p>
+            <div class="row">
+                <div class="col-md-6">
+                    <p><strong>Name:</strong> <span data-review-field="Name"></span></p>
+                    <p><strong>Email:</strong> <span data-review-field="Email"></span></p>
+                    <p><strong>Date of Birth:</strong> <span data-review-field="DateOfBirth"></span></p>
+                    <p><strong>Gender:</strong> <span data-review-field="Gender"></span></p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Mobile Phone:</strong> <span data-review-field="MobilePhoneNumber"></span></p>
+                    <p><strong>Address:</strong> <span data-review-field="Address"></span></p>
+                    <p><strong>Parent Email:</strong> <span data-review-field="ParentEmail"></span></p>
+                    <p><strong>Parent Phone:</strong> <span data-review-field="ParentPhoneNumber"></span></p>
+                </div>
+            </div>
         </div>
     </div>
-</div>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdnjs.com/libraries/popper.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0"><i class="fas fa-graduation-cap"></i> Academic History</h4>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <p><strong>Secondary School:</strong> <span data-review-field="SecondarySchoolAttended"></span></p>
+                    <p><strong>Prior Third Level:</strong> <span data-review-field="PriorThirdLevelAttendance"></span></p>
+                    <p><strong>CAO Number:</strong> <span data-review-field="CAONumber"></span></p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Campus:</strong> <span data-review-field="Campus"></span></p>
+                    <p><strong>Course Codes:</strong> <span data-review-field="Course Codes"></span></p>
+                    <p><strong>Course Selection Reasons:</strong> <span data-review-field="CourseSelectionReasons"></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0"><i class="fas fa-running"></i> Sport Details</h4>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <p><strong>Main Sports:</strong> <span data-review-field="Main Sports"></span></p>
+                    <p><strong>Position/Category:</strong> <span data-review-field="SportPositionOrCategory"></span></p>
+                    <p><strong>Current Club:</strong> <span data-review-field="CurrentClub"></span></p>
+                    <p><strong>Past Clubs:</strong> <span data-review-field="PastClubs"></span></p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Highest Competition Level:</strong> <span data-review-field="HighestCompetitionLevel"></span></p>
+                    <p><strong>Sporting Achievements:</strong> <span data-review-field="SportingAchievements"></span></p>
+                    <p><strong>Sporting Goals:</strong> <span data-review-field="SportingGoals"></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0"><i class="fas fa-users"></i> References</h4>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Referee 1</h5>
+                    <p><strong>Name:</strong> <span data-review-field="Referee1Name"></span></p>
+                    <p><strong>Title/Role:</strong> <span data-review-field="Referee1Role"></span></p>
+                    <p><strong>Phone:</strong> <span data-review-field="Referee1Phone"></span></p>
+                    <p><strong>Email:</strong> <span data-review-field="Referee1Email"></span></p>
+                </div>
+                <div class="col-md-6">
+                    <h5>Referee 2</h5>
+                    <p><strong>Name:</strong> <span data-review-field="Referee2Name"></span></p>
+                    <p><strong>Title/Role:</strong> <span data-review-field="Referee2Role"></span></p>
+                    <p><strong>Phone:</strong> <span data-review-field="Referee2Phone"></span></p>
+                    <p><strong>Email:</strong> <span data-review-field="Referee2Email"></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0"><i class="fas fa-check-circle"></i> Declaration</h4>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <p><strong>Preferred Leisurewear Size:</strong> <span data-review-field="PreferredLeisurewearSize"></span></p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Declaration Confirmed:</strong> <span data-review-field="Declaration Confirmed"></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="alert alert-info">
+        <i class="fas fa-info-circle"></i> Please review all information carefully before submitting your application.
+        You can use the navigation buttons below to go back and make any necessary changes.
+    </div>
+</div>

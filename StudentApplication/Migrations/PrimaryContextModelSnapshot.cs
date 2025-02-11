@@ -273,6 +273,9 @@ namespace StudentApplication.Migrations
                     b.Property<int>("ScholarshipTypeID")
                         .HasColumnType("int");
 
+                    b.Property<bool>("hasAccepted")
+                        .HasColumnType("bit");
+
                     b.HasKey("ScholarshipID");
 
                     b.HasIndex("ScholarshipTypeID");

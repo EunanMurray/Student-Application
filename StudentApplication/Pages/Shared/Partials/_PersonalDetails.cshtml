@@ -19,16 +19,6 @@
                 <input asp-for="DateOfBirth" type="date" id="dob" class="form-control" />
                 <span asp-validation-for="DateOfBirth" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="ParentEmail" class="control-label"></label>
-                <input asp-for="ParentEmail" type="email" id="pemail" class="form-control" />
-                <span asp-validation-for="ParentEmail" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ParentPhoneNumber" class="control-label"></label>
-                <input asp-for="ParentPhoneNumber" type="number" id="pphonenumber" class="form-control" />
-                <span asp-validation-for="ParentPhoneNumber" class="text-danger"></span>
-            </div>
         </div>
         <div class="col-md-6">
             <div class="form-group">
@@ -38,7 +28,6 @@
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
                     <option value="Non-binary">Non-binary</option>
-                    <!-- Add other options if needed -->
                 </select>
                 <span asp-validation-for="Gender" class="text-danger"></span>
             </div>
@@ -52,17 +41,24 @@
                 <input asp-for="Address" class="form-control" />
                 <span asp-validation-for="Address" class="text-danger"></span>
             </div>
-            <!-- Parent/Guardian Details -->
-            <div id="parentDetails" style="display:none;">
-                <h4>Parent/Guardian Details</h4>
+        </div>
+    </div>
+
+    <!-- Parent/Guardian Details -->
+    <div id="parentDetails">
+        <h4>Parent/Guardian Details</h4>
+        <div class="row">
+            <div class="col-md-6">
                 <div class="form-group">
-                    <label asp-for="ParentPhoneNumber" class="control-label"></label>
-                    <input asp-for="ParentPhoneNumber" class="form-control" />
+                    <label asp-for="ParentPhoneNumber" class="control-label">Parent/Guardian Phone Number</label>
+                    <input asp-for="ParentPhoneNumber" type="tel" class="form-control" />
                     <span asp-validation-for="ParentPhoneNumber" class="text-danger"></span>
                 </div>
+            </div>
+            <div class="col-md-6">
                 <div class="form-group">
-                    <label asp-for="ParentEmail" class="control-label"></label>
-                    <input asp-for="ParentEmail" class="form-control" />
+                    <label asp-for="ParentEmail" class="control-label">Parent/Guardian Email</label>
+                    <input asp-for="ParentEmail" type="email" class="form-control" />
                     <span asp-validation-for="ParentEmail" class="text-danger"></span>
                 </div>
             </div>
@@ -75,14 +71,10 @@
         document.getElementById('dob').addEventListener('change', function () {
             var dob = new Date(this.value);
             var ageDifMs = Date.now() - dob.getTime();
-            var ageDate = new Date(ageDifMs); // milliseconds from epoch
+            var ageDate = new Date(ageDifMs);
             var age = Math.abs(ageDate.getUTCFullYear() - 1970);
 
-            if (age < 18) {
-                document.getElementById('parentDetails').style.display = 'block';
-            } else {
-                document.getElementById('parentDetails').style.display = 'none';
-            }
+            document.getElementById('parentDetails').style.display = age < 18 ? 'block' : 'none';
         });
     </script>
 }

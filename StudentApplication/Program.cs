@@ -22,7 +22,14 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 
 builder.Services.AddDbContext<PrimaryContext>(options =>
-    options.UseSqlServer(connectionString, b => b.MigrationsAssembly("StudentApplication")));
+    options.UseSqlServer(connectionString, b =>
+    {
+        b.MigrationsAssembly("StudentApplication");
+        b.EnableRetryOnFailure(
+            maxRetryCount: 5,
+            maxRetryDelay: TimeSpan.FromSeconds(30),
+            errorNumbersToAdd: null);
+    }));
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
