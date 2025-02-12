@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using StudentApplication.ViewModels;
 using StudentApplicationModel.Data;
 using Microsoft.Extensions.Logging;
+using System.ComponentModel.DataAnnotations;
 
 namespace StudentApplication.Pages.Admin
 {
@@ -93,5 +94,117 @@ namespace StudentApplication.Pages.Admin
                 return RedirectToPage("/Error");
             }
         }
+
+        //Scholarship Review Function for Adminn
+        [BindProperty]
+        public ScholarshipReviewModel ScholarshipReview { get; set; }
+
+        public class ScholarshipReviewModel
+        {
+            public string ScholarshipLevel { get; set; }
+            public string ReviewNotes { get; set; }
+            [Display(Name = "Supporting Documentation")]
+            public string SupportingDocs { get; set; }
+        }
+
+        public async Task<IActionResult> OnPostScholarshipDecisionAsync()
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return Page();
+                }
+
+                var currentUser = await _userManager.GetUserAsync(User);
+                if (currentUser == null)
+                {
+                    TempData["ErrorMessage"] = "User not found.";
+                    return Page();
+                }
+
+                var isCommitteeMember = await _userManager.IsInRoleAsync(currentUser, "Committee Member");
+                if (!isCommitteeMember)
+                {
+                    TempData["ErrorMessage"] = "Unauthorized access.";
+                    return Page();
+                }
+
+                var applicantName = RouteData.Values["name"]?.ToString();
+                if (string.IsNullOrEmpty(applicantName))
+                {
+                    TempData["ErrorMessage"] = "Applicant name is missing.";
+                    return Page();
+                }
+
+                var applicant = await _primaryContext.Applicants
+                    .FirstOrDefaultAsync(a => a.Name == applicantName);
+
+                if (applicant == null)
+                {
+                    TempData["ErrorMessage"] = "Applicant not found.";
+                    return Page();
+                }
+
+                var review = new ScholarshipReview
+                {
+                    ApplicantId = applicant.ApplicantID,
+                    ReviewerId = currentUser.Id,
+                    ScholarshipLevel = ScholarshipReview.ScholarshipLevel,
+                    ReviewNotes = ScholarshipReview.ReviewNotes,
+                    SupportingDocumentation = ScholarshipReview.SupportingDocs,
+                    ReviewDate = DateTime.UtcNow,
+                    Status = ScholarshipReview.ScholarshipLevel == "Reject" ? "Rejected" : "Approved"
+                };
+
+                _primaryContext.ScholarshipReviews.Add(review);
+
+                // Update applicant status
+                applicant.ApplicationStatus = "reviewed";
+
+                await _primaryContext.SaveChangesAsync();
+
+                TempData["SuccessMessage"] = "Scholarship decision recorded successfully.";
+                return RedirectToPage("/Admin/ViewApplicantsByCommitteeSport");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error processing scholarship decision");
+                TempData["ErrorMessage"] = "An error occurred while processing the scholarship decision.";
+                return Page();
+            }
+        }
     }
 }
+
+                //ScholarshipReview class
+                public class ScholarshipReview
+                {
+                    public int ScholarshipReviewId { get; set; }
+                    public int ApplicantId { get; set; }
+                    public string ReviewerId { get; set; }
+                    public string ScholarshipLevel { get; set; }
+                    public string ReviewNotes { get; set; }
+                    public string SupportingDocumentation { get; set; }
+                    public DateTime ReviewDate { get; set; }
+                    public string Status { get; set; }
+                }
+
+                //ScholarshipReviews adding DbSet to the PrimaryContext
+                public class PrimaryContext : DbContext
+                {
+                    public PrimaryContext(DbContextOptions<PrimaryContext> options)
+                        : base(options)
+                    {
+                    }
+
+                    public DbSet<Applicant> Applicants { get; set; }
+                    public DbSet<ScholarshipReview> ScholarshipReviews { get; set; }
+
+                    protected override void OnModelCreating(ModelBuilder modelBuilder)
+                    {
+                        base.OnModelCreating(modelBuilder);
+                    }
+
+                }
+
