@@ -49,7 +49,7 @@
 
     .bronze-btn {
         background: #cd7f32;
-        color: black;
+        color: white;
     }
 
     .silver-btn {
@@ -63,19 +63,8 @@
     }
 
     .reject-btn {
-        background: red;
-        color: black;
-    }
-
-    .award-btn {
-        background: #4CAF50;
+        background: #dc3545;
         color: white;
-        padding: 12px 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-weight: bold;
-        transition: background 0.3s ease;
     }
 
     .btn {
@@ -84,80 +73,158 @@
         border-radius: 5px;
         cursor: pointer;
         font-weight: bold;
+        transition: background-color 0.3s ease;
     }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
 </style>
 
-<div class="applicant-card">
-    @if (Model.Applicant == null)
+<div class="container">
+    @if (TempData["SuccessMessage"] != null)
     {
-        <p>Applicant not found.</p>
-    }
-    else
-    {
-        <div class="applicant-info">
-            <div class="info-row">
-                <div class="info-label">Name</div>
-                <div>@Model.Applicant.Name</div>
-            </div>
-            <div class="info-row">
-                <div class="info-label">Date of Birth</div>
-                <div>@Model.Applicant.DateOfBirth?.ToString("yyyy-MM-dd")</div>
-            </div>
-            <div class="info-row">
-                <div class="info-label">Sporting Details</div>
-                <div>@Model.Applicant.SportingDetails</div>
-            </div>
-            <div class="info-row">
-                <div class="info-label">Sporting Achievements</div>
-                <div>@Model.Applicant.SportingAchievements</div>
-            </div>
-            <div class="info-row">
-                <div class="info-label">Sporting Goals</div>
-                <div>@Model.Applicant.SportingGoals</div>
-            </div>
-            <div class="info-row">
-                <div class="info-label">Past Clubs</div>
-                <div>@Model.Applicant.PastClubs</div>
-            </div>
-            <div class="info-row">
-                <div class="info-label">Highest Competition Level</div>
-                <div>@Model.Applicant.HighestCompetitionLevel</div>
-            </div>
-            <div class="info-row">
-                <div class="info-label">Referees</div>
-                @if (Model.Applicant.Referees != null && Model.Applicant.Referees.Any())
-                {
-                    @foreach (var referee in Model.Applicant.Referees)
-                    {
-                        <div class="referee-info">
-                            <strong>@referee.Name</strong> (@referee.TitleOrRole)<br />
-                            Phone: @referee.PhoneNumber<br />
-                            Email: @referee.Email
-                        </div>
-                    }
-                }
-                else
-                {
-                    <p>No referees available.</p>
-                }
-            </div>
-
-            <script>
-                function toggleScholarshipButtons() {
-                    var buttonsContainer = document.getElementById("scholarship-buttons");
-                    buttonsContainer.style.display = buttonsContainer.style.display === "none" ? "flex" : "none";
-                }
-            </script>
-
-            <button class="btn award-btn" onclick="toggleScholarshipButtons()">Award Scholarship</button>
-
-            <div id="scholarship-buttons" class="scholarship-buttons" style="display: none;">
-                <button class="btn bronze-btn">Bronze</button>
-                <button class="btn silver-btn">Silver</button>
-                <button class="btn gold-btn">Gold</button>
-                <button class="btn reject-btn">Reject</button>
-            </div>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="applicant-card">
+        @if (Model.Applicant == null)
+        {
+            <p>Applicant not found.</p>
+        }
+        else
+        {
+            <div class="applicant-info">
+                <h2 class="mb-4">Applicant Details</h2>
+
+                <div class="info-row">
+                    <div class="info-label">Name</div>
+                    <div>@Model.Applicant.Name</div>
+                </div>
+
+                <div class="info-row">
+                    <div class="info-label">Date of Birth</div>
+                    <div>@Model.Applicant.DateOfBirth?.ToString("dd/MM/yyyy")</div>
+                </div>
+
+                <div class="info-row">
+                    <div class="info-label">Sporting Details</div>
+                    <div>@Model.Applicant.SportingDetails</div>
+                </div>
+
+                <div class="info-row">
+                    <div class="info-label">Sporting Achievements</div>
+                    <div>@Model.Applicant.SportingAchievements</div>
+                </div>
+
+                <div class="info-row">
+                    <div class="info-label">Sporting Goals</div>
+                    <div>@Model.Applicant.SportingGoals</div>
+                </div>
+
+                <div class="info-row">
+                    <div class="info-label">Past Clubs</div>
+                    <div>@Model.Applicant.PastClubs</div>
+                </div>
+
+                <div class="info-row">
+                    <div class="info-label">Highest Competition Level</div>
+                    <div>@Model.Applicant.HighestCompetitionLevel</div>
+                </div>
+
+                <div class="info-row">
+                    <div class="info-label">Referees</div>
+                    @if (Model.Applicant.Referees != null && Model.Applicant.Referees.Any())
+                    {
+                        @foreach (var referee in Model.Applicant.Referees)
+                        {
+                            <div class="referee-info">
+                                <strong>@referee.Name</strong> (@referee.TitleOrRole)<br />
+                                Phone: @referee.PhoneNumber<br />
+                                Email: @referee.Email
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <p>No referees available.</p>
+                    }
+                </div>
+
+                <hr class="my-4" />
+
+                <div class="scholarship-review-section">
+                    <h3 class="mb-3">Scholarship Decision</h3>
+
+                    <form method="post" asp-page-handler="ScholarshipDecision" class="scholarship-form">
+                        <div class="form-group">
+                            <label class="form-label fw-bold mb-3">Select Scholarship Level</label>
+                            <div class="scholarship-buttons">
+                                <div class="btn-group-vertical w-100">
+                                    <button type="button" class="btn gold-btn mb-2" onclick="selectScholarship('Gold')">
+                                        Gold Scholarship
+                                        <small class="d-block">Full funding support</small>
+                                    </button>
+                                    <button type="button" class="btn silver-btn mb-2" onclick="selectScholarship('Silver')">
+                                        Silver Scholarship
+                                        <small class="d-block">Partial funding support</small>
+                                    </button>
+                                    <button type="button" class="btn bronze-btn mb-2" onclick="selectScholarship('Bronze')">
+                                        Bronze Scholarship
+                                        <small class="d-block">Basic funding support</small>
+                                    </button>
+                                    <button type="button" class="btn reject-btn" onclick="selectScholarship('Reject')">
+                                        Reject Application
+                                    </button>
+                                </div>
+                            </div>
+                            <input type="hidden" asp-for="ScholarshipDecision.ScholarshipLevel" id="selectedScholarship" />
+                        </div>
+
+                        <div class="form-group mt-4" id="reviewSection" style="display: none;">
+                            <label asp-for="ScholarshipDecision.Notes" class="form-label fw-bold">Decision Notes</label>
+                            <textarea asp-for="ScholarshipDecision.Notes" class="form-control" rows="4"
+                                      placeholder="Please provide detailed notes supporting your decision..."></textarea>
+                            <span asp-validation-for="ScholarshipDecision.Notes" class="text-danger"></span>
+
+                            <label asp-for="ScholarshipDecision.SupportingDocs" class="form-label fw-bold mt-3">Supporting Documentation</label>
+                            <textarea asp-for="ScholarshipDecision.SupportingDocs" class="form-control" rows="2"
+                                      placeholder="List any supporting documentation reviewed..."></textarea>
+
+                            <div class="mt-4">
+                                <button type="submit" class="btn btn-primary">Confirm Decision</button>
+                                <button type="button" class="btn btn-secondary ms-2" onclick="cancelSelection()">Cancel</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        }
+    </div>
 </div>
 
+<script>
+    function selectScholarship(level) {
+        document.getElementById('selectedScholarship').value = level;
+        document.getElementById('reviewSection').style.display = 'block';
+        document.getElementById('reviewSection').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function cancelSelection() {
+        document.getElementById('selectedScholarship').value = '';
+        document.getElementById('reviewSection').style.display = 'none';
+        document.getElementById('ScholarshipDecision_Notes').value = '';
+        document.getElementById('ScholarshipDecision_SupportingDocs').value = '';
+    }
+</script>
