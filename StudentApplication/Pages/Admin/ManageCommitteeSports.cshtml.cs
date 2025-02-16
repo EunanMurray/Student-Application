@@ -41,36 +41,40 @@ namespace StudentApplication.Pages.Admin
         {
             try
             {
-                // Fetch committee members
-                var committeeMembers = await _userManager.GetUsersInRoleAsync("Committee Member");
+                var strategy = _primaryContext.Database.CreateExecutionStrategy();
 
-                // Fetch sports and user-sport relationships
-                var sports = await _primaryContext.Sports.AsNoTracking().ToListAsync();
-                var userSports = await _primaryContext.UserSports.AsNoTracking().ToListAsync();
-
-                // Populate committee member view models
-                foreach (var member in committeeMembers)
+                await strategy.ExecuteAsync(async () =>
                 {
-                    var assignedSportIds = userSports
-                        .Where(us => us.UserID == member.Id)
-                        .Select(us => us.SportID)
-                        .ToList();
+                    var committeeMembers = await _userManager.GetUsersInRoleAsync("Committee Member");
 
-                    var viewModel = new CommitteeMemberViewModel
+                    var sports = await _primaryContext.Sports.AsNoTracking().ToListAsync();
+                    var userSports = await _primaryContext.UserSports.AsNoTracking().ToListAsync();
+
+                    CommitteeMembers.Clear();
+
+                    foreach (var member in committeeMembers)
                     {
-                        UserId = member.Id,
-                        UserName = member.UserName ?? string.Empty,
-                        Email = member.Email ?? string.Empty,
-                        AssignedSportIds = assignedSportIds,
-                        AvailableSports = sports.Select(s => new Sport
-                        {
-                            SportID = s.SportID,
-                            SportName = s.SportName
-                        }).ToList()
-                    };
+                        var assignedSportIds = userSports
+                            .Where(us => us.UserID == member.Id)
+                            .Select(us => us.SportID)
+                            .ToList();
 
-                    CommitteeMembers.Add(viewModel);
-                }
+                        var viewModel = new CommitteeMemberViewModel
+                        {
+                            UserId = member.Id,
+                            UserName = member.UserName ?? string.Empty,
+                            Email = member.Email ?? string.Empty,
+                            AssignedSportIds = assignedSportIds,
+                            AvailableSports = sports.Select(s => new Sport
+                            {
+                                SportID = s.SportID,
+                                SportName = s.SportName
+                            }).ToList()
+                        };
+
+                        CommitteeMembers.Add(viewModel);
+                    }
+                });
 
                 return Page();
             }
@@ -90,7 +94,6 @@ namespace StudentApplication.Pages.Admin
                     return Page();
                 }
 
-                // Validate selected user
                 var user = await _userManager.FindByIdAsync(SelectedUserId?.Trim());
                 if (user == null || !await _userManager.IsInRoleAsync(user, "Committee Member"))
                 {
@@ -98,52 +101,55 @@ namespace StudentApplication.Pages.Admin
                     return Page();
                 }
 
-                // Validate selected sports
-                var validSportIds = await _primaryContext.Sports
-                    .Where(s => SelectedSports.Contains(s.SportID))
-                    .Select(s => s.SportID)
-                    .ToListAsync();
+                var strategy = _primaryContext.Database.CreateExecutionStrategy();
 
-                if (validSportIds.Count != SelectedSports.Count)
+                await strategy.ExecuteAsync(async () =>
                 {
-                    TempData["ErrorMessage"] = "One or more selected sports are invalid.";
-                    return Page();
-                }
-
-                // Update user-sport relationships
-                using var transaction = await _primaryContext.Database.BeginTransactionAsync();
-                try
-                {
-                    var existingAssignments = await _primaryContext.UserSports
-                        .Where(us => us.UserID == SelectedUserId)
+                   var validSportIds = await _primaryContext.Sports
+                        .Where(s => SelectedSports.Contains(s.SportID))
+                        .Select(s => s.SportID)
                         .ToListAsync();
 
-                    if (existingAssignments.Any())
+                    if (validSportIds.Count != SelectedSports.Count)
                     {
-                        _primaryContext.UserSports.RemoveRange(existingAssignments);
-                        await _primaryContext.SaveChangesAsync();
+                        TempData["ErrorMessage"] = "One or more selected sports are invalid.";
+                        throw new InvalidOperationException("Invalid sports selected");
                     }
 
-                    foreach (var sportId in validSportIds)
+                    using var transaction = await _primaryContext.Database.BeginTransactionAsync();
+                    try
                     {
-                        _primaryContext.UserSports.Add(new UserSport
+                        var existingAssignments = await _primaryContext.UserSports
+                            .Where(us => us.UserID == SelectedUserId)
+                            .ToListAsync();
+
+                        if (existingAssignments.Any())
                         {
-                            UserID = SelectedUserId,
-                            SportID = sportId
-                        });
+                            _primaryContext.UserSports.RemoveRange(existingAssignments);
+                            await _primaryContext.SaveChangesAsync();
+                        }
+
+                        foreach (var sportId in validSportIds)
+                        {
+                            _primaryContext.UserSports.Add(new UserSport
+                            {
+                                UserID = SelectedUserId,
+                                SportID = sportId
+                            });
+                        }
+
+                        await _primaryContext.SaveChangesAsync();
+                        await transaction.CommitAsync();
                     }
+                    catch
+                    {
+                        await transaction.RollbackAsync();
+                        throw;
+                    }
+                });
 
-                    await _primaryContext.SaveChangesAsync();
-                    await transaction.CommitAsync();
-
-                    TempData["SuccessMessage"] = "Sport assignments updated successfully.";
-                    return RedirectToPage();
-                }
-                catch
-                {
-                    await transaction.RollbackAsync();
-                    throw;
-                }
+                TempData["SuccessMessage"] = "Sport assignments updated successfully.";
+                return RedirectToPage();
             }
             catch (Exception ex)
             {

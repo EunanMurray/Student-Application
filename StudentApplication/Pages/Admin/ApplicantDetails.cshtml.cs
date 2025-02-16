@@ -193,7 +193,7 @@ namespace StudentApplication.Pages.Admin
             }
         }
 
-
+        
         private async Task LoadApplicantData()
         {
             var applicantName = RouteData.Values["name"]?.ToString();

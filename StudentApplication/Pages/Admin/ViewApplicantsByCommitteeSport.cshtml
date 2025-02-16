@@ -2,87 +2,197 @@
 @model StudentApplication.Pages.Admin.ViewApplicantsByCommitteeSportModel
 
 <style>
+    .applicants-container {
+        padding: 20px;
+    }
+
     .applicants-grid {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
         gap: 20px;
-        padding: 20px;
     }
 
     .applicant-card {
         border: 1px solid #ddd;
-        border-radius: 8px;
-        padding: 16px;
+        border-radius: 12px;
+        padding: 20px;
         background: white;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
+
+        .applicant-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
 
     .applicant-info {
         display: flex;
         flex-direction: column;
-        gap: 12px;
+        gap: 16px;
     }
 
-    .info-row {
-    border-bottom: 1px solid #eee;
-    padding-bottom: 8px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    }
-
-    .info-label {
-        font-weight: bold;
-        color: #555;
-        margin-bottom: 4px;
-    }
-
-    .referee-info {
-        background: #f5f5f5;
-        padding: 8px;
-        border-radius: 4px;
-        margin-top: 4px;
-    }
-
-    .name-container {
+    .info-header {
         display: flex;
-        flex-direction: column; 
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+    .status-badge {
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 0.9em;
+        font-weight: 600;
+    }
+
+    .status-not-reviewed {
+        background-color: #ffd700;
+        color: #000;
+    }
+
+    .status-reviewed {
+        background-color: #28a745;
+        color: white;
+    }
+
+    .status-rejected {
+        background-color: #dc3545;
+        color: white;
+    }
+
+    .applicant-name {
+        font-size: 1.2em;
+        font-weight: 600;
+        color: #2c3e50;
+    }
+
+    .details-button {
+        width: 100%;
+        padding: 12px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-weight: 500;
+        text-align: center;
+        text-decoration: none;
+        transition: background-color 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+
+        .details-button:hover {
+            background-color: #0056b3;
+            color: white;
+            text-decoration: none;
+        }
+
+    .no-applicants {
+        text-align: center;
+        padding: 40px;
+        background: #f8f9fa;
+        border-radius: 8px;
+        color: #6c757d;
+    }
+
+    .page-header {
+        margin-bottom: 30px;
+        border-bottom: 2px solid #eee;
+        padding-bottom: 15px;
+    }
+
+    .filter-section {
+        margin-bottom: 20px;
+        padding: 15px;
+        background: #f8f9fa;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
     }
 </style>
 
-<div class="applicants-grid">
-    @if (Model.Applicants != null && Model.Applicants.Any())
-    {
-        @foreach (var applicant in Model.Applicants)
-        {
-            <div class="applicant-card">
-                <div class="applicant-info">
-                    <div class="info-row">
-                        <div class="name-container">
-                                <div class="info-label">Name</div>
-                                <div>@applicant.Name</div>
-                        </div>
-                        @if(applicant.ApplicationStatus == "notReviewed")
-                        {
-                            <div class="info-label">Not reviewed</div>
-                        }
-                        else
-                        {
-                            <div class="info-label">Reviewed</div>
-                        }
-                    </div>
-                    <a asp-page="./ApplicantDetails" asp-route-name="@applicant.Name" class="btn btn-primary">
-                        View Applicant Details
-                    </a>
+<div class="applicants-container">
+    <div class="page-header">
+        <h2>Review Applications</h2>
+        <p class="text-muted">Review and manage scholarship applications for your assigned sports</p>
+    </div>
 
-                    
-                    
+    <div class="filter-section">
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="hideReviewed" onchange="toggleReviewed()">
+            <label class="form-check-label" for="hideReviewed">Hide Reviewed Applications</label>
+        </div>
+    </div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="applicants-grid">
+        @if (Model.Applicants != null && Model.Applicants.Any())
+        {
+            @foreach (var applicant in Model.Applicants)
+            {
+                <div class="applicant-card" data-status="@applicant.ApplicationStatus">
+                    <div class="applicant-info">
+                        <div class="info-header">
+                            <div class="applicant-name">@applicant.Name</div>
+                            <span class="status-badge @($"status-{applicant.ApplicationStatus?.ToLower() ?? "not-reviewed"}")">
+                                @(applicant.ApplicationStatus switch
+                                {
+                                    "reviewed" => "Reviewed",
+                                    "rejected" => "Rejected",
+                                    _ => "Pending Review"
+                                })
+                            </span>
+                        </div>
+
+                        <a asp-page="./ApplicantDetails" asp-route-name="@applicant.Name" class="details-button">
+                            <i class="fas fa-folder-open"></i>
+                            View Application Details
+                        </a>
+                    </div>
                 </div>
+            }
+        }
+        else
+        {
+            <div class="no-applicants">
+                <i class="fas fa-folder-open fa-3x mb-3"></i>
+                <h4>No Applications Found</h4>
+                <p>There are currently no applications assigned to your sports.</p>
             </div>
         }
-    }
-    else
-    {
-        <p>No applicants found for your assigned sports.</p>
-    }
+    </div>
 </div>
+
+<script>
+    function toggleReviewed() {
+        const hideReviewed = document.getElementById('hideReviewed').checked;
+        const cards = document.querySelectorAll('.applicant-card');
+
+        cards.forEach(card => {
+            if (hideReviewed && card.dataset.status === 'reviewed') {
+                card.style.display = 'none';
+            } else {
+                card.style.display = 'block';
+            }
+        });
+    }
+</script>

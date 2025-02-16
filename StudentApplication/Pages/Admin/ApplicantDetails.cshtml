@@ -79,9 +79,62 @@
         .btn:hover {
             opacity: 0.9;
         }
+
+    .status-badge {
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-weight: bold;
+        display: inline-block;
+        margin-bottom: 16px;
+    }
+
+    .status-not-reviewed {
+        background-color: #ffd700;
+        color: black;
+    }
+
+    .status-reviewed {
+        background-color: #28a745;
+        color: white;
+    }
+
+    .status-rejected {
+        background-color: #dc3545;
+        color: white;
+    }
+
+    .section-card {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+    }
+
+    .scholarship-option {
+        border: 2px solid transparent;
+        padding: 15px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        margin-bottom: 10px;
+    }
+
+        .scholarship-option:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .scholarship-option.selected {
+            border-color: #007bff;
+        }
+
+    .tooltip-icon {
+        color: #6c757d;
+        cursor: help;
+        margin-left: 5px;
+    }
 </style>
 
-<div class="container">
+<div class="container py-4">
     @if (TempData["SuccessMessage"] != null)
     {
         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -101,50 +154,73 @@
     <div class="applicant-card">
         @if (Model.Applicant == null)
         {
-            <p>Applicant not found.</p>
+            <div class="alert alert-warning">
+                <i class="fas fa-exclamation-triangle"></i> Applicant not found. Please check the application reference.
+            </div>
         }
         else
         {
             <div class="applicant-info">
-                <h2 class="mb-4">Applicant Details</h2>
-
-                <div class="info-row">
-                    <div class="info-label">Name</div>
-                    <div>@Model.Applicant.Name</div>
+                <div class="text-center mb-4">
+                    <div class="status-badge @($"status-{Model.Applicant.ApplicationStatus?.ToLower() ?? "not-reviewed"}")">
+                        @(Model.Applicant.ApplicationStatus switch
+                        {
+                            "reviewed" => "Application Reviewed",
+                            "rejected" => "Application Rejected",
+                            _ => "Pending Review"
+                        })
+                    </div>
                 </div>
 
-                <div class="info-row">
-                    <div class="info-label">Date of Birth</div>
-                    <div>@Model.Applicant.DateOfBirth?.ToString("dd/MM/yyyy")</div>
+                <div class="section-card">
+                    <h3 class="mb-3">
+                        <i class="fas fa-user"></i> Personal Information
+                    </h3>
+                    <div class="info-row">
+                        <div class="info-label">Name</div>
+                        <div>@Model.Applicant.Name</div>
+                    </div>
+
+                    <div class="info-row">
+                        <div class="info-label">Date of Birth</div>
+                        <div>@Model.Applicant.DateOfBirth?.ToString("dd/MM/yyyy")</div>
+                    </div>
                 </div>
 
-                <div class="info-row">
-                    <div class="info-label">Sporting Details</div>
-                    <div>@Model.Applicant.SportingDetails</div>
+                <div class="section-card">
+                    <h3 class="mb-3">
+                        <i class="fas fa-running"></i> Sporting Background
+                    </h3>
+                    <div class="info-row">
+                        <div class="info-label">Sporting Details</div>
+                        <div>@Model.Applicant.SportingDetails</div>
+                    </div>
+
+                    <div class="info-row">
+                        <div class="info-label">Sporting Achievements</div>
+                        <div>@Model.Applicant.SportingAchievements</div>
+                    </div>
+
+                    <div class="info-row">
+                        <div class="info-label">Sporting Goals</div>
+                        <div>@Model.Applicant.SportingGoals</div>
+                    </div>
+
+                    <div class="info-row">
+                        <div class="info-label">Past Clubs</div>
+                        <div>@Model.Applicant.PastClubs</div>
+                    </div>
+
+                    <div class="info-row">
+                        <div class="info-label">Highest Competition Level</div>
+                        <div>@Model.Applicant.HighestCompetitionLevel</div>
+                    </div>
                 </div>
 
-                <div class="info-row">
-                    <div class="info-label">Sporting Achievements</div>
-                    <div>@Model.Applicant.SportingAchievements</div>
-                </div>
-
-                <div class="info-row">
-                    <div class="info-label">Sporting Goals</div>
-                    <div>@Model.Applicant.SportingGoals</div>
-                </div>
-
-                <div class="info-row">
-                    <div class="info-label">Past Clubs</div>
-                    <div>@Model.Applicant.PastClubs</div>
-                </div>
-
-                <div class="info-row">
-                    <div class="info-label">Highest Competition Level</div>
-                    <div>@Model.Applicant.HighestCompetitionLevel</div>
-                </div>
-
-                <div class="info-row">
-                    <div class="info-label">Referees</div>
+                <div class="section-card">
+                    <h3 class="mb-3">
+                        <i class="fas fa-users"></i> References
+                    </h3>
                     @if (Model.Applicant.Referees != null && Model.Applicant.Referees.Any())
                     {
                         @foreach (var referee in Model.Applicant.Referees)
@@ -162,63 +238,99 @@
                     }
                 </div>
 
-                <hr class="my-4" />
+                @if (Model.Applicant.ApplicationStatus != "reviewed" && Model.Applicant.ApplicationStatus != "rejected")
+                {
+                    <div class="section-card">
+                        <h3 class="mb-3">Make Scholarship Decision</h3>
+                        <form method="post" asp-page-handler="ScholarshipDecision" class="scholarship-form" onsubmit="return confirmDecision()">
+                            <div class="mb-4">
+                                <div class="scholarship-options">
+                                    <div class="scholarship-option" onclick="selectScholarship('Gold')">
+                                        <h4>
+                                            <i class="fas fa-trophy text-warning"></i> Gold Scholarship
+                                            <i class="fas fa-info-circle tooltip-icon"
+                                               data-bs-toggle="tooltip"
+                                               title="Full funding support including accommodation and equipment"></i>
+                                        </h4>
+                                        <p class="text-muted mb-0">Comprehensive support for elite athletes</p>
+                                    </div>
 
-                <div class="scholarship-review-section">
-                    <h3 class="mb-3">Scholarship Decision</h3>
+                                    <div class="scholarship-option" onclick="selectScholarship('Silver')">
+                                        <h4>
+                                            <i class="fas fa-medal text-secondary"></i> Silver Scholarship
+                                            <i class="fas fa-info-circle tooltip-icon"
+                                               data-bs-toggle="tooltip"
+                                               title="Partial funding support for promising athletes"></i>
+                                        </h4>
+                                        <p class="text-muted mb-0">Enhanced support package</p>
+                                    </div>
 
-                    <form method="post" asp-page-handler="ScholarshipDecision" class="scholarship-form">
-                        <div class="form-group">
-                            <label class="form-label fw-bold mb-3">Select Scholarship Level</label>
-                            <div class="scholarship-buttons">
-                                <div class="btn-group-vertical w-100">
-                                    <button type="button" class="btn gold-btn mb-2" onclick="selectScholarship('Gold')">
-                                        Gold Scholarship
-                                        <small class="d-block">Full funding support</small>
-                                    </button>
-                                    <button type="button" class="btn silver-btn mb-2" onclick="selectScholarship('Silver')">
-                                        Silver Scholarship
-                                        <small class="d-block">Partial funding support</small>
-                                    </button>
-                                    <button type="button" class="btn bronze-btn mb-2" onclick="selectScholarship('Bronze')">
-                                        Bronze Scholarship
-                                        <small class="d-block">Basic funding support</small>
-                                    </button>
-                                    <button type="button" class="btn reject-btn" onclick="selectScholarship('Reject')">
-                                        Reject Application
-                                    </button>
+                                    <div class="scholarship-option" onclick="selectScholarship('Bronze')">
+                                        <h4>
+                                            <i class="fas fa-award text-bronze"></i> Bronze Scholarship
+                                            <i class="fas fa-info-circle tooltip-icon"
+                                               data-bs-toggle="tooltip"
+                                               title="Basic funding support for developing athletes"></i>
+                                        </h4>
+                                        <p class="text-muted mb-0">Standard support package</p>
+                                    </div>
+
+                                    <div class="scholarship-option" onclick="selectScholarship('Reject')">
+                                        <h4>
+                                            <i class="fas fa-times-circle text-danger"></i> Reject Application
+                                        </h4>
+                                        <p class="text-muted mb-0">Application does not meet criteria</p>
+                                    </div>
+                                </div>
+
+                                <input type="hidden" asp-for="ScholarshipDecision.ScholarshipLevel" id="selectedScholarship" />
+                            </div>
+
+                            <div id="reviewSection" style="display: none;">
+                                <label asp-for="ScholarshipDecision.Notes" class="form-label fw-bold">Decision Notes</label>
+                                <textarea asp-for="ScholarshipDecision.Notes" class="form-control" rows="4"
+                                          placeholder="Please provide detailed notes supporting your decision..." required></textarea>
+                                <span asp-validation-for="ScholarshipDecision.Notes" class="text-danger"></span>
+
+                                <label asp-for="ScholarshipDecision.SupportingDocs" class="form-label fw-bold mt-3">Supporting Documentation</label>
+                                <textarea asp-for="ScholarshipDecision.SupportingDocs" class="form-control" rows="2"
+                                          placeholder="List any supporting documentation reviewed..."></textarea>
+
+                                <div class="mt-4">
+                                    <button type="submit" class="btn btn-primary">Confirm Decision</button>
+                                    <button type="button" class="btn btn-secondary ms-2" onclick="cancelSelection()">Cancel</button>
                                 </div>
                             </div>
-                            <input type="hidden" asp-for="ScholarshipDecision.ScholarshipLevel" id="selectedScholarship" />
-                        </div>
-
-                        <div class="form-group mt-4" id="reviewSection" style="display: none;">
-                            <label asp-for="ScholarshipDecision.Notes" class="form-label fw-bold">Decision Notes</label>
-                            <textarea asp-for="ScholarshipDecision.Notes" class="form-control" rows="4"
-                                      placeholder="Please provide detailed notes supporting your decision..."></textarea>
-                            <span asp-validation-for="ScholarshipDecision.Notes" class="text-danger"></span>
-
-                            <label asp-for="ScholarshipDecision.SupportingDocs" class="form-label fw-bold mt-3">Supporting Documentation</label>
-                            <textarea asp-for="ScholarshipDecision.SupportingDocs" class="form-control" rows="2"
-                                      placeholder="List any supporting documentation reviewed..."></textarea>
-
-                            <div class="mt-4">
-                                <button type="submit" class="btn btn-primary">Confirm Decision</button>
-                                <button type="button" class="btn btn-secondary ms-2" onclick="cancelSelection()">Cancel</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+                        </form>
+                    </div>
+                }
             </div>
         }
     </div>
 </div>
 
+<script src="https://kit.fontawesome.com/your-code.js"></script>
 <script>
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+
     function selectScholarship(level) {
+        document.querySelectorAll('.scholarship-option').forEach(option => {
+            option.classList.remove('selected');
+        });
+
+        document.querySelector(`.scholarship-option[onclick*="${level}"]`).classList.add('selected');
+
         document.getElementById('selectedScholarship').value = level;
-        document.getElementById('reviewSection').style.display = 'block';
-        document.getElementById('reviewSection').scrollIntoView({ behavior: 'smooth' });
+        const reviewSection = document.getElementById('reviewSection');
+        reviewSection.style.display = 'block';
+        reviewSection.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function confirmDecision() {
+        return confirm('Are you sure you want to submit this scholarship decision? This action cannot be undone.');
     }
 
     function cancelSelection() {
@@ -226,5 +338,8 @@
         document.getElementById('reviewSection').style.display = 'none';
         document.getElementById('ScholarshipDecision_Notes').value = '';
         document.getElementById('ScholarshipDecision_SupportingDocs').value = '';
+        document.querySelectorAll('.scholarship-option').forEach(option => {
+            option.classList.remove('selected');
+        });
     }
 </script>
