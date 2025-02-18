@@ -1,72 +1,82 @@
 ﻿@page
 @model RoleTestModel
-@using Microsoft.AspNetCore.Identity
 @{
-    ViewData["Title"] = "Role Test";
+    ViewData["Title"] = "User Management";
 }
-
-<h2>Role Testing Page</h2>
-
-<p>Welcome, @User.Identity.Name!</p>
-
-@if (User.IsInRole(RoleNames.Admin))
-{
-    <p>You are an <strong>Admin</strong>.</p>
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>User Management</h2>
+        <a href="/Admin/AddUser" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Add New User
+        </a>
+    </div>
 
     @if (TempData["SuccessMessage"] != null)
     {
-        <div class="alert alert-success">
+        <div class="alert alert-success alert-dismissible fade show">
             @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     }
 
     @if (TempData["ErrorMessage"] != null)
     {
-        <div class="alert alert-danger">
+        <div class="alert alert-danger alert-dismissible fade show">
             @TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     }
 
-    <h3>Manage User Roles</h3>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>User</th>
-                <th>Email</th>
-                <th>Current Role</th>
-                <th>New Role</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var user in Model.Users)
-            {
-                <tr>
-                    <td>@user.UserName</td>
-                    <td>@user.Email</td>
-                    <td>@user.CurrentRole</td>
-                    <td colspan="2">
-                        <form method="post">
-                            @Html.AntiForgeryToken()
-                            <input type="hidden" name="email" value="@user.Email" />
-                            <div class="form-group">
-                                <select name="selectedRole" class="form-control" asp-items="Model.RoleSelectList">
-                                    <option value="">Select role</option>
-                                </select>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Update Role</button>
-                        </form>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
-else if (User.IsInRole(RoleNames.CommitteeMember))
-{
-    <p>You are a <strong>Committee Member</strong> for @string.Join(", ", Model.AssignedSports)</p>
-}
-else
-{
-    <p>You are a <strong>Viewer</strong>.</p>
-}
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Current Role</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var user in Model.Users)
+                        {
+                            <tr>
+                                <td>@user.UserName</td>
+                                <td>@user.Email</td>
+                                <td>@user.CurrentRole</td>
+                                <td>
+                                    <div class="d-flex gap-2">
+                                        <form method="post" class="d-inline">
+                                            @Html.AntiForgeryToken()
+                                            <input type="hidden" name="email" value="@user.Email" />
+                                            <select name="selectedRole" class="form-select form-select-sm d-inline-block w-auto"
+                                                    onchange="this.form.submit()">
+                                                <option value="">Change Role</option>
+                                                @foreach (var role in Model.RoleSelectList)
+                                                {
+                                                    <option value="@role.Value" selected="@(role.Value == user.CurrentRole)">
+                                                        @role.Text
+                                                    </option>
+                                                }
+                                            </select>
+                                        </form>
+                                        <form method="post" asp-page-handler="DeleteUser" class="d-inline"
+                                              onsubmit="return confirm('Are you sure you want to delete this user?');">
+                                            @Html.AntiForgeryToken()
+                                            <input type="hidden" name="email" value="@user.Email" />
+                                            <button type="submit" class="btn btn-danger btn-sm">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

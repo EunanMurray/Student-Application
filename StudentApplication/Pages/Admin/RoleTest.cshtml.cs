@@ -1,113 +1,84 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using StudentApplicationPages.Data;
-using System;
+using StudentApplicationModel.Data;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using StudentApplicationModel.Data;
 
-[Authorize]
+[Authorize(Roles = "Admin")]
 public class RoleTestModel : PageModel
 {
     private readonly UserManager<IdentityUser> _userManager;
     private readonly RoleManager<IdentityRole> _roleManager;
-    private readonly ApplicationDbContext _applicationDb;
     private readonly PrimaryContext _primaryContext;
     private readonly ILogger<RoleTestModel> _logger;
-
-    public List<UserWithRoleViewModel> Users { get; set; } = new List<UserWithRoleViewModel>();
-    public List<string> AssignedSports { get; set; } = new List<string>();
-    public SelectList RoleSelectList { get; set; }
 
     public RoleTestModel(
         UserManager<IdentityUser> userManager,
         RoleManager<IdentityRole> roleManager,
-        ApplicationDbContext applicationDb,
         PrimaryContext primaryContext,
         ILogger<RoleTestModel> logger)
     {
         _userManager = userManager;
         _roleManager = roleManager;
-        _applicationDb = applicationDb;
         _primaryContext = primaryContext;
         _logger = logger;
     }
 
-    public async Task OnGetAsync()
+    public List<UserWithRoleViewModel> Users { get; set; } = new List<UserWithRoleViewModel>();
+    public SelectList RoleSelectList { get; set; }
+
+    public async Task<IActionResult> OnGetAsync()
     {
         try
         {
             var currentUser = await _userManager.GetUserAsync(User);
-            if (currentUser == null)
+            if (currentUser == null || !await _userManager.IsInRoleAsync(currentUser, "Admin"))
             {
-                _logger.LogWarning("No user found.");
-                return;
+                return RedirectToPage("/Account/AccessDenied");
             }
 
-            if (User.IsInRole(RoleNames.CommitteeMember))
-            {
-                AssignedSports = await _primaryContext.UserSports
-                    .Where(us => us.UserID == currentUser.Id)
-                    .Join(_primaryContext.Sports,
-                        us => us.SportID,
-                        s => s.SportID,
-                        (us, s) => s.SportName)
-                    .ToListAsync();
-            }
+            var allUsers = await _userManager.Users
+                .Where(u => u.Id != currentUser.Id)
+                .ToListAsync();
 
-            if (User.IsInRole(RoleNames.Admin))
+            foreach (var u in allUsers)
             {
-                var allUsers = await _userManager.Users.ToListAsync();
-
-                foreach (var u in allUsers)
+                var roles = await _userManager.GetRolesAsync(u);
+                Users.Add(new UserWithRoleViewModel
                 {
-                    var roles = await _userManager.GetRolesAsync(u);
-                    var currentRole = roles.FirstOrDefault() ?? "None";
-                    Users.Add(new UserWithRoleViewModel
-                    {
-                        Id = u.Id,
-                        UserName = u.UserName,
-                        Email = u.Email,
-                        CurrentRole = currentRole
-                    });
-                }
-
-                var rolesList = await _roleManager.Roles.ToListAsync();
-                RoleSelectList = new SelectList(rolesList, "Name", "Name");
+                    Id = u.Id,
+                    UserName = u.UserName,
+                    Email = u.Email,
+                    CurrentRole = roles.FirstOrDefault() ?? "None"
+                });
             }
+
+            var rolesList = await _roleManager.Roles.ToListAsync();
+            RoleSelectList = new SelectList(rolesList, "Name", "Name");
+
+            return Page();
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error in OnGetAsync");
-            TempData["ErrorMessage"] = "An error occurred while loading the page.";
+            _logger.LogError(ex, "Error loading users");
+            TempData["ErrorMessage"] = "An error occurred while loading users.";
+            return Page();
         }
     }
 
-    [ValidateAntiForgeryToken]
     public async Task<IActionResult> OnPostAsync(string email, string selectedRole)
     {
         try
         {
-            if (!User.IsInRole(RoleNames.Admin))
-            {
-                return Unauthorized();
-            }
-
-            if (string.IsNullOrEmpty(email))
-            {
-                ModelState.AddModelError("", "Email cannot be null or empty.");
-                return Page();
-            }
-
             var user = await _userManager.FindByEmailAsync(email);
             if (user == null)
             {
-                TempData["ErrorMessage"] = $"User with email '{email}' not found.";
+                TempData["ErrorMessage"] = "User not found.";
                 return RedirectToPage();
             }
 
@@ -119,41 +90,76 @@ public class RoleTestModel : PageModel
 
             if (!string.IsNullOrEmpty(selectedRole))
             {
-                var roleExists = await _roleManager.RoleExistsAsync(selectedRole);
-                if (roleExists)
+                var result = await _userManager.AddToRoleAsync(user, selectedRole);
+                if (result.Succeeded)
                 {
-                    await _userManager.AddToRoleAsync(user, selectedRole);
-                    TempData["SuccessMessage"] = $"Role for {email} updated to {selectedRole}.";
-
-                    if (selectedRole != RoleNames.CommitteeMember)
+                    if (selectedRole != "Committee Member")
                     {
                         var userSports = await _primaryContext.UserSports
                             .Where(us => us.UserID == user.Id)
                             .ToListAsync();
-
                         if (userSports.Any())
                         {
                             _primaryContext.UserSports.RemoveRange(userSports);
                             await _primaryContext.SaveChangesAsync();
                         }
                     }
+                    TempData["SuccessMessage"] = $"Role updated for {user.Email}";
                 }
                 else
                 {
-                    TempData["ErrorMessage"] = "Selected role does not exist.";
+                    TempData["ErrorMessage"] = "Failed to update role.";
                 }
-            }
-            else
-            {
-                TempData["SuccessMessage"] = $"All roles removed from {email}.";
             }
 
             return RedirectToPage();
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error in OnPostAsync");
+            _logger.LogError(ex, "Error updating user role");
             TempData["ErrorMessage"] = "An error occurred while updating the role.";
+            return RedirectToPage();
+        }
+    }
+
+    public async Task<IActionResult> OnPostDeleteUserAsync(string email)
+    {
+        try
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+            {
+                TempData["ErrorMessage"] = "User not found.";
+                return RedirectToPage();
+            }
+
+            // Remove user's sports assignments
+            var userSports = await _primaryContext.UserSports
+                .Where(us => us.UserID == user.Id)
+                .ToListAsync();
+            if (userSports.Any())
+            {
+                _primaryContext.UserSports.RemoveRange(userSports);
+                await _primaryContext.SaveChangesAsync();
+            }
+
+            // Delete the user
+            var result = await _userManager.DeleteAsync(user);
+            if (result.Succeeded)
+            {
+                TempData["SuccessMessage"] = $"User {email} has been deleted.";
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Failed to delete user.";
+            }
+
+            return RedirectToPage();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error deleting user");
+            TempData["ErrorMessage"] = "An error occurred while deleting the user.";
             return RedirectToPage();
         }
     }

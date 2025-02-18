@@ -2,28 +2,21 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using StudentApplicationModel.Models;
-using student_application_model.Models;
 
 public class ApplicationDbContext : IdentityDbContext<IdentityUser>
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
     {
-        CommitteeMembers = Set<CommitteeMember>();
     }
-    public DbSet<CommitteeMember> CommitteeMembers { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
 
-        //builder.Entity<IdentitySport>(entity =>
-        //{
-        //    entity.ToTable("Sports");
-        //    entity.HasKey(e => e.SportID);
-        //    entity.Property(e => e.SportID).ValueGeneratedNever();
-        //    entity.Property(e => e.SportName).IsRequired();
-        //});
+        builder.Ignore<Sport>();
+        builder.Ignore<ApplicantSport>();
+        builder.Ignore<ScholarshipOfferHistory>();
 
         builder.Entity<CommitteeMember>(entity =>
         {
@@ -35,8 +28,39 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser>
                 .OnDelete(DeleteBehavior.Cascade);
         });
 
-        builder.Ignore<Sport>();
-        builder.Ignore<ApplicantSport>();
-        builder.Ignore<ScholarshipOfferHistory>();
+        builder.Entity<IdentityRole>(entity =>
+        {
+            entity.ToTable(name: "AspNetRoles");
+        });
+
+        builder.Entity<IdentityUser>(entity =>
+        {
+            entity.ToTable(name: "AspNetUsers");
+        });
+
+        builder.Entity<IdentityUserRole<string>>(entity =>
+        {
+            entity.ToTable("AspNetUserRoles");
+        });
+
+        builder.Entity<IdentityUserClaim<string>>(entity =>
+        {
+            entity.ToTable("AspNetUserClaims");
+        });
+
+        builder.Entity<IdentityUserLogin<string>>(entity =>
+        {
+            entity.ToTable("AspNetUserLogins");
+        });
+
+        builder.Entity<IdentityRoleClaim<string>>(entity =>
+        {
+            entity.ToTable("AspNetRoleClaims");
+        });
+
+        builder.Entity<IdentityUserToken<string>>(entity =>
+        {
+            entity.ToTable("AspNetUserTokens");
+        });
     }
 }
