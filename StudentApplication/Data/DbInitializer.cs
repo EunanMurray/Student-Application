@@ -144,7 +144,7 @@ namespace ScholarshipInfoSystem.Data
 
         private static async Task InitializeRoles(RoleManager<IdentityRole> roleManager)
         {
-            string[] roleNames = { "Admin", "Committee Member", "Viewer" };
+            string[] roleNames = { "Admin", "Committee Member", "Viewer", "Applicant" };
 
             foreach (var roleName in roleNames)
             {

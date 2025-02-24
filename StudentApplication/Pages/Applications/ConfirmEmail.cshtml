@@ -1,0 +1,18 @@
+﻿@page
+@model StudentApplication.Pages.Account.ConfirmEmailModel
+@{
+    ViewData["Title"] = "Confirm email";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h1>@ViewData["Title"]</h1>
+                    <partial name="_StatusMessage" model="Model.StatusMessage" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

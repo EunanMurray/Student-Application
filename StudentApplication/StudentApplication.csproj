@@ -20,4 +20,8 @@
     <ProjectReference Include="..\student-application-model\student-application-model.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="NewFolder\" />
+  </ItemGroup>
+
 </Project>

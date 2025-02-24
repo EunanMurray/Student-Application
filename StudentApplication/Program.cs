@@ -5,10 +5,12 @@ using StudentApplicationModel.Models;
 using ScholarshipInfoSystem.Data;
 using StudentApplicationModel.Data;
 using Microsoft.Extensions.Logging;
+using StudentApplication.Services;
+using StudentApplication.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// **Add the following logging configuration:**
+// Add logging configuration
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 builder.Logging.SetMinimumLevel(LogLevel.Information);
@@ -17,7 +19,7 @@ builder.Logging.SetMinimumLevel(LogLevel.Information);
 var connectionString = builder.Configuration.GetConnectionString("Project300Database")
     ?? throw new InvalidOperationException("Connection string 'Project300Database' not found.");
 
-// Configure DbContexts
+// Configure services
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 
@@ -31,17 +33,22 @@ builder.Services.AddDbContext<PrimaryContext>(options =>
             errorNumbersToAdd: null);
     }));
 
+// Configure Email Service
+builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
+builder.Services.AddScoped<IEmailService, EmailService>();
+
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 // Configure Identity
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
 {
-    options.SignIn.RequireConfirmedAccount = false;
+    options.SignIn.RequireConfirmedEmail = true;
+    options.User.RequireUniqueEmail = true;
     options.Password.RequireDigit = true;
     options.Password.RequireLowercase = true;
     options.Password.RequireUppercase = true;
     options.Password.RequireNonAlphanumeric = true;
-    options.Password.RequiredLength = 6;
+    options.Password.RequiredLength = 8;
 })
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
@@ -51,9 +58,8 @@ builder.Services.AddRazorPages();
 var app = builder.Build();
 
 // Initialize Database and Roles
-using (var scope = app.Services.CreateScope())
+async Task InitializeDatabaseAsync(IServiceProvider services)
 {
-    var services = scope.ServiceProvider;
     var logger = services.GetRequiredService<ILogger<Program>>();
 
     try
@@ -75,10 +81,8 @@ using (var scope = app.Services.CreateScope())
         var user = await userManager.FindByEmailAsync(userEmail);
         if (user != null)
         {
-            // Check if user is already in the specified role
             if (!await userManager.IsInRoleAsync(user, roleToAssign))
             {
-                // Remove any existing roles the user may have
                 var currentRoles = await userManager.GetRolesAsync(user);
                 if (currentRoles.Any())
                 {
@@ -86,7 +90,6 @@ using (var scope = app.Services.CreateScope())
                     logger.LogInformation($"Removed existing roles from user {userEmail}: {string.Join(", ", currentRoles)}");
                 }
 
-                // Assign the new role
                 var result = await userManager.AddToRoleAsync(user, roleToAssign);
                 if (result.Succeeded)
                 {
@@ -110,7 +113,14 @@ using (var scope = app.Services.CreateScope())
     catch (Exception ex)
     {
         logger.LogError(ex, "An error occurred during database initialization");
+        throw;
     }
+}
+
+// Execute database initialization
+using (var scope = app.Services.CreateScope())
+{
+    await InitializeDatabaseAsync(scope.ServiceProvider);
 }
 
 // Configure the HTTP request pipeline
@@ -136,7 +146,7 @@ app.UseEndpoints(endpoints =>
     endpoints.MapRazorPages();
     endpoints.MapGet("/", async context =>
     {
-        context.Response.Redirect("/Applications/Apply");
+        context.Response.Redirect("/Applications/ApplicantRegister");
     });
 });
 

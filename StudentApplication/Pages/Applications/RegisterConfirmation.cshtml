@@ -1,0 +1,41 @@
+﻿@page
+@model StudentApplication.Pages.Account.RegisterConfirmationModel
+@{
+    ViewData["Title"] = "Registration Confirmation";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-success text-white">
+                    <h1 class="text-center mb-0">@ViewData["Title"]</h1>
+                </div>
+                <div class="card-body text-center">
+                    <div class="mb-4">
+                        <i class="fas fa-envelope-open-text fa-4x text-success"></i>
+                    </div>
+                    <h3>Thank you for registering!</h3>
+                    <p class="lead">
+                        Please check your email at <strong>@Model.Email</strong> to confirm your account.
+                    </p>
+                    <p>
+                        You will need to confirm your email address before you can log in and submit your scholarship application.
+                    </p>
+                    @if (Model.DisplayConfirmAccountLink)
+                    {
+                        <div class="alert alert-warning">
+                            <p>
+                                <strong>Development Mode:</strong> In production, a confirmation email would be sent.
+                                You can confirm your account by clicking <a href="@Model.EmailConfirmationUrl">here</a>.
+                            </p>
+                        </div>
+                    }
+                    <div class="mt-4">
+                        <a asp-page="./Login" class="btn btn-primary">Return to Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
