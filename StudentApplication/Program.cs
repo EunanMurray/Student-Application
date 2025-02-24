@@ -146,7 +146,7 @@ app.UseEndpoints(endpoints =>
     endpoints.MapRazorPages();
     endpoints.MapGet("/", async context =>
     {
-        context.Response.Redirect("/Applications/ApplicantRegister");
+        context.Response.Redirect("/Applications/RegisterOrLogin");
     });
 });
 
