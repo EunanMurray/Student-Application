@@ -1,4 +1,15 @@
 ﻿@page
 @model StudentApplication.Pages.Applications.RegisterOrLoginModel
 @{
+    ViewData["Title"] = "Welcome";
 }
+
+<div class="container text-center py-5">
+    <h1 class="mb-4">Welcome to the Student Application Portal</h1>
+    <p class="mb-4">Please choose an option to proceed:</p>
+
+    <div class="d-flex justify-content-center gap-3">
+        <a asp-page="/Account/Login" class="btn btn-primary btn-lg">Login</a>
+        <a asp-page="/Applications/ApplicantRegister" class="btn btn-success btn-lg">Register as an applicant</a>
+    </div>
+</div>
