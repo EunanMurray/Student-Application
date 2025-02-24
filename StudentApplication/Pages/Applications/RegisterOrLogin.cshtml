@@ -1,15 +1,109 @@
 ﻿@page
 @model StudentApplication.Pages.Applications.RegisterOrLoginModel
 @{
-    ViewData["Title"] = "Welcome";
+    ViewData["Title"] = "Welcome to Student Portal";
 }
-
-<div class="container text-center py-5">
-    <h1 class="mb-4">Welcome to the Student Application Portal</h1>
-    <p class="mb-4">Please choose an option to proceed:</p>
-
-    <div class="d-flex justify-content-center gap-3">
-        <a asp-page="/Account/Login" class="btn btn-primary btn-lg">Login</a>
-        <a asp-page="/Applications/ApplicantRegister" class="btn btn-success btn-lg">Register as an applicant</a>
+<div class="landing-container">
+    <div class="landing-header">
+        <h1>ATU Scholarship Application Portal</h1>
+        <p class="lead">Your Future is Here</p>
+        <hr class="my-4">
     </div>
-</div>
+    <div class="landing-content">
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="card h-100 shadow-sm register-card">
+                    <div class="card-body text-center">
+                        <i class="fas fa-user-plus mb-3"></i>
+                        <h2 class="card-title">New User?</h2>
+                        <p class="card-text">Create an account to submit your application and track its progress.</p>
+                        <a asp-page="/Applications/ApplicantRegister" class="btn btn-success btn-lg mt-3">Register</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="card h-100 shadow-sm login-card">
+                    <div class="card-body text-center">
+                        <i class="fas fa-sign-in-alt mb-3"></i>
+                        <h2 class="card-title">Returning User?</h2>
+                        <p class="card-text">Sign in to your account to continue your application or check status.</p>
+                        <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-primary btn-lg mt-3">Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<style>
+    .landing-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 3rem 1rem;
+    }
+
+    .landing-header {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+        .landing-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
+        .landing-header .lead {
+            font-size: 1.25rem;
+            color: #7f8c8d;
+        }
+
+    .card {
+        border-radius: 10px;
+        transition: transform 0.3s ease;
+        border: none;
+    }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+    .register-card {
+        border-top: 4px solid #27ae60;
+    }
+
+    .login-card {
+        border-top: 4px solid #3498db;
+    }
+
+    .card-title {
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+
+    .fas {
+        font-size: 2.5rem;
+    }
+
+    .fa-user-plus {
+        color: #27ae60;
+    }
+
+    .fa-sign-in-alt {
+        color: #3498db;
+    }
+
+    .btn-lg {
+        padding: 0.75rem 1.5rem;
+        font-weight: 500;
+        border-radius: 30px;
+    }
+
+    .landing-footer {
+        color: #7f8c8d;
+    }
+
+    .alert {
+        border-radius: 10px;
+        padding: 1rem;
+        animation: fadeIn 0.5s;
+    }
+</style>
