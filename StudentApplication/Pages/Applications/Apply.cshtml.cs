@@ -10,9 +10,11 @@ using System.Diagnostics;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace StudentApplicationPages.Pages.Applications
 {
+    [Authorize]
     public class ApplyModel : PageModel
     {
         private readonly PrimaryContext _context;

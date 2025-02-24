@@ -39,6 +39,15 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
 
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Identity/Account/Login"; // Redirect to login if not authenticated
+    options.AccessDeniedPath = "/Identity/Account/AccessDenied"; // Redirect if not authorized
+    options.Cookie.HttpOnly = true;
+    options.ExpireTimeSpan = TimeSpan.FromDays(30);
+    options.SlidingExpiration = true;
+});
+
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
@@ -124,6 +133,12 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.UseCookiePolicy(new CookiePolicyOptions
+{
+    MinimumSameSitePolicy = SameSiteMode.Lax,
+    Secure = CookieSecurePolicy.Always
+});
+
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapRazorPages();
@@ -133,11 +148,7 @@ app.UseEndpoints(endpoints =>
     });
 });
 
-// Configure cookie policy
-app.UseCookiePolicy(new CookiePolicyOptions
-{
-    MinimumSameSitePolicy = SameSiteMode.Lax,
-    Secure = CookieSecurePolicy.Always
-});
+
+
 
 app.Run();
