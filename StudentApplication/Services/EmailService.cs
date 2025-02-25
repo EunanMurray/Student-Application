@@ -60,7 +60,7 @@ namespace StudentApplication.Services
 
         public async Task SendVerificationEmailAsync(string to, string verificationLink)
         {
-            var encodedLink = _htmlEncoder.Encode(verificationLink);
+            var encodedLink = verificationLink != null ? _htmlEncoder.Encode(verificationLink) : "#";
             var subject = "Verify your email address";
             var htmlBody = $@"
                 <div style='font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;'>
@@ -82,12 +82,21 @@ namespace StudentApplication.Services
 
         public async Task SendScholarshipOfferEmailAsync(string to, string name, string scholarshipLevel, string acceptanceLink)
         {
+            if (string.IsNullOrEmpty(acceptanceLink))
+            {
+                _logger.LogWarning("Acceptance link is null or empty when sending scholarship email to {Email}", to);
+                acceptanceLink = "#"; 
+            }
+
+            var encodedName = name != null ? _htmlEncoder.Encode(name) : "Applicant";
+            var encodedLevel = scholarshipLevel != null ? _htmlEncoder.Encode(scholarshipLevel) : "Scholarship";
             var encodedLink = _htmlEncoder.Encode(acceptanceLink);
-            var subject = $"Congratulations! {scholarshipLevel} Scholarship Offer";
+
+            var subject = $"Congratulations! {encodedLevel} Scholarship Offer";
             var htmlBody = $@"
                 <div style='font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;'>
-                    <h2 style='color: #2c3e50;'>Congratulations {_htmlEncoder.Encode(name)}!</h2>
-                    <p>We are pleased to inform you that you have been offered a <strong>{_htmlEncoder.Encode(scholarshipLevel)} Scholarship</strong>.</p>
+                    <h2 style='color: #2c3e50;'>Congratulations {encodedName}!</h2>
+                    <p>We are pleased to inform you that you have been offered a <strong>{encodedLevel} Scholarship</strong>.</p>
                     <p>Please review and accept your scholarship offer by clicking the button below:</p>
                     <div style='text-align: center; margin: 30px 0;'>
                         <a href='{encodedLink}' 
@@ -101,6 +110,7 @@ namespace StudentApplication.Services
                     <p style='color: #7f8c8d; font-size: 14px;'>If you have any questions, please contact the scholarship office.</p>
                 </div>";
 
+            _logger.LogInformation("Sending scholarship offer email to {Email} for {Level} scholarship", to, scholarshipLevel);
             await SendEmailAsync(to, subject, htmlBody);
         }
     }

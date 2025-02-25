@@ -11,6 +11,7 @@ using StudentApplicationModel.Data;
 using Microsoft.Extensions.Logging;
 using System.ComponentModel.DataAnnotations;
 using StudentApplicationModel.Models;
+using StudentApplication.Services;
 
 namespace StudentApplication.Pages.Admin
 {
@@ -20,17 +21,20 @@ namespace StudentApplication.Pages.Admin
         private readonly UserManager<IdentityUser> _userManager;
         private readonly PrimaryContext _primaryContext;
         private readonly ApplicationDbContext _applicationDbContext;
+        private readonly IEmailService _emailService;
         private readonly ILogger<ApplicantDetailsModel> _logger;
 
         public ApplicantDetailsModel(
             UserManager<IdentityUser> userManager,
             PrimaryContext primaryContext,
             ApplicationDbContext applicationDbContext,
+            IEmailService emailService,
             ILogger<ApplicantDetailsModel> logger)
         {
             _userManager = userManager;
             _primaryContext = primaryContext;
             _applicationDbContext = applicationDbContext;
+            _emailService = emailService;
             _logger = logger;
         }
 
@@ -128,6 +132,7 @@ namespace StudentApplication.Pages.Admin
                 var applicant = await _primaryContext.Applicants
                     .Include(a => a.ApplicantSports)
                     .Include(a => a.Referees)
+                    .Include(a => a.ContactDetail)
                     .FirstOrDefaultAsync(a => a.Name == applicantName);
 
                 if (applicant == null)
@@ -181,6 +186,48 @@ namespace StudentApplication.Pages.Admin
 
                 await _primaryContext.SaveChangesAsync();
 
+                if (applicant.ContactDetail != null && !string.IsNullOrEmpty(applicant.ContactDetail.Email))
+                {
+                    try
+                    {
+                        _logger.LogInformation("Creating acceptance URL for applicant {ApplicantName} with offer ID {OfferId}",
+                            applicant.Name, offerHistory.OfferID);
+
+                        string acceptanceLink = Url.Page(
+                            "/Admin/AcceptScholarship",
+                            pageHandler: null,
+                            values: new { id = offerHistory.OfferID },
+                            protocol: Request.Scheme
+                        );
+
+                        _logger.LogInformation("Generated acceptance link: {AcceptanceLink}", acceptanceLink);
+
+                        if (string.IsNullOrEmpty(acceptanceLink))
+                        {
+                            _logger.LogWarning("Generated acceptance link is null or empty");
+                            acceptanceLink = $"{Request.Scheme}://{Request.Host}/Applicants/AcceptScholarship?id={offerHistory.OfferID}";
+                            _logger.LogInformation("Using fallback acceptance link: {AcceptanceLink}", acceptanceLink);
+                        }
+
+                        await _emailService.SendScholarshipOfferEmailAsync(
+                            applicant.ContactDetail.Email,
+                            applicant.Name,
+                            ScholarshipDecision.ScholarshipLevel,
+                            acceptanceLink
+                        );
+
+                        _logger.LogInformation("Scholarship offer email sent to {Email}", applicant.ContactDetail.Email);
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.LogError(ex, "Failed to send scholarship offer email");
+                    }
+                }
+                else
+                {
+                    _logger.LogWarning("No email found for applicant {ApplicantName}", applicant.Name);
+                }
+
                 TempData["SuccessMessage"] = $"{ScholarshipDecision.ScholarshipLevel} scholarship offer has been created successfully.";
                 return RedirectToPage("/Admin/ViewApplicantsByCommitteeSport");
             }
@@ -193,7 +240,6 @@ namespace StudentApplication.Pages.Admin
             }
         }
 
-        
         private async Task LoadApplicantData()
         {
             var applicantName = RouteData.Values["name"]?.ToString();
