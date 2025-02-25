@@ -14,82 +14,84 @@
                 <div class="card-body">
                     @if (!string.IsNullOrEmpty(Model.StatusMessage))
                     {
-                            <div class="alert @(Model.IsValid ? "alert-info" : "alert-danger")">
+                        <div class="alert @(Model.IsValid ? "alert-info" : "alert-danger")">
                             @Model.StatusMessage
-                            </div>
+                        </div>
                     }
 
                     @if (Model.IsValid && !Model.IsExpired && !Model.IsProcessed)
                     {
-                            <div class="text-center mb-4">
-                                <i class="fas fa-award fa-4x text-warning mb-3"></i>
-                                <h3>Congratulations @Model.ApplicantName!</h3>
-                                <p class="lead">
-                                    You have been offered a <strong class="text-primary">@Model.ScholarshipLevel Scholarship</strong>.
-                                </p>
-                            </div>
+                        <div class="text-center mb-4">
+                            <i class="fas fa-award fa-4x text-warning mb-3"></i>
+                            <h3>Congratulations @Model.ApplicantName!</h3>
+                            <p class="lead">
+                                You have been offered a <strong class="text-primary">@Model.ScholarshipLevel Scholarship</strong>.
+                            </p>
+                        </div>
 
-                            <div class="scholarship-details p-4 bg-light rounded mb-4">
-                                <h4>Scholarship Details:</h4>
-                                <ul class="list-unstyled">
-                                    <li><i class="fas fa-check-circle text-success me-2"></i> Academic support and resources</li>
-                                    <li><i class="fas fa-check-circle text-success me-2"></i> Specialized coaching and training</li>
-                                    <li><i class="fas fa-check-circle text-success me-2"></i> Sports facilities access</li>
+                        <div class="scholarship-details p-4 bg-light rounded mb-4">
+                            <h4>Scholarship Details:</h4>
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-check-circle text-success me-2"></i> Academic support and resources</li>
+                                <li><i class="fas fa-check-circle text-success me-2"></i> Specialized coaching and training</li>
+                                <li><i class="fas fa-check-circle text-success me-2"></i> Sports facilities access</li>
                                 @if (Model.ScholarshipLevel == "Gold")
                                 {
-                                            <li><i class="fas fa-check-circle text-success me-2"></i> Full tuition coverage</li>
-                                            <li><i class="fas fa-check-circle text-success me-2"></i> Accommodation support</li>
-                                            <li><i class="fas fa-check-circle text-success me-2"></i> Equipment allowance</li>
+                                    <li><i class="fas fa-check-circle text-success me-2"></i> Full tuition coverage</li>
+                                    <li><i class="fas fa-check-circle text-success me-2"></i> Accommodation support</li>
+                                    <li><i class="fas fa-check-circle text-success me-2"></i> Equipment allowance</li>
                                 }
                                 else if (Model.ScholarshipLevel == "Silver")
                                 {
-                                            <li><i class="fas fa-check-circle text-success me-2"></i> Partial tuition coverage</li>
-                                            <li><i class="fas fa-check-circle text-success me-2"></i> Partial accommodation support</li>
+                                    <li><i class="fas fa-check-circle text-success me-2"></i> Partial tuition coverage</li>
+                                    <li><i class="fas fa-check-circle text-success me-2"></i> Partial accommodation support</li>
                                 }
                                 else if (Model.ScholarshipLevel == "Bronze")
                                 {
-                                            <li><i class="fas fa-check-circle text-success me-2"></i> Basic support package</li>
+                                    <li><i class="fas fa-check-circle text-success me-2"></i> Basic support package</li>
                                 }
-                                </ul>
-                            </div>
+                            </ul>
+                        </div>
 
-                            <div class="alert alert-warning">
-                                <i class="fas fa-exclamation-circle"></i>
-                                This offer will expire in 14 days from the date of issuance.
-                            </div>
+                        <div class="alert alert-warning">
+                            <i class="fas fa-exclamation-circle"></i>
+                            This offer will expire in 14 days from the date of issuance.
+                        </div>
 
-                            <div class="row mt-4">
-                                <div class="col-md-6">
-                                    <form method="post" asp-page-handler="Accept" onsubmit="return confirm('Are you sure you want to accept this scholarship offer?');">
-                                        <button type="submit" class="btn btn-success btn-lg w-100">
-                                            <i class="fas fa-check-circle me-2"></i> Accept Offer
-                                        </button>
-                                    </form>
-                                </div>
-                                <div class="col-md-6">
-                                    <form method="post" asp-page-handler="Decline" onsubmit="return confirm('Are you sure you want to decline this scholarship offer? This action cannot be undone.');">
-                                        <button type="submit" class="btn btn-outline-danger btn-lg w-100">
-                                            <i class="fas fa-times-circle me-2"></i> Decline Offer
-                                        </button>
-                                    </form>
-                                </div>
+                        <div class="row mt-4">
+                            <div class="col-md-6">
+                                <form method="post" asp-page-handler="Accept" onsubmit="return confirm('Are you sure you want to accept this scholarship offer?');">
+                                    <input type="hidden" name="Id" value="@Model.Id" />
+                                    <button type="submit" class="btn btn-success btn-lg w-100">
+                                        <i class="fas fa-check-circle me-2"></i> Accept Offer
+                                    </button>
+                                </form>
                             </div>
+                            <div class="col-md-6">
+                                <form method="post" asp-page-handler="Decline" onsubmit="return confirm('Are you sure you want to decline this scholarship offer? This action cannot be undone.');">
+                                    <input type="hidden" name="Id" value="@Model.Id" />
+                                    <button type="submit" class="btn btn-outline-danger btn-lg w-100">
+                                        <i class="fas fa-times-circle me-2"></i> Decline Offer
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
                     }
                     else if (Model.IsExpired)
                     {
-                            <div class="text-center">
-                                <i class="fas fa-clock fa-4x text-warning mb-3"></i>
-                                <h3>Offer Expired</h3>
-                                <p>Please contact the scholarship office for assistance.</p>
-                            </div>
+                        <div class="text-center">
+                            <i class="fas fa-clock fa-4x text-warning mb-3"></i>
+                            <h3>Offer Expired</h3>
+                            <p>Please contact the scholarship office for assistance.</p>
+                        </div>
                     }
                     else if (Model.IsProcessed)
                     {
-                            <div class="text-center">
-                                <i class="fas fa-check-circle fa-4x text-success mb-3"></i>
-                                <h3>Already Processed</h3>
-                                <p>This scholarship offer has already been responded to.</p>
-                            </div>
+                        <div class="text-center">
+                            <i class="fas fa-check-circle fa-4x text-success mb-3"></i>
+                            <h3>Already Processed</h3>
+                            <p>This scholarship offer has already been responded to.</p>
+                        </div>
                     }
                 </div>
                 <div class="card-footer">
