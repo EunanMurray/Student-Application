@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StudentApplicationModel.Data;
 
@@ -11,9 +12,11 @@ using StudentApplicationModel.Data;
 namespace StudentApplication.Migrations
 {
     [DbContext(typeof(PrimaryContext))]
-    partial class PrimaryContextModelSnapshot : ModelSnapshot
+    [Migration("20250225201821_Budget-Truncation-Added")]
+    partial class BudgetTruncationAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

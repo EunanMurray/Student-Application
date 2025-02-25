@@ -23,6 +23,7 @@ namespace StudentApplicationModel.Data
             Campuses = Set<Campus>();
             Sports = Set<Sport>();
             UserSports = Set<UserSport>();
+            Budgets = Set<Budget>();
         }
 
         public DbSet<Scholarship> Scholarships { get; set; }
@@ -38,6 +39,7 @@ namespace StudentApplicationModel.Data
         public DbSet<Campus> Campuses { get; set; }
         public DbSet<Sport> Sports { get; set; }
         public DbSet<UserSport> UserSports { get; set; }
+        public DbSet<Budget> Budgets { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -117,6 +119,14 @@ namespace StudentApplicationModel.Data
 
             modelBuilder.Ignore<CommitteeMember>();
             modelBuilder.Ignore<IdentityUser>();
+
+            modelBuilder.Entity<Budget>(entity =>
+
+            {
+                entity.Property(e => e.BudgetAmount).HasPrecision(18, 2);
+                entity.Property(e => e.BudgetUsage).HasPrecision(18, 2);
+                entity.Property(e => e.OverBudgetAmount).HasPrecision(18, 2);
+            });
         }
     }
 }

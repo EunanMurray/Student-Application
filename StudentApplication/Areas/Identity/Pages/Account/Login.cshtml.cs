@@ -127,6 +127,14 @@ namespace StudentApplicationPages.Areas.Identity.Pages.Account
                     {
                         return RedirectToPage("/Admin/ViewApplicantsByCommitteeSport");
                     }
+                    else if (roles.Contains("Applicant"))
+                    {
+                        return RedirectToPage("/Applications/Apply");
+                    }
+                    else
+                    {
+                        return RedirectToPage("/Index");
+                    }
 
                     return LocalRedirect(returnUrl);
                 }
