@@ -26,6 +26,7 @@ namespace ScholarshipInfoSystem.Data
             InitializeDefaultCommitteeMember(userManager).Wait();
             InitializeTestApplicants(primaryContext);
             InitializeUserSports(primaryContext, userManager);
+            InitializeBudget(primaryContext);
         }
 
         private static void InitializeScholarshipTypes(PrimaryContext primaryContext)
@@ -34,9 +35,9 @@ namespace ScholarshipInfoSystem.Data
             {
                 var scholarshipTypes = new ScholarshipType[]
                 {
-                        new ScholarshipType { ScholarshipLevelName = "Gold", PaymentAmount = 10000 },
-                        new ScholarshipType { ScholarshipLevelName = "Silver", PaymentAmount = 5000 },
-                        new ScholarshipType { ScholarshipLevelName = "Bronze", PaymentAmount = 2500 }
+                        new ScholarshipType { ScholarshipLevelName = "Gold", PaymentAmount = 3000 },
+                        new ScholarshipType { ScholarshipLevelName = "Silver", PaymentAmount = 1500 },
+                        new ScholarshipType { ScholarshipLevelName = "Bronze", PaymentAmount = 500 }
                 };
 
                 foreach (var s in scholarshipTypes)
@@ -494,6 +495,16 @@ namespace ScholarshipInfoSystem.Data
 
                 Console.WriteLine($"Added {testApplicants.Length} test applicants to PrimaryContext.");
             }
+
+            
+        }
+        private static void InitializeBudget(PrimaryContext primaryContext)
+        {
+            if (!primaryContext.Budgets.Any())
+            {
+                var budget = new Budget { BudgetAmount = 80000, BudgetYear = "24/25" };
+            }
+            primaryContext.SaveChanges();
         }
     }
 }

@@ -27,6 +27,26 @@ namespace StudentApplicationModel.Models
         [Column(TypeName = "decimal(18,2)")]
         public decimal OverBudgetAmount { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:C}")]
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal BudgetForFirstYears { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:C}")]
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal BudgetForSecondYears { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:C}")]
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal BudgetForThirdYears { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:C}")]
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal BudgetForFourthYears { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:C}")]
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal BudgetForPreOffers { get; set; }
+
 
         //What year this budget is for
         public string BudgetYear { get; set; }
