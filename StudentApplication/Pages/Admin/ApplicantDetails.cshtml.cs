@@ -159,6 +159,20 @@ namespace StudentApplication.Pages.Admin
                     return Page();
                 }
 
+                var currentYear = DateTime.UtcNow.Year.ToString();
+                var budget = await _primaryContext.Budgets
+                    .FirstOrDefaultAsync(b => b.BudgetYear == currentYear);
+
+                if (budget == null)
+                {
+                    TempData["ErrorMessage"] = "Budget for the current year not found.";
+                    await LoadApplicantData();
+                    return Page();
+                }
+
+                budget.BudgetUsage += scholarshipType.PaymentAmount;
+                budget.BudgetAmount -= scholarshipType.PaymentAmount;
+
                 var scholarship = new Scholarship
                 {
                     ScholarshipTypeID = scholarshipType.ScholarshipTypeID,
