@@ -60,7 +60,8 @@ namespace StudentApplicationPages.Pages.Applications
                     // Create and save the Applicant entity first
                     var applicant = new Applicant
                     {
-                        Name = Application.Name,
+                        FirstName = Application.FirstName,
+                        LastName = Application.LastName,
                         CAONumber = Application.CAONumber,
                         DateOfBirth = Application.DateOfBirth,
                         Gender = Application.Gender,

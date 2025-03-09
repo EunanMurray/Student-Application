@@ -6,7 +6,7 @@ namespace StudentApplicationPages.Pages.Applications
     {
         public void OnGet()
         {
-            // No additional code needed for this simple confirmation page
+        
         }
     }
 }

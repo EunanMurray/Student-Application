@@ -152,7 +152,7 @@
                 <div class="applicant-card" data-status="@applicant.ApplicationStatus">
                     <div class="applicant-info">
                         <div class="info-header">
-                            <div class="applicant-name">@applicant.Name</div>
+                            <div class="applicant-name">@applicant.FirstName @applicant.LastName</div>
                             <span class="status-badge @($"status-{applicant.ApplicationStatus?.ToLower() ?? "not-reviewed"}")">
                                 @(applicant.ApplicationStatus switch
                                 {

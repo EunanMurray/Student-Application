@@ -145,7 +145,7 @@ namespace ScholarshipInfoSystem.Data
 
         private static async Task InitializeRoles(RoleManager<IdentityRole> roleManager)
         {
-            string[] roleNames = { "Admin", "Committee Member", "Viewer", "Applicant" };
+            string[] roleNames = { "Admin", "Committee Member", "Viewer", "Applicant", "ReturningApplicant" };
 
             foreach (var roleName in roleNames)
             {
@@ -210,8 +210,10 @@ namespace ScholarshipInfoSystem.Data
                 {
                         new Applicant
                         {
-                            Name = "Michael O'Connor",
+                            FirstName = "Michael",
+                            LastName = "O'Connor",
                             CAONumber = "23456789",
+                            CollegeYear = 1,
                             DateOfBirth = new DateTime(1999, 8, 12),
                             Gender = "Male",
                             PreferredLeisurewearSize = "L",
@@ -245,8 +247,10 @@ namespace ScholarshipInfoSystem.Data
                         },
                         new Applicant
                         {
-                            Name = "Sarah Kelly",
+                            FirstName = "Sarah",
+                            LastName = "Kelly",
                             CAONumber = "34567890",
+                            CollegeYear = 3,
                             DateOfBirth = new DateTime(2001, 4, 30),
                             Gender = "Female",
                             PreferredLeisurewearSize = "XS",
@@ -280,7 +284,9 @@ namespace ScholarshipInfoSystem.Data
                         },
                         new Applicant
                         {
-                            Name = "Conor Murphy",
+                            FirstName = "Conor",
+                            LastName = "Murphy",
+                            CollegeYear = 2,
                             CAONumber = "45678901",
                             DateOfBirth = new DateTime(2000, 11, 8),
                             Gender = "Male",
@@ -315,7 +321,9 @@ namespace ScholarshipInfoSystem.Data
                         },
                         new Applicant
                         {
-                            Name = "Emma Walsh",
+                            FirstName = "Emma",
+                            LastName = "Walsh",
+                            CollegeYear = 2,
                             CAONumber = "56789012",
                             DateOfBirth = new DateTime(1999, 2, 14),
                             Gender = "Female",
@@ -350,7 +358,9 @@ namespace ScholarshipInfoSystem.Data
                         },
                         new Applicant
                         {
-                            Name = "David Ryan",
+                            FirstName = "David",
+                            LastName = "Ryan",
+                            CollegeYear = 4,
                             CAONumber = "67890123",
                             DateOfBirth = new DateTime(2001, 7, 19),
                             Gender = "Male",
@@ -385,8 +395,10 @@ namespace ScholarshipInfoSystem.Data
                         },
                         new Applicant
                         {
-                            Name = "Aisling Byrne",
+                            FirstName = "Aisling",
+                            LastName = "Byrne",
                             CAONumber = "78901234",
+                            CollegeYear = 1,
                             DateOfBirth = new DateTime(2000, 9, 3),
                             Gender = "Female",
                             PreferredLeisurewearSize = "S",
@@ -420,8 +432,10 @@ namespace ScholarshipInfoSystem.Data
                         },
                         new Applicant
                         {
-                            Name = "Sean O'Brien",
+                            FirstName = "Sean",
+                            LastName = "O'Brien",
                             CAONumber = "89012345",
+                            CollegeYear = 2,
                             DateOfBirth = new DateTime(1999, 12, 21),
                             Gender = "Male",
                             PreferredLeisurewearSize = "XL",
@@ -455,8 +469,10 @@ namespace ScholarshipInfoSystem.Data
                         },
                         new Applicant
                         {
-                            Name = "Laura Fitzgerald",
+                            FirstName = "Laura",
+                            LastName = "Fitzgerald",
                             CAONumber = "90123456",
+                            CollegeYear = 1,
                             DateOfBirth = new DateTime(2001, 1, 5),
                             Gender = "Female",
                             PreferredLeisurewearSize = "M",

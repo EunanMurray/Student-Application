@@ -34,7 +34,6 @@ namespace StudentApplication.Pages.Account
 
             Email = email;
 
-            // If we're in development, we can display a link to confirm the email without actually sending an email
             DisplayConfirmAccountLink = false;
             if (DisplayConfirmAccountLink)
             {

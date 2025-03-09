@@ -111,7 +111,8 @@ namespace StudentApplication.Pages.Admin
                 _logger.LogInformation("Mapping applicants to ApplicantViewModel.");
                 Applicants = applicantsList.Select(a => new ApplicantViewModel
                 {
-                    Name = a.Name,
+                    FirstName = a.FirstName,
+                    LastName = a.LastName,
                     DateOfBirth = a.DateOfBirth,
                     SportingDetails = a.SportPositionOrCategory,
                     SportingAchievements = a.SportingAchievements,
@@ -145,6 +146,8 @@ namespace StudentApplication.Pages.Admin
         public class ApplicantViewModel
     {
         public string Name { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public string SportingDetails { get; set; }
         public string SportingAchievements { get; set; }

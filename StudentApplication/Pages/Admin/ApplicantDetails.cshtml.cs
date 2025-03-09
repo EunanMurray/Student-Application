@@ -67,11 +67,15 @@ namespace StudentApplication.Pages.Admin
 
                 _logger.LogInformation($"Fetching details for applicant with name: {name}");
 
+                var nameParts = name.Split(' ', 2);
+                string firstName = nameParts.Length > 0 ? nameParts[0] : string.Empty;
+                string lastName = nameParts.Length > 1 ? nameParts[1] : string.Empty;
+
                 var applicant = await _primaryContext.Applicants
                     .Include(a => a.Referees)
                     .Include(a => a.ApplicantSports)
                         .ThenInclude(a => a.Sport)
-                    .FirstOrDefaultAsync(a => a.Name == name);
+                    .FirstOrDefaultAsync(a => a.FirstName + " " + a.LastName == name);
 
                 if (applicant == null)
                 {
@@ -83,7 +87,8 @@ namespace StudentApplication.Pages.Admin
                 _logger.LogInformation($"Mapping applicant {name} to ApplicantViewModel.");
                 Applicant = new ApplicantViewModel
                 {
-                    Name = applicant.Name,
+                    FirstName = applicant.FirstName,
+                    LastName = applicant.LastName,
                     DateOfBirth = applicant.DateOfBirth,
                     SportingDetails = applicant.SportPositionOrCategory,
                     SportingAchievements = applicant.SportingAchievements,
@@ -129,11 +134,17 @@ namespace StudentApplication.Pages.Admin
                 }
 
                 var applicantName = RouteData.Values["name"]?.ToString();
+                // Split the full name since I should not have done just name in the first place
+                // I deeply regret not starting out with FirstName and LastName
+                var nameParts = applicantName.Split(' ', 2);
+                string firstName = nameParts.Length > 0 ? nameParts[0] : string.Empty;
+                string lastName = nameParts.Length > 1 ? nameParts[1] : string.Empty;
+
                 var applicant = await _primaryContext.Applicants
                     .Include(a => a.ApplicantSports)
                     .Include(a => a.Referees)
                     .Include(a => a.ContactDetail)
-                    .FirstOrDefaultAsync(a => a.Name == applicantName);
+                    .FirstOrDefaultAsync(a => a.FirstName + " " + a.LastName == applicantName);
 
                 if (applicant == null)
                 {
@@ -205,7 +216,7 @@ namespace StudentApplication.Pages.Admin
                     try
                     {
                         _logger.LogInformation("Creating acceptance URL for applicant {ApplicantName} with offer ID {OfferId}",
-                            applicant.Name, offerHistory.OfferID);
+                            $"{applicant.FirstName} {applicant.LastName}", offerHistory.OfferID);
 
                         string acceptanceLink = Url.Page(
                             "/Admin/AcceptScholarship",
@@ -225,7 +236,7 @@ namespace StudentApplication.Pages.Admin
 
                         await _emailService.SendScholarshipOfferEmailAsync(
                             applicant.ContactDetail.Email,
-                            applicant.Name,
+                            $"{applicant.FirstName} {applicant.LastName}",
                             ScholarshipDecision.ScholarshipLevel,
                             acceptanceLink
                         );
@@ -239,7 +250,7 @@ namespace StudentApplication.Pages.Admin
                 }
                 else
                 {
-                    _logger.LogWarning("No email found for applicant {ApplicantName}", applicant.Name);
+                    _logger.LogWarning("No email found for applicant {ApplicantName}", $"{applicant.FirstName} {applicant.LastName}");
                 }
 
                 TempData["SuccessMessage"] = $"{ScholarshipDecision.ScholarshipLevel} scholarship offer has been created successfully.";
@@ -259,17 +270,22 @@ namespace StudentApplication.Pages.Admin
             var applicantName = RouteData.Values["name"]?.ToString();
             if (!string.IsNullOrEmpty(applicantName))
             {
+                var nameParts = applicantName.Split(' ', 2); 
+                string firstName = nameParts.Length > 0 ? nameParts[0] : string.Empty;
+                string lastName = nameParts.Length > 1 ? nameParts[1] : string.Empty;
+
                 var applicant = await _primaryContext.Applicants
                     .Include(a => a.Referees)
                     .Include(a => a.ApplicantSports)
                         .ThenInclude(a => a.Sport)
-                    .FirstOrDefaultAsync(a => a.Name == applicantName);
+                    .FirstOrDefaultAsync(a => a.FirstName + " " + a.LastName == applicantName);
 
                 if (applicant != null)
                 {
                     Applicant = new ApplicantViewModel
                     {
-                        Name = applicant.Name,
+                        FirstName = applicant.FirstName,
+                        LastName = applicant.LastName,
                         DateOfBirth = applicant.DateOfBirth,
                         SportingDetails = applicant.SportPositionOrCategory,
                         SportingAchievements = applicant.SportingAchievements,

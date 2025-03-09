@@ -2,16 +2,25 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 public class Applicant
 {
     public int ApplicantID { get; set; }
 
     [Required]
-    public string Name { get; set; }
+    public string FirstName { get; set; }
+
+    [Required]
+    public string LastName { get; set; }
+
+    [NotMapped]
+    public string Name => $"{FirstName} {LastName}";
 
     [Required]
     public string CAONumber { get; set; }
+
+    public int? CollegeYear { get; set; }
 
     public string ApplicationStatus { get; set; } = "notReviewed";
 
