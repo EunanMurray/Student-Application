@@ -162,8 +162,8 @@
                                 })
                             </span>
                         </div>
-
-                        <a asp-page="./ApplicantDetails" asp-route-name="@applicant.Name" class="details-button">
+                        
+                        <a asp-page="./ApplicantDetails" asp-route-name="@($"{applicant.FirstName} {applicant.LastName}")" class="details-button">
                             <i class="fas fa-folder-open"></i>
                             View Application Details
                         </a>

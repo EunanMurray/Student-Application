@@ -131,6 +131,10 @@ namespace StudentApplicationPages.Areas.Identity.Pages.Account
                     {
                         return RedirectToPage("/Applications/Apply");
                     }
+                    else if (roles.Contains("ReturningApplicant"))
+                    {
+                        return RedirectToPage("/Applications/ReturningApplication");
+                    }
                     else
                     {
                         return RedirectToPage("/Index");
