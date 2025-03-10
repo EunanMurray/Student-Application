@@ -23,7 +23,7 @@ namespace StudentApplication.Pages.Account
         {
             if (email == null)
             {
-                return RedirectToPage("/Index");
+                return RedirectToPage("/Areas/Identity/Login");
             }
 
             var user = await _userManager.FindByEmailAsync(email);
