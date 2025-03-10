@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using StudentApplicationModel.Data;
@@ -19,11 +17,34 @@ namespace StudentApplication.Pages.Admin
             _primaryContext = context;
         }
 
-        public IList<Budget> Budget { get;set; } = default!;
+        public Budget Budget { get; set; }
+        public decimal TotalScholarshipAmount { get; set; }
+        public decimal RemainingBudget { get; set; }
 
         public async Task OnGetAsync()
         {
-            Budget = await _primaryContext.Budgets.ToListAsync();
+            var currentYear = DateTime.UtcNow.Year.ToString();
+            Budget = await _primaryContext.Budgets
+                .FirstOrDefaultAsync(b => b.BudgetYear == currentYear);
+
+            if (Budget == null)
+            {
+                Budget = new Budget { BudgetAmount = 80000, BudgetUsage = 0, BudgetYear = currentYear };
+            }
+
+            var scholarships = await _primaryContext.Scholarships
+                .Include(s => s.ScholarshipType)
+                .ToListAsync();
+
+            TotalScholarshipAmount = scholarships
+                .Sum(s => s.ScholarshipType.PaymentAmount);
+
+            RemainingBudget = Budget.BudgetAmount - TotalScholarshipAmount;
+
+            Budget.BudgetUsage = TotalScholarshipAmount;
+
+            _primaryContext.Budgets.Update(Budget);
+            await _primaryContext.SaveChangesAsync();
         }
     }
 }

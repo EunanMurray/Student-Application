@@ -1,41 +1,19 @@
 ﻿@page
 @model StudentApplication.Pages.Admin.ViewBudgetModel
-
 @{
-    ViewData["Title"] = "ViewBudget";
+    ViewData["Title"] = "View Budget";
 }
 
-<h1>ViewBudget</h1>
+<h1>Budget Overview</h1>
 
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>Budget Year</th>
-            <th>Budget Amount</th>
-            <th>Budget Usage</th>
-            <th>Over Budget Amount</th>
-            <th>First Year Budget</th>
-            <th>Second Year Budget</th>
-            <th>Third Year Budget</th>
-            <th>Fourth Year Budget</th>
-            <th>Pre-Offers Budget</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Budget)
-        {
-            <tr>
-                <td>@item.BudgetYear</td>
-                <td>@item.BudgetAmount.ToString("C")</td>
-                <td>@item.BudgetUsage.ToString("C")</td>
-                <td>@item.OverBudgetAmount.ToString("C")</td>
-                <td>@item.BudgetForFirstYears.ToString("C")</td>
-                <td>@item.BudgetForSecondYears.ToString("C")</td>
-                <td>@item.BudgetForThirdYears.ToString("C")</td>
-                <td>@item.BudgetForFourthYears.ToString("C")</td>
-                <td>@item.BudgetForPreOffers.ToString("C")</td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Budget Details</h5>
+        <p class="card-text">
+            <strong>Budget Year:</strong> @Model.Budget.BudgetYear<br />
+            <strong>Total Budget:</strong> @Model.Budget.BudgetAmount.ToString("C")<br />
+            <strong>Total Budget Used:</strong> @Model.TotalScholarshipAmount.ToString("C")<br />
+            <strong>Remaining Budget:</strong> @Model.RemainingBudget.ToString("C")<br />
+        </p>
+    </div>
+</div>
