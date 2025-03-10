@@ -129,7 +129,6 @@ namespace StudentApplication.Services
                     </div>
                     <p>If the button doesn't work, you can copy and paste this link into your browser:</p>
                     <p style='word-break: break-all;'>{encodedLink}</p>
-                    <p>This offer will expire in 14 days.</p>
                     <p style='color: #7f8c8d; font-size: 14px;'>If you have any questions, please contact the scholarship office.</p>
                 </div>";
 
