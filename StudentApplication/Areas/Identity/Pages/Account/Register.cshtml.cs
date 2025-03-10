@@ -2,6 +2,7 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -13,7 +14,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using StudentApplication.Services;
 
 namespace StudentApplicationPages.Areas.Identity.Pages.Account
 {
@@ -24,18 +27,21 @@ namespace StudentApplicationPages.Areas.Identity.Pages.Account
         private readonly IUserStore<IdentityUser> _userStore;
         private readonly IUserEmailStore<IdentityUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
+        private readonly IEmailService _emailService;
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
             IUserStore<IdentityUser> userStore,
             SignInManager<IdentityUser> signInManager,
-            ILogger<RegisterModel> logger)
+            ILogger<RegisterModel> logger,
+            IEmailService emailService)
         {
             _userManager = userManager;
             _userStore = userStore;
             _emailStore = GetEmailStore();
             _signInManager = signInManager;
             _logger = logger;
+            _emailService = emailService;
         }
 
         [BindProperty]
@@ -44,6 +50,9 @@ namespace StudentApplicationPages.Areas.Identity.Pages.Account
         public string ReturnUrl { get; set; }
 
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
+
+        [TempData]
+        public string ErrorMessage { get; set; }
 
         public class InputModel
         {
@@ -87,9 +96,59 @@ namespace StudentApplicationPages.Areas.Identity.Pages.Account
                 {
                     _logger.LogInformation("User created a new account with password.");
 
-                    // Immediately sign the user in without email confirmation
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-                    return LocalRedirect(returnUrl);
+                    try
+                    {
+                        // Generate a confirmation code for the email
+                        var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                        _logger.LogInformation("Email confirmation token generated");
+
+                        code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+
+                        // Create the confirmation URL
+                        var callbackUrl = Url.Page(
+                            "/Applications/ConfirmEmail",
+                            pageHandler: null,
+                            values: new { userId = user.Id, code = code },
+                            protocol: Request.Scheme);
+
+                        if (string.IsNullOrEmpty(callbackUrl))
+                        {
+                            _logger.LogError("Failed to generate callback URL");
+                            throw new InvalidOperationException("Failed to generate confirmation URL.");
+                        }
+
+                        _logger.LogInformation($"Callback URL: {callbackUrl}");
+
+                        // Send the verification email
+                        var emailSent = await _emailService.SendVerificationEmailAsync(Input.Email, callbackUrl);
+
+                        if (!emailSent)
+                        {
+                            _logger.LogError($"Failed to send verification email: {_emailService.GetLastError()}");
+
+                            // Delete the user if email sending fails
+                            await _userManager.DeleteAsync(user);
+
+                            ModelState.AddModelError(string.Empty,
+                                $"Error sending verification email: {_emailService.GetLastError()}. Please try again later.");
+                            return Page();
+                        }
+
+                        _logger.LogInformation("Verification email sent successfully");
+
+                        // Redirect to confirmation page
+                        return RedirectToPage("/Applications/RegisterConfirmation", new { email = Input.Email });
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.LogError(ex, "Error in email verification process");
+
+                        // Delete the user if there was an error
+                        await _userManager.DeleteAsync(user);
+
+                        ModelState.AddModelError(string.Empty, $"An error occurred during registration: {ex.Message}");
+                        return Page();
+                    }
                 }
 
                 foreach (var error in result.Errors)

@@ -129,7 +129,7 @@ namespace StudentApplicationPages.Areas.Identity.Pages.Account
                     }
                     else if (roles.Contains("Applicant"))
                     {
-                        return RedirectToPage("/Applications/Apply");
+                        return RedirectToPage("/Redirections/ApplicationRedirection");
                     }
                     else if (roles.Contains("ReturningApplicant"))
                     {

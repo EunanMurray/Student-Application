@@ -1,0 +1,155 @@
+﻿@page
+@model StudentApplication.Pages.Redirections.ApplicationRedirectionModel
+@{
+    ViewData["Title"] = "Scholarship Application Options";
+}
+<div class="landing-container">
+    <div class="landing-header">
+        <h1>ATU Scholarship Application Portal</h1>
+        <p class="lead">Your Future is Here</p>
+        <hr class="my-4">
+    </div>
+    <div class="landing-content">
+        @if (Model.IsReturningApplicant)
+        {
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100 shadow-sm login-card">
+                        <div class="card-body text-center">
+                            <i class="fas fa-redo mb-3"></i>
+                            <h2 class="card-title">Renewal Application</h2>
+                            <p class="card-text">Submit your scholarship renewal application</p>
+                            <a asp-page="/Applications/ReturningApplication" class="btn btn-primary btn-lg mt-3">Renew Scholarship</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100 shadow-sm register-card">
+                        <div class="card-body text-center">
+                            <i class="fas fa-search mb-3"></i>
+                            <h2 class="card-title">Check Application Status</h2>
+                            <p class="card-text">View the status of your current application</p>
+                            <a asp-page="/Applications/CheckStatus" class="btn btn-success btn-lg mt-3">Check Status</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="row">
+                @if (!Model.HasExistingApplication)
+                {
+                    <div class="col-md-12 mb-4">
+                        <div class="card h-100 shadow-sm register-card">
+                            <div class="card-body text-center">
+                                <i class="fas fa-user-plus mb-3"></i>
+                                <h2 class="card-title">Create First Application</h2>
+                                <p class="card-text">Submit your initial scholarship application</p>
+                                <a asp-page="/Applications/Apply" class="btn btn-success btn-lg mt-3">Apply Now</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100 shadow-sm register-card">
+                            <div class="card-body text-center">
+                                <i class="fas fa-file-alt mb-3"></i>
+                                <h2 class="card-title">View Existing Application</h2>
+                                <p class="card-text">Check the status of your current application</p>
+                                <a asp-page="/Applications/CheckStatus" class="btn btn-success btn-lg mt-3">Check Status</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100 shadow-sm login-card">
+                            <div class="card-body text-center">
+                                <i class="fas fa-edit mb-3"></i>
+                                <h2 class="card-title">Update Application</h2>
+                                <p class="card-text">Update or modify your existing application</p>
+                                <p class="text-muted small">Note: Contact support for application modifications</p>
+                                <a href="/Contact" class="btn btn-primary btn-lg mt-3">Contact Support</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+
+    <style>
+        .landing-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 1rem;
+        }
+
+        .landing-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+            .landing-header h1 {
+                font-size: 2.5rem;
+                font-weight: 700;
+                color: #2c3e50;
+            }
+
+            .landing-header .lead {
+                font-size: 1.25rem;
+                color: #7f8c8d;
+            }
+
+        .card {
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+            border: none;
+        }
+
+            .card:hover {
+                transform: translateY(-5px);
+            }
+
+        .register-card {
+            border-top: 4px solid #27ae60;
+        }
+
+        .login-card {
+            border-top: 4px solid #3498db;
+        }
+
+        .card-title {
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .fas {
+            font-size: 2.5rem;
+        }
+
+        .fa-user-plus {
+            color: #27ae60;
+        }
+
+        .fa-sign-in-alt {
+            color: #3498db;
+        }
+
+        .btn-lg {
+            padding: 0.75rem 1.5rem;
+            font-weight: 500;
+            border-radius: 30px;
+        }
+
+        .landing-footer {
+            color: #7f8c8d;
+        }
+
+        .alert {
+            border-radius: 10px;
+            padding: 1rem;
+            animation: fadeIn 0.5s;
+        }
+    </style>

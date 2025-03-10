@@ -1,0 +1,105 @@
+﻿@page
+@model StudentApplication.Pages.Applications.CheckStatusModel
+@{
+    ViewData["Title"] = "Application Status";
+}
+
+<style>
+    .status-container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .status-badge {
+        display: inline-block;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    .status-not-reviewed {
+        background-color: #ffc107;
+        color: #212529;
+    }
+
+    .status-reviewed {
+        background-color: #28a745;
+        color: white;
+    }
+
+    .status-rejected {
+        background-color: #dc3545;
+        color: white;
+    }
+
+    .scholarship-status {
+        margin-top: 20px;
+    }
+</style>
+
+<div class="container py-4">
+    <div class="status-container text-center">
+        @if (!Model.HasApplication)
+        {
+            <div class="alert alert-warning">
+                <h3>No Application Found</h3>
+                <p>We couldn't find an application associated with your account.</p>
+                <a asp-page="/Applications/Apply" class="btn btn-primary mt-3">Submit an Application</a>
+            </div>
+        }
+        else
+        {
+            <h2 class="mb-4">Application Status</h2>
+
+            <div class="mb-4">
+                <h3>Hello, @Model.ApplicantName</h3>
+                <p>Here's the current status of your scholarship application:</p>
+            </div>
+            //Show the status of their application, whether it has been reviewed or rejected. 
+            <div class="mb-4">
+                <h4>Application Review Status</h4>
+                <span class="status-badge @(Model.ApplicationStatus.ToLower() == "reviewed" ? "status-reviewed" :
+                                           Model.ApplicationStatus.ToLower() == "rejected" ? "status-rejected" :
+                                           "status-not-reviewed")">
+                    @Model.ApplicationStatus
+                </span>
+            </div>
+            // show em if they have no offer, if they have an offer, show the status
+            <div class="scholarship-status">
+                <h4>Scholarship Offer Status</h4>
+                @if (Model.ScholarshipStatus == "No Offer")
+                {
+                    <p class="text-muted">No scholarship offer has been made at this time.</p>
+                }
+                else
+                {
+                    <span class="status-badge @(Model.ScholarshipStatus.ToLower() == "accepted" ? "status-reviewed" :
+                                               Model.ScholarshipStatus.ToLower() == "declined" ? "status-rejected" :
+                                               "status-not-reviewed")">
+                        @Model.ScholarshipStatus
+                    </span>
+                }
+            </div>
+
+            <div class="mt-4">
+                @if (Model.ApplicationStatus.ToLower() == "notReviewed")
+                {
+                    <p class="text-muted">Your application is currently under review. Please check back later.</p>
+                }
+                else if (Model.ApplicationStatus.ToLower() == "reviewed")
+                {
+                    <p>Your application has been reviewed. Check your email for further instructions.</p>
+                }
+                else if (Model.ApplicationStatus.ToLower() == "rejected")
+                {
+                    <p>Unfortunately, your application was not successful at this time.</p>
+                }
+            </div>
+        }
+    </div>
+</div>
