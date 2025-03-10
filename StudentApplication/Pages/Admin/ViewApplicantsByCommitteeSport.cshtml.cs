@@ -113,6 +113,7 @@ namespace StudentApplication.Pages.Admin
                 {
                     FirstName = a.FirstName,
                     LastName = a.LastName,
+                    CollegeYear = a.CollegeYear,
                     DateOfBirth = a.DateOfBirth,
                     SportingDetails = a.SportPositionOrCategory,
                     SportingAchievements = a.SportingAchievements,
@@ -148,6 +149,7 @@ namespace StudentApplication.Pages.Admin
         public string Name { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public int? CollegeYear { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public string SportingDetails { get; set; }
         public string SportingAchievements { get; set; }
