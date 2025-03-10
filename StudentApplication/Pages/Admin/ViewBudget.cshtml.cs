@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using StudentApplicationModel.Data;
@@ -8,6 +9,7 @@ using StudentApplicationModel.Models;
 
 namespace StudentApplication.Pages.Admin
 {
+    [Authorize(Roles = "Secretary")]
     public class ViewBudgetModel : PageModel
     {
         private readonly PrimaryContext _primaryContext;
@@ -26,6 +28,8 @@ namespace StudentApplication.Pages.Admin
             var currentYear = DateTime.UtcNow.Year.ToString();
             Budget = await _primaryContext.Budgets
                 .FirstOrDefaultAsync(b => b.BudgetYear == currentYear);
+
+            Budget.BudgetAmount = 80000;
 
             if (Budget == null)
             {
