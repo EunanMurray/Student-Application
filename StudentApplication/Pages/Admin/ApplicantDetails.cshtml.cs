@@ -1,3 +1,4 @@
+
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -170,19 +171,7 @@ namespace StudentApplication.Pages.Admin
                     return Page();
                 }
 
-                var currentYear = DateTime.UtcNow.Year.ToString();
-                var budget = await _primaryContext.Budgets
-                    .FirstOrDefaultAsync(b => b.BudgetYear == currentYear);
 
-                if (budget == null)
-                {
-                    TempData["ErrorMessage"] = "Budget for the current year not found.";
-                    await LoadApplicantData();
-                    return Page();
-                }
-
-                budget.BudgetUsage += scholarshipType.PaymentAmount;
-                budget.BudgetAmount -= scholarshipType.PaymentAmount;
 
                 var scholarship = new Scholarship
                 {
@@ -270,7 +259,7 @@ namespace StudentApplication.Pages.Admin
             var applicantName = RouteData.Values["name"]?.ToString();
             if (!string.IsNullOrEmpty(applicantName))
             {
-                var nameParts = applicantName.Split(' ', 2); 
+                var nameParts = applicantName.Split(' ', 2);
                 string firstName = nameParts.Length > 0 ? nameParts[0] : string.Empty;
                 string lastName = nameParts.Length > 1 ? nameParts[1] : string.Empty;
 

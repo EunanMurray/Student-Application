@@ -518,7 +518,8 @@ namespace ScholarshipInfoSystem.Data
         {
             if (!primaryContext.Budgets.Any())
             {
-                var budget = new Budget { BudgetAmount = 80000, BudgetYear = "24/25" };
+                var budget = new Budget { BudgetAmount = 80000, BudgetYear = "2025" };
+                primaryContext.Budgets.Add(budget);
             }
             primaryContext.SaveChanges();
         }

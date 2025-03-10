@@ -113,9 +113,25 @@
         align-items: center;
         gap: 15px;
     }
+
+    .search-bar {
+        margin-bottom: 20px;
+    }
+
+        .search-bar input {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1em;
+            width: 250px;
+        }
 </style>
 
 <div class="applicants-container">
+    <div class="search-bar">
+        <input type="text" id="searchByName" placeholder="Search by name..." oninput="filterByName()">
+    </div>
+
     <div class="page-header">
         <h2>Review Applications</h2>
         <p class="text-muted">Review and manage scholarship applications for your assigned sports</p>
@@ -162,7 +178,7 @@
                                 })
                             </span>
                         </div>
-                        
+
                         <a asp-page="./ApplicantDetails" asp-route-name="@($"{applicant.FirstName} {applicant.LastName}")" class="details-button">
                             <i class="fas fa-folder-open"></i>
                             View Application Details
@@ -183,6 +199,20 @@
 </div>
 
 <script>
+    function filterByName() {
+        const searchQuery = document.getElementById('searchByName').value.toLowerCase();
+        const cards = document.querySelectorAll('.applicant-card');
+
+        cards.forEach(card => {
+            const applicantName = card.querySelector('.applicant-name').textContent.toLowerCase();
+            if (applicantName.includes(searchQuery)) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+
     function toggleReviewed() {
         const hideReviewed = document.getElementById('hideReviewed').checked;
         const cards = document.querySelectorAll('.applicant-card');
@@ -191,7 +221,11 @@
             if (hideReviewed && card.dataset.status === 'reviewed') {
                 card.style.display = 'none';
             } else {
-                card.style.display = 'block';
+                const searchQuery = document.getElementById('searchByName').value.toLowerCase();
+                const applicantName = card.querySelector('.applicant-name').textContent.toLowerCase();
+                if (applicantName.includes(searchQuery)) {
+                    card.style.display = 'block';
+                }
             }
         });
     }

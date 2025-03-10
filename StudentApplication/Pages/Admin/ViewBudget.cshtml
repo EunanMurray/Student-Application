@@ -1,0 +1,19 @@
+﻿@page
+@model StudentApplication.Pages.Admin.ViewBudgetModel
+@{
+    ViewData["Title"] = "View Budget";
+}
+
+<h1>Budget Overview</h1>
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Budget Details</h5>
+        <p class="card-text">
+            <strong>Budget Year:</strong> @Model.Budget.BudgetYear<br />
+            <strong>Total Budget:</strong> @Model.Budget.BudgetAmount.ToString("C")<br />
+            <strong>Total Budget Used:</strong> @Model.TotalScholarshipAmount.ToString("C")<br />
+            <strong>Remaining Budget:</strong> @Model.RemainingBudget.ToString("C")<br />
+        </p>
+    </div>
+</div>
