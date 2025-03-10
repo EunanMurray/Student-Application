@@ -7,8 +7,20 @@ using StudentApplicationModel.Data;
 using Microsoft.Extensions.Logging;
 using StudentApplication.Services;
 using StudentApplication.Settings;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var cultureInfo = (CultureInfo)CultureInfo.GetCultureInfo("fr-FR").Clone();
+
+cultureInfo.NumberFormat.CurrencySymbol = "€";
+cultureInfo.NumberFormat.CurrencyPositivePattern = 0;
+cultureInfo.NumberFormat.CurrencyNegativePattern = 0;
+
+
+CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+builder.Logging.ClearProviders();
 
 // Add logging configuration
 builder.Logging.ClearProviders();
