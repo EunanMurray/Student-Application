@@ -1,0 +1,41 @@
+﻿@page
+@model StudentApplication.Pages.Admin.ViewBudgetModel
+
+@{
+    ViewData["Title"] = "ViewBudget";
+}
+
+<h1>ViewBudget</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Budget Year</th>
+            <th>Budget Amount</th>
+            <th>Budget Usage</th>
+            <th>Over Budget Amount</th>
+            <th>First Year Budget</th>
+            <th>Second Year Budget</th>
+            <th>Third Year Budget</th>
+            <th>Fourth Year Budget</th>
+            <th>Pre-Offers Budget</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Budget)
+        {
+            <tr>
+                <td>@item.BudgetYear</td>
+                <td>@item.BudgetAmount.ToString("C")</td>
+                <td>@item.BudgetUsage.ToString("C")</td>
+                <td>@item.OverBudgetAmount.ToString("C")</td>
+                <td>@item.BudgetForFirstYears.ToString("C")</td>
+                <td>@item.BudgetForSecondYears.ToString("C")</td>
+                <td>@item.BudgetForThirdYears.ToString("C")</td>
+                <td>@item.BudgetForFourthYears.ToString("C")</td>
+                <td>@item.BudgetForPreOffers.ToString("C")</td>
+            </tr>
+        }
+    </tbody>
+</table>
