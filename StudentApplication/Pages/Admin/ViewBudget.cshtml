@@ -12,8 +12,37 @@
         <p class="card-text">
             <strong>Budget Year:</strong> @Model.Budget.BudgetYear<br />
             <strong>Total Budget:</strong> @Model.Budget.BudgetAmount.ToString("C")<br />
-            <strong>Total Budget Used:</strong> @Model.TotalScholarshipAmount.ToString("C")<br />
+            <strong>Total Scholarship Amount:</strong> @Model.TotalScholarshipAmount.ToString("C")<br />
             <strong>Remaining Budget:</strong> @Model.RemainingBudget.ToString("C")<br />
         </p>
     </div>
 </div>
+
+<h3 class="mt-4">Budget Usage by College Year</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>College Year</th>
+            <th>Budget Used</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>First Year</td>
+            <td>@Model.Budget.BudgetForFirstYears.ToString("C")</td>
+        </tr>
+        <tr>
+            <td>Second Year</td>
+            <td>@Model.Budget.BudgetForSecondYears.ToString("C")</td>
+        </tr>
+        <tr>
+            <td>Third Year</td>
+            <td>@Model.Budget.BudgetForThirdYears.ToString("C")</td>
+        </tr>
+        <tr>
+            <td>Fourth Year</td>
+            <td>@Model.Budget.BudgetForFourthYears.ToString("C")</td>
+        </tr>
+    </tbody>
+</table>
