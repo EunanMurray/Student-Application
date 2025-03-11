@@ -141,12 +141,21 @@
 <div class="applicants-container">
     <div class="filter-section">
         <input type="text" id="searchByName" class="form-control search-input" placeholder="Search by name..." oninput="filterApplicants()">
+
         <select id="yearFilter" class="form-select" onchange="filterApplicants()">
             <option value="">All Years</option>
             <option value="1">1st Year</option>
             <option value="2">2nd Year</option>
             <option value="3">3rd Year</option>
             <option value="4">4th Year</option>
+        </select>
+
+        <select id="campusFilter" class="form-select" onchange="filterApplicants()">
+            <option value="">All Campuses</option>
+            @foreach (var campus in Model.Campuses)
+            {
+                <option value="@campus.CampusID">@campus.CampusName</option>
+            }
         </select>
 
     </div>
@@ -182,7 +191,7 @@
         {
             @foreach (var applicant in Model.Applicants)
             {
-                <div class="applicant-card" data-status="@applicant.ApplicationStatus" data-year="@applicant.CollegeYear">
+                <div class="applicant-card" data-status="@applicant.ApplicationStatus" data-year="@applicant.CollegeYear" data-campus="@applicant.CampusID">
                     <div class="applicant-info">
                         <div class="info-header">
                             <div class="applicant-name">@applicant.FirstName @applicant.LastName</div>
@@ -219,19 +228,22 @@
     function filterApplicants() {
         const searchQuery = document.getElementById('searchByName').value.toLowerCase();
         const selectedYear = document.getElementById('yearFilter').value;
+        const selectedCampus = document.getElementById('campusFilter').value;
         const hideReviewed = document.getElementById('hideReviewed').checked;
         const cards = document.querySelectorAll('.applicant-card');
 
         cards.forEach(card => {
             const applicantName = card.querySelector('.applicant-name').textContent.toLowerCase();
             const applicantYear = card.dataset.year;
+            const applicantCampus = card.dataset.campus;
             const isReviewed = card.dataset.status === 'reviewed';
 
             let matchesSearch = applicantName.includes(searchQuery);
             let matchesYear = selectedYear === "" || applicantYear === selectedYear;
+            let matchesCampus = selectedCampus === "" || applicantCampus === selectedCampus;
             let matchesReviewed = !hideReviewed || !isReviewed;
 
-            if (matchesSearch && matchesYear && matchesReviewed) {
+            if (matchesSearch && matchesYear && matchesCampus && matchesReviewed) {
                 card.style.display = "block";
             } else {
                 card.style.display = "none";

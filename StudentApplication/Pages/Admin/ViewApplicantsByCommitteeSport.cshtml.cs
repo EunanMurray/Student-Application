@@ -36,6 +36,8 @@ namespace StudentApplication.Pages.Admin
 
         public List<ApplicantViewModel> Applicants { get; set; }
 
+        public List<Campus> Campuses { get; set; }
+
         public async Task<IActionResult> OnGetAsync()
         {
             _logger.LogInformation("OnGetAsync started.");
@@ -61,6 +63,8 @@ namespace StudentApplication.Pages.Admin
                     _logger.LogInformation("User is not a committee member, redirecting to home page.");
                     return Redirect("/");
                 }
+
+                Campuses = await _primaryContext.Campuses.ToListAsync();
 
                 // Retrieve the sports assigned to the user
                 _logger.LogInformation("Retrieving user sports.");
@@ -114,6 +118,7 @@ namespace StudentApplication.Pages.Admin
                     FirstName = a.FirstName,
                     LastName = a.LastName,
                     CollegeYear = a.CollegeYear,
+                    CampusID = a.CampusID,
                     DateOfBirth = a.DateOfBirth,
                     SportingDetails = a.SportPositionOrCategory,
                     SportingAchievements = a.SportingAchievements,
@@ -151,6 +156,8 @@ namespace StudentApplication.Pages.Admin
         public string LastName { get; set; }
         public string? StudentNumber { get; set; }
         public int? CollegeYear { get; set; }
+
+        public int? CampusID { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public string SportingDetails { get; set; }
         public string SportingAchievements { get; set; }
