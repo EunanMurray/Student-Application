@@ -135,6 +135,10 @@ namespace StudentApplicationPages.Areas.Identity.Pages.Account
                     {
                         return RedirectToPage("/Applications/ReturningApplication");
                     }
+                    else if (roles.Contains("Secretary"))
+                    {
+                        return RedirectToPage("/Admin/ViewBudget");
+                    }
                     else
                     {
                         return RedirectToPage("/Index");
