@@ -48,6 +48,13 @@ namespace StudentApplicationPages.Pages.Applications
         {
             if (submit == "submit")
             {
+                if (!Application.ValidateAtuStudentDetails())
+                {
+                    ModelState.AddModelError(string.Empty, "If providing College Year or Student Number, both must be filled.");
+                    ErrorMessages.Add("If you're an ATU student, please provide both College Year and Student Number.");
+                    return Page();
+                }
+
                 if (!ModelState.IsValid)
                 {
                     foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
@@ -80,7 +87,9 @@ namespace StudentApplicationPages.Pages.Applications
                         SportingAchievements = Application.SportingAchievements,
                         SportingGoals = Application.SportingGoals,
                         CampusID = Application.CampusID,
-                        CollegeYear = Application.CollegeYear == null ? 1 : Application.CollegeYear
+                        // New fields for ATU student
+                        CollegeYear = Application.CollegeYear,
+                        StudentNumber = Application.StudentNumber
                     };
 
                     _context.Applicants.Add(applicant);

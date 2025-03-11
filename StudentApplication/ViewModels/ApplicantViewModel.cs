@@ -7,7 +7,6 @@ namespace StudentApplicationPages.ViewModels
     public class ApplicantViewModel
     {
         // Personal Details
-
         [Required(ErrorMessage = "First name is required.")]
         public string FirstName { get; set; }
 
@@ -24,29 +23,23 @@ namespace StudentApplicationPages.ViewModels
         public DateTime? DateOfBirth { get; set; }
 
         public string Gender { get; set; }
-        public string? StudentNumber { get; set; }
 
+        [Display(Name = "College Year")]
         public int? CollegeYear { get; set; }
+
+        [Display(Name = "Student Number")]
+        public string StudentNumber { get; set; }
 
         public string MobilePhoneNumber { get; set; }
 
         public string Address { get; set; }
 
-
-
-
-        // Parent/Guardian Details (if under 18)
-
+        // Parent/Guardian Details
         public string ParentPhoneNumber { get; set; }
 
         public string ParentEmail { get; set; }
 
-
-
-
-
         // Academic History
-
         public string SecondarySchoolAttended { get; set; }
 
         public bool PriorThirdLevelAttendance { get; set; }
@@ -62,7 +55,6 @@ namespace StudentApplicationPages.ViewModels
         public string CourseSelectionReasons { get; set; }
 
         // Sport Details
-
         [Required(ErrorMessage = "At least one sport must be selected.")]
         public List<int> SportIDs { get; set; }
 
@@ -70,6 +62,8 @@ namespace StudentApplicationPages.ViewModels
 
         public string CurrentClub { get; set; }
 
+        [Display(Name = "Current ATU Student")]
+        public bool IsCurrentATUStudent { get; set; }
         public string PastClubs { get; set; }
 
         public string HighestCompetitionLevel { get; set; }
@@ -78,11 +72,7 @@ namespace StudentApplicationPages.ViewModels
 
         public string SportingGoals { get; set; }
 
-        // References
-
         public List<RefereeViewModel> Referees { get; set; }
-
-        // Leisurewear and Declaration
 
         [Required(ErrorMessage = "Leisurewear size selection is required.")]
         public string PreferredLeisurewearSize { get; set; }
@@ -91,7 +81,6 @@ namespace StudentApplicationPages.ViewModels
         [Display(Name = "I confirm that the information provided is accurate.")]
         public bool IsDeclarationConfirmed { get; set; }
 
- 
         public ApplicantViewModel()
         {
             Referees = new List<RefereeViewModel>
@@ -102,16 +91,26 @@ namespace StudentApplicationPages.ViewModels
             CourseCodes = new List<string>();
             SportIDs = new List<int>();
         }
+
+        public bool ValidateAtuStudentDetails()
+        {
+            if (CollegeYear.HasValue || !string.IsNullOrEmpty(StudentNumber))
+            {
+                if (!CollegeYear.HasValue || string.IsNullOrEmpty(StudentNumber))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 
     public class RefereeViewModel
     {
-      
         [Required(ErrorMessage = "Referee name is required.")]
         public string Name { get; set; }
 
         public string TitleOrRole { get; set; }
-
 
         public string PhoneNumber { get; set; }
 
