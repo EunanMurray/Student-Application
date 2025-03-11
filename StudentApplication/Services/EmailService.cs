@@ -11,6 +11,7 @@ namespace StudentApplication.Services
         Task<bool> SendEmailAsync(string to, string subject, string htmlBody);
         Task<bool> SendVerificationEmailAsync(string to, string verificationLink);
         Task<bool> SendScholarshipOfferEmailAsync(string to, string name, string scholarshipLevel, string acceptanceLink);
+        Task<bool> SendApplicationConfirmationEmailAsync(string to, string name);
         string GetLastError();
     }
 
@@ -37,7 +38,7 @@ namespace StudentApplication.Services
         {
             try
             {
-                // Debuggin galore as I think I busted the email setup
+                // Debuggin galore as I think I busted the email setup (I did not just old repo version was published with old settings)
                 _logger.LogInformation($"Attempting to send email to {to} with subject: {subject}");
                 _logger.LogInformation($"SMTP Server: {_emailSettings.SmtpServer}, Port: {_emailSettings.SmtpPort}");
 
@@ -95,6 +96,30 @@ namespace StudentApplication.Services
             catch (Exception ex)
             {
                 _lastError = $"Error preparing verification email: {ex.Message}";
+                _logger.LogError(ex, _lastError);
+                return false;
+            }
+        }
+
+        public async Task<bool> SendApplicationConfirmationEmailAsync(string to, string name)
+        {
+            try
+            {
+                var encodedName = name != null ? _htmlEncoder.Encode(name) : "Applicant";
+                var subject = "Application Submitted";
+                var htmlBody = $@"
+                <div style='font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;'>
+                    <h2 style='color: #2c3e50;'>Thank you {encodedName}!</h2>
+                    <p>Your scholarship application has been submitted successfully.</p>
+                    <p>You will receive an email once your application has been reviewed.</p>
+                    <p style='color: #7f8c8d; font-size: 14px;'>If you have any questions, please contact the scholarship office.</p>
+                </div>";
+
+                return await SendEmailAsync(to, subject, htmlBody);
+            }
+            catch (Exception ex)
+            {
+                _lastError = $"Error preparing application confirmation email: {ex.Message}";
                 _logger.LogError(ex, _lastError);
                 return false;
             }

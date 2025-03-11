@@ -11,17 +11,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using StudentApplication.Services;
 
 namespace StudentApplicationPages.Pages.Applications
 {
-    [Authorize]
+    [Authorize(Roles = "Applicant")]
     public class ApplyModel : PageModel
     {
         private readonly PrimaryContext _context;
+        private readonly IEmailService _emailService;
 
-        public ApplyModel(PrimaryContext context)
+        public ApplyModel(PrimaryContext context, IEmailService emailService)
         {
             _context = context;
+            _emailService = emailService;
             Application = new ApplicantViewModel();
             CampusSelectList = new SelectList(_context.Campuses, "CampusID", "CampusName");
             SportSelectList = new MultiSelectList(_context.Sports, "SportID", "SportName");
@@ -79,8 +82,6 @@ namespace StudentApplicationPages.Pages.Applications
                         CampusID = Application.CampusID,
                         CollegeYear = Application.CollegeYear == null ? 1 : Application.CollegeYear
                     };
-
-
 
                     _context.Applicants.Add(applicant);
                     await _context.SaveChangesAsync(); // Save to generate ApplicantID
@@ -162,6 +163,9 @@ namespace StudentApplicationPages.Pages.Applications
 
                     // Save all changes to the database
                     await _context.SaveChangesAsync();
+
+                    // Send email to the submitter
+                    await _emailService.SendApplicationConfirmationEmailAsync(Application.Email, Application.FirstName);
 
                     Debug.WriteLine("Data saved successfully.");
                     return RedirectToPage("Confirmation");

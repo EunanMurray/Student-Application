@@ -41,11 +41,12 @@ namespace StudentApplication.Pages.Admin
             }
 
             var scholarships = await _primaryContext.Scholarships
-                .Include(s => s.ScholarshipType)
-                .Include(s => s.Applicants)
-                .ToListAsync();
+            .Include(s => s.ScholarshipType)
+            .Include(s => s.ScholarshipOfferHistories)
+                .ThenInclude(h => h.Applicant)
+            .ToListAsync();
 
-            
+
             FirstYearScholarships = scholarships
                 .Where(s => s.Applicants.Any(a => a.CollegeYear == 1))
                 .Sum(s => s.ScholarshipType.PaymentAmount);
