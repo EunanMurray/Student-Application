@@ -111,8 +111,10 @@ namespace StudentApplicationModel.Data
                 .HasPrecision(18, 2);
 
             modelBuilder.Entity<Applicant>()
-                .HasIndex(a => a.CAONumber)
-                .IsUnique();
+                .HasIndex(a => a.CAONumber);
+
+            modelBuilder.Entity<Applicant>()
+                .HasIndex(a => a.StudentNumber);
 
             modelBuilder.Entity<ScholarshipOfferHistory>()
                 .HasIndex(s => new { s.ApplicantID, s.ScholarshipID });

@@ -24,6 +24,9 @@ namespace StudentApplicationPages.ViewModels
         public DateTime? DateOfBirth { get; set; }
 
         public string Gender { get; set; }
+        public string? StudentNumber { get; set; }
+
+        public int? CollegeYear { get; set; }
 
         public string MobilePhoneNumber { get; set; }
 

@@ -11,18 +11,19 @@
         <h4>Welcome Back, @Model.Application.FirstName!</h4>
         <p>As a returning scholarship recipient, your application process is simplified. We've pre-filled information from your previous application to make this easier.</p>
         <p>Please focus on updating your achievements and goals from the past academic year.</p>
+        <p>If you have not received a scholarship form before answer all relevant questions with N/A instead.</p>
     </div>
 
     @if (Model.ErrorMessages.Any())
     {
-        <div class="alert alert-danger">
-            <ul>
+            <div class="alert alert-danger">
+                <ul>
                 @foreach (var error in Model.ErrorMessages)
                 {
-                    <li>@error</li>
+                            <li>@error</li>
                 }
-            </ul>
-        </div>
+                </ul>
+            </div>
     }
 
     <form method="post" id="renewalForm" class="needs-validation">
@@ -86,11 +87,18 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group mb-3">
-                            <label asp-for="Application.CurrentGPA" class="form-label">Current GPA</label>
-                            <input asp-for="Application.CurrentGPA" class="form-control" required />
-                            <span asp-validation-for="Application.CurrentGPA" class="text-danger"></span>
+                            <label asp-for="Application.StudentNumber" class="form-label">Student Number</label>
+                            <textarea asp-for="Application.StudentNumber" class="form-control" rows="1" required></textarea>
+                            <span asp-validation-for="Application.StudentNumber" class="text-danger"></span>
                         </div>
                     </div>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Application.CourseSelectionReasons" class="form-label">Course Information</label>
+                    <textarea asp-for="Application.CourseSelectionReasons" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="Application.CourseSelectionReasons" class="text-danger"></span>
+                    <small class="form-text text-muted">Please verify or update your course information</small>
                 </div>
             </div>
         </div>
@@ -104,27 +112,26 @@
                     <label asp-for="Application.AcademicYearAchievements" class="form-label">Achievements during the past academic year</label>
                     <textarea asp-for="Application.AcademicYearAchievements" class="form-control" rows="5" required></textarea>
                     <span asp-validation-for="Application.AcademicYearAchievements" class="text-danger"></span>
+                    <small class="form-text text-muted">This will be saved as your Sporting Achievements</small>
                 </div>
 
                 <div class="form-group mb-3">
-                    <label asp-for="Application.AthleteOfYearNomination" class="form-label">Were you nominated for Athlete of the Year?</label>
-                    <select asp-for="Application.AthleteOfYearNomination" class="form-select">
-                        <option value="">Select an option</option>
-                        <option value="Yes">Yes</option>
-                        <option value="No">No</option>
-                    </select>
+                    <label asp-for="Application.PastClubs" class="form-label">Do you have any past clubs to mention?</label>
+                    <textarea asp-for="Application.PastClubs" class="form-control" rows="3" required></textarea>
+                    <span asp-validation-for="Application.PastClubs" class="text-danger"></span>
                 </div>
 
                 <div class="form-group mb-3">
                     <label asp-for="Application.ATURepresentation" class="form-label">How have you represented ATU in competitions?</label>
                     <textarea asp-for="Application.ATURepresentation" class="form-control" rows="3" required></textarea>
                     <span asp-validation-for="Application.ATURepresentation" class="text-danger"></span>
+                    <small class="form-text text-muted">Please provide details of competitions, events, and activities where you represented ATU during the past year</small>
                 </div>
 
                 <div class="form-group mb-3">
-                    <label asp-for="Application.CurrentSportingGoals" class="form-label">Current sporting goals</label>
-                    <textarea asp-for="Application.CurrentSportingGoals" class="form-control" rows="3" required></textarea>
-                    <span asp-validation-for="Application.CurrentSportingGoals" class="text-danger"></span>
+                    <label asp-for="Application.SportingGoals" class="form-label">Current sporting goals</label>
+                    <textarea asp-for="Application.SportingGoals" class="form-control" rows="3" required></textarea>
+                    <span asp-validation-for="Application.SportingGoals" class="text-danger"></span>
                 </div>
             </div>
         </div>
@@ -151,5 +158,5 @@
 </div>
 
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+        <partial name="_ValidationScriptsPartial" />
 }

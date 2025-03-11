@@ -19,6 +19,7 @@ public class Applicant
 
     [Required]
     public string CAONumber { get; set; }
+    public string? StudentNumber { get; set; }
 
     public int? CollegeYear { get; set; }
 
@@ -43,7 +44,6 @@ public class Applicant
     public string CurrentClub { get; set; }
 
     public string PastClubs { get; set; }
-
     public string HighestCompetitionLevel { get; set; }
 
     public string SportingAchievements { get; set; }

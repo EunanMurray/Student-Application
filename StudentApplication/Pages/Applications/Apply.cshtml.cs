@@ -76,8 +76,11 @@ namespace StudentApplicationPages.Pages.Applications
                         HighestCompetitionLevel = Application.HighestCompetitionLevel,
                         SportingAchievements = Application.SportingAchievements,
                         SportingGoals = Application.SportingGoals,
-                        CampusID = Application.CampusID
+                        CampusID = Application.CampusID,
+                        CollegeYear = Application.CollegeYear == null ? 1 : Application.CollegeYear
                     };
+
+
 
                     _context.Applicants.Add(applicant);
                     await _context.SaveChangesAsync(); // Save to generate ApplicantID

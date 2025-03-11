@@ -45,7 +45,6 @@ namespace StudentApplication.Pages.Applications
 
             _logger.LogInformation($"Loading previous application data for user: {user.Email}");
 
-            // Find the applicant's previous application form by email
             var previousApplication = await _context.Applicants
                 .Include(a => a.ContactDetail)
                 .Include(a => a.HomeDetail)
@@ -61,20 +60,20 @@ namespace StudentApplication.Pages.Applications
 
             _logger.LogInformation($"Found previous application for: {previousApplication.FirstName} {previousApplication.LastName}");
 
-            // Pre-populate the form with previous data
             Application = new ReturningApplicantViewModel
             {
                 FirstName = previousApplication.FirstName,
                 LastName = previousApplication.LastName,
                 Email = previousApplication.ContactDetail.Email,
+                StudentNumber = previousApplication.StudentNumber,
                 MobilePhoneNumber = previousApplication.ContactDetail.PhoneNumber,
                 Address = previousApplication.HomeDetail?.Address,
                 CurrentYear = previousApplication.CollegeYear.HasValue ? previousApplication.CollegeYear.Value + 1 : 2,
-                CurrentGPA = null,
                 AcademicYearAchievements = "",
                 ATURepresentation = "",
-                CurrentSportingGoals = previousApplication.SportingGoals,
-                AthleteOfYearNomination = "",
+                SportingGoals = previousApplication.SportingGoals,
+                CourseSelectionReasons = previousApplication.CourseSelectionReasons ?? "Please provide your course details",
+                PastClubs = "",
                 IsDeclarationConfirmed = false
             };
 
@@ -104,7 +103,6 @@ namespace StudentApplication.Pages.Applications
                     return NotFound("User not found.");
                 }
 
-                // Find the applicants previous applicantion in the database
                 var previousApplication = await _context.Applicants
                     .Include(a => a.ContactDetail)
                     .Include(a => a.HomeDetail)
@@ -120,21 +118,39 @@ namespace StudentApplication.Pages.Applications
 
                 var newApplication = new Applicant
                 {
-                    FirstName = Application.FirstName,
-                    LastName = Application.LastName,
-                    CollegeYear = Application.CurrentYear,
+                    FirstName = previousApplication.FirstName,
+                    LastName = previousApplication.LastName,
                     DateOfBirth = previousApplication.DateOfBirth,
                     Gender = previousApplication.Gender,
+                    StudentNumber = previousApplication.StudentNumber,
                     CAONumber = previousApplication.CAONumber,
+                    CollegeYear = previousApplication.CollegeYear.HasValue ? previousApplication.CollegeYear.Value + 1 : 2,
                     CampusID = previousApplication.CampusID,
+                    SecondarySchoolAttended = previousApplication.SecondarySchoolAttended,
+                    PriorThirdLevelAttendance = previousApplication.PriorThirdLevelAttendance,
                     ApplicationStatus = "returning",
                     DateSubmitted = DateTime.UtcNow,
                     PreferredLeisurewearSize = previousApplication.PreferredLeisurewearSize,
+                    CourseSelectionReasons = !string.IsNullOrEmpty(Application.CourseSelectionReasons)
+                        ? Application.CourseSelectionReasons
+                        : "Course information not provided",
                     IsDeclarationConfirmed = Application.IsDeclarationConfirmed,
-                    SportingGoals = Application.CurrentSportingGoals,
-                    SportingAchievements = Application.AcademicYearAchievements,
-                    SportPositionOrCategory = $"ATU Representation: {Application.ATURepresentation}",
-                    CourseSelectionReasons = $"Current GPA: {Application.CurrentGPA}. Athlete of Year Nomination: {Application.AthleteOfYearNomination}"
+                    SportingGoals = !string.IsNullOrEmpty(Application.SportingGoals)
+                        ? Application.SportingGoals
+                        : "Not provided",
+                    SportingAchievements = !string.IsNullOrEmpty(Application.AcademicYearAchievements)
+                        ? Application.AcademicYearAchievements
+                        : "Not provided",
+                    PastClubs = !string.IsNullOrEmpty(Application.PastClubs)
+                        ? Application.PastClubs
+                        : "Not provided",
+                    SportPositionOrCategory = !string.IsNullOrEmpty(Application.ATURepresentation)
+                        ? $"ATU Representation: {Application.ATURepresentation}"
+                        : "ATU Representation: Not provided",
+                    CurrentClub = "ATU",
+                    HighestCompetitionLevel = !string.IsNullOrEmpty(previousApplication.HighestCompetitionLevel)
+                        ? previousApplication.HighestCompetitionLevel
+                        : "Not provided"
                 };
 
                 _context.Applicants.Add(newApplication);
@@ -143,22 +159,23 @@ namespace StudentApplication.Pages.Applications
                 var contactDetail = new ContactDetail
                 {
                     ApplicantID = newApplication.ApplicantID,
-                    Email = Application.Email,
-                    PhoneNumber = Application.MobilePhoneNumber,
+                    Email = previousApplication.ContactDetail?.Email,
+                    PhoneNumber = !string.IsNullOrEmpty(Application.MobilePhoneNumber)
+                        ? Application.MobilePhoneNumber
+                        : previousApplication.ContactDetail?.PhoneNumber,
                     ParentsEmail = previousApplication.ContactDetail?.ParentsEmail,
                     ParentsPhoneNumber = previousApplication.ContactDetail?.ParentsPhoneNumber
                 };
                 _context.ContactDetails.Add(contactDetail);
 
-                if (!string.IsNullOrEmpty(Application.Address))
+                var homeDetail = new HomeDetail
                 {
-                    var homeDetail = new HomeDetail
-                    {
-                        ApplicantID = newApplication.ApplicantID,
-                        Address = Application.Address
-                    };
-                    _context.HomeDetails.Add(homeDetail);
-                }
+                    ApplicantID = newApplication.ApplicantID,
+                    Address = !string.IsNullOrEmpty(Application.Address)
+                        ? Application.Address
+                        : previousApplication.HomeDetail?.Address
+                };
+                _context.HomeDetails.Add(homeDetail);
 
                 foreach (var sport in previousApplication.ApplicantSports)
                 {
@@ -171,7 +188,7 @@ namespace StudentApplication.Pages.Applications
                 }
 
                 await _context.SaveChangesAsync();
-                _logger.LogInformation($"Renewal application submitted successfully for: {Application.FirstName} {Application.LastName}");
+                _logger.LogInformation($"Renewal application submitted successfully for: {newApplication.FirstName} {newApplication.LastName}");
 
                 TempData["SuccessMessage"] = "Your renewal application has been submitted successfully.";
                 return RedirectToPage("/Applications/Confirmation");
@@ -185,19 +202,21 @@ namespace StudentApplication.Pages.Applications
         }
     }
 
-    public class ReturningApplicantViewModel
+        public class ReturningApplicantViewModel
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
+        public string StudentNumber { get; set; }
         public string MobilePhoneNumber { get; set; }
         public string Address { get; set; }
         public int CurrentYear { get; set; }
-        public decimal? CurrentGPA { get; set; }
         public string AcademicYearAchievements { get; set; }
         public string ATURepresentation { get; set; }
-        public string CurrentSportingGoals { get; set; }
-        public string AthleteOfYearNomination { get; set; }
+        public string SportingGoals { get; set; }
+        public string PastClubs { get; set; }
+        public string CourseSelectionReasons { get; set; }
+        public int? CourseID { get; set; }
         public bool IsDeclarationConfirmed { get; set; }
     }
 }

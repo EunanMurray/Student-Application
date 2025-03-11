@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StudentApplicationModel.Data;
 
@@ -11,9 +12,11 @@ using StudentApplicationModel.Data;
 namespace StudentApplication.Migrations
 {
     [DbContext(typeof(PrimaryContext))]
-    partial class PrimaryContextModelSnapshot : ModelSnapshot
+    [Migration("20250311112639_RemoveGPAColumn")]
+    partial class RemoveGPAColumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -107,18 +110,14 @@ namespace StudentApplication.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("StudentNumber")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("ApplicantID");
 
-                    b.HasIndex("CAONumber");
+                    b.HasIndex("CAONumber")
+                        .IsUnique();
 
                     b.HasIndex("CampusID");
 
                     b.HasIndex("ScholarshipID");
-
-                    b.HasIndex("StudentNumber");
 
                     b.ToTable("Applicants");
                 });
