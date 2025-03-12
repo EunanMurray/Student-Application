@@ -102,16 +102,14 @@ namespace StudentApplication.Pages.Admin
                     .ThenInclude(a => a.Sport)
                     .Where(a => a.ApplicantSports.Any(a => sportNames.Contains(a.Sport.SportName)));
 
-                // Log the generated SQL query (if possible)
                 _logger.LogInformation($"Applicants query: {applicantsQuery.ToQueryString()}");
 
-                // Execute the query and retrieve applicants
+                // Map applicants to the view model
                 _logger.LogInformation("Executing applicants query.");
                 var applicantsList = await applicantsQuery.ToListAsync();
 
                 _logger.LogInformation($"Number of applicants found: {applicantsList.Count}");
 
-                // Map applicants to the view model
                 _logger.LogInformation("Mapping applicants to ApplicantViewModel.");
                 Applicants = applicantsList.Select(a => new ApplicantViewModel
                 {
@@ -132,10 +130,33 @@ namespace StudentApplication.Pages.Admin
                         TitleOrRole = r.TitleOrRole,
                         PhoneNumber = r.PhoneNumber,
                         Email = r.Email
-                    }).ToList()
+                    }).ToList(),
+                    ScholarshipLevel = ""
                 }).ToList();
 
                 _logger.LogInformation($"Number of applicants in view model: {Applicants.Count}");
+
+                var applicantIds = Applicants.Select(a => a.FirstName + " " + a.LastName).ToList();
+
+                var scholarshipOffers = await _primaryContext.ScholarshipOfferHistories
+                    .Include(s => s.Scholarship)
+                        .ThenInclude(s => s.ScholarshipType)
+                    .Include(s => s.Applicant)
+                    .Where(s => applicantIds.Contains(s.Applicant.FirstName + " " + s.Applicant.LastName))
+                    .ToListAsync();
+
+                foreach (var applicant in Applicants)
+                {
+                    var fullName = applicant.FirstName + " " + applicant.LastName;
+                    var offer = scholarshipOffers.FirstOrDefault(s =>
+                        s.Applicant.FirstName + " " + s.Applicant.LastName == fullName);
+
+                    if (offer != null)
+                    {
+                        applicant.ScholarshipLevel = offer.Scholarship?.ScholarshipType?.ScholarshipLevelName;
+                        applicant.HasScholarshipOffer = true;
+                    }
+                }
 
                 _logger.LogInformation("OnGetAsync completed successfully.");
                 return Page();
@@ -149,11 +170,11 @@ namespace StudentApplication.Pages.Admin
         }
     }
 
-        public class ApplicantViewModel
+    public class ApplicantViewModel
     {
-        public string Name { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string Name => $"{FirstName} {LastName}";
         public string? StudentNumber { get; set; }
         public int? CollegeYear { get; set; }
 
@@ -166,6 +187,8 @@ namespace StudentApplication.Pages.Admin
         public string ApplicationStatus { get; set; } = "notReviewed";
         public string HighestCompetitionLevel { get; set; }
         public List<RefereeViewModel> Referees { get; set; }
+        public string ScholarshipLevel { get; set; }
+        public bool HasScholarshipOffer { get; set; }
     }
 
     public class RefereeViewModel

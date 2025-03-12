@@ -133,24 +133,121 @@ public class RoleTestModel : PageModel
                 return RedirectToPage();
             }
 
-            // Remove user's sports assignments
+            _logger.LogInformation($"Starting deletion process for user: {email}");
+
+            var applicants = await _primaryContext.Applicants
+                .Include(a => a.ContactDetail)
+                .Where(a => a.ContactDetail.Email == email)
+                .ToListAsync();
+
+            foreach (var applicant in applicants)
+            {
+                _logger.LogInformation($"Found applicant with ID {applicant.ApplicantID} for user {email}");
+
+                var scholarshipOffers = await _primaryContext.ScholarshipOfferHistories
+                    .Where(s => s.ApplicantID == applicant.ApplicantID)
+                    .ToListAsync();
+
+                if (scholarshipOffers.Any())
+                {
+                    _logger.LogInformation($"Removing {scholarshipOffers.Count} scholarship offers for applicant {applicant.ApplicantID}");
+
+                    foreach (var offer in scholarshipOffers)
+                    {
+                        var otherOffersUsingThisScholarship = await _primaryContext.ScholarshipOfferHistories
+                            .Where(s => s.ScholarshipID == offer.ScholarshipID && s.ApplicantID != applicant.ApplicantID)
+                            .AnyAsync();
+
+                        if (!otherOffersUsingThisScholarship)
+                        {
+                            var scholarship = await _primaryContext.Scholarships
+                                .FirstOrDefaultAsync(s => s.ScholarshipID == offer.ScholarshipID);
+
+                            if (scholarship != null)
+                            {
+                                _logger.LogInformation($"Removing scholarship with ID {scholarship.ScholarshipID}");
+                                _primaryContext.Scholarships.Remove(scholarship);
+                            }
+                        }
+                    }
+
+                    _primaryContext.ScholarshipOfferHistories.RemoveRange(scholarshipOffers);
+                }
+
+                var courseCodes = await _primaryContext.CourseCodes
+                    .Where(c => c.ApplicantID == applicant.ApplicantID)
+                    .ToListAsync();
+
+                if (courseCodes.Any())
+                {
+                    _logger.LogInformation($"Removing {courseCodes.Count} course codes for applicant {applicant.ApplicantID}");
+                    _primaryContext.CourseCodes.RemoveRange(courseCodes);
+                }
+
+                var applicantSports = await _primaryContext.ApplicantSports
+                    .Where(s => s.ApplicantID == applicant.ApplicantID)
+                    .ToListAsync();
+
+                if (applicantSports.Any())
+                {
+                    _logger.LogInformation($"Removing {applicantSports.Count} sport associations for applicant {applicant.ApplicantID}");
+                    _primaryContext.ApplicantSports.RemoveRange(applicantSports);
+                }
+
+                var referees = await _primaryContext.Referees
+                    .Where(r => r.ApplicantID == applicant.ApplicantID)
+                    .ToListAsync();
+
+                if (referees.Any())
+                {
+                    _logger.LogInformation($"Removing {referees.Count} referees for applicant {applicant.ApplicantID}");
+                    _primaryContext.Referees.RemoveRange(referees);
+                }
+
+                var homeDetail = await _primaryContext.HomeDetails
+                    .FirstOrDefaultAsync(h => h.ApplicantID == applicant.ApplicantID);
+
+                if (homeDetail != null)
+                {
+                    _logger.LogInformation($"Removing home detail for applicant {applicant.ApplicantID}");
+                    _primaryContext.HomeDetails.Remove(homeDetail);
+                }
+
+                var contactDetail = await _primaryContext.ContactDetails
+                    .FirstOrDefaultAsync(c => c.ApplicantID == applicant.ApplicantID);
+
+                if (contactDetail != null)
+                {
+                    _logger.LogInformation($"Removing contact detail for applicant {applicant.ApplicantID}");
+                    _primaryContext.ContactDetails.Remove(contactDetail);
+                }
+
+                _logger.LogInformation($"Removing applicant {applicant.ApplicantID}");
+                _primaryContext.Applicants.Remove(applicant);
+            }
+
             var userSports = await _primaryContext.UserSports
                 .Where(us => us.UserID == user.Id)
                 .ToListAsync();
+
             if (userSports.Any())
             {
+                _logger.LogInformation($"Removing {userSports.Count} sport assignments for user {email}");
                 _primaryContext.UserSports.RemoveRange(userSports);
-                await _primaryContext.SaveChangesAsync();
             }
 
-            // Delete the user
+            await _primaryContext.SaveChangesAsync();
+            _logger.LogInformation($"Successfully removed all associated data for user {email}");
+
             var result = await _userManager.DeleteAsync(user);
             if (result.Succeeded)
             {
-                TempData["SuccessMessage"] = $"User {email} has been deleted.";
+                _logger.LogInformation($"User {email} has been successfully deleted");
+                TempData["SuccessMessage"] = $"User {email} has been deleted along with all associated data.";
             }
             else
             {
+                _logger.LogError($"Failed to delete user: {string.Join(", ", result.Errors.Select(e => e.Description))}");
                 TempData["ErrorMessage"] = "Failed to delete user.";
             }
 
@@ -158,8 +255,8 @@ public class RoleTestModel : PageModel
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error deleting user");
-            TempData["ErrorMessage"] = "An error occurred while deleting the user.";
+            _logger.LogError(ex, $"Error deleting user {email} and associated data");
+            TempData["ErrorMessage"] = $"An error occurred while deleting the user: {ex.Message}";
             return RedirectToPage();
         }
     }

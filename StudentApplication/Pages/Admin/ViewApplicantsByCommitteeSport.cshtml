@@ -12,6 +12,31 @@
         gap: 20px;
     }
 
+    .scholarship-badge {
+        display: inline-block;
+        font-size: 0.7em;
+        font-weight: bold;
+        padding: 3px 6px;
+        margin-left: 10px;
+        border-radius: 4px;
+        vertical-align: middle;
+    }
+
+    .scholarship-gold {
+        background-color: #ffd700;
+        color: #000;
+    }
+
+    .scholarship-silver {
+        background-color: #c0c0c0;
+        color: #000;
+    }
+
+    .scholarship-bronze {
+        background-color: #cd7f32;
+        color: white;
+    }
+
     .applicant-card {
         border: 1px solid #ddd;
         border-radius: 12px;
@@ -164,6 +189,11 @@
         <input class="form-check-input" type="checkbox" id="hideReviewed" onchange="filterApplicants()">
         <label class="form-check-label" for="hideReviewed">Hide Reviewed</label>
     </div>
+    <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="hideUnreviewed" onchange="filterApplicants()">
+        <label class="form-check-label" for="hideUnreviewed">Hide Unreviewed</label>
+    </div>
+
 
     <div class="page-header">
         <h2>Review Applications</h2>
@@ -194,7 +224,15 @@
                 <div class="applicant-card" data-status="@applicant.ApplicationStatus" data-year="@applicant.CollegeYear" data-campus="@applicant.CampusID">
                     <div class="applicant-info">
                         <div class="info-header">
-                            <div class="applicant-name">@applicant.FirstName @applicant.LastName</div>
+                            <div class="applicant-name">
+                                @applicant.FirstName @applicant.LastName
+                                @if (applicant.HasScholarshipOffer)
+                                {
+                                    <span class="scholarship-badge @($"scholarship-{applicant.ScholarshipLevel?.ToLower() ?? ""}")">
+                                        @applicant.ScholarshipLevel
+                                    </span>
+                                }
+                            </div>
                             <span class="status-badge @($"status-{applicant.ApplicationStatus?.ToLower() ?? "not-reviewed"}")">
                                 @(applicant.ApplicationStatus switch
                                 {
@@ -230,20 +268,24 @@
         const selectedYear = document.getElementById('yearFilter').value;
         const selectedCampus = document.getElementById('campusFilter').value;
         const hideReviewed = document.getElementById('hideReviewed').checked;
+        const hideUnreviewed = document.getElementById('hideUnreviewed').checked;
         const cards = document.querySelectorAll('.applicant-card');
 
         cards.forEach(card => {
             const applicantName = card.querySelector('.applicant-name').textContent.toLowerCase();
             const applicantYear = card.dataset.year;
             const applicantCampus = card.dataset.campus;
-            const isReviewed = card.dataset.status === 'reviewed';
+            const status = card.dataset.status?.toLowerCase() || '';
+            const isReviewed = status === 'reviewed';
+            const isUnreviewed = status === 'notreviewed' || status === '';
 
             let matchesSearch = applicantName.includes(searchQuery);
             let matchesYear = selectedYear === "" || applicantYear === selectedYear;
             let matchesCampus = selectedCampus === "" || applicantCampus === selectedCampus;
-            let matchesReviewed = !hideReviewed || !isReviewed;
+            let passesReviewedFilter = !hideReviewed || !isReviewed;
+            let passesUnreviewedFilter = !hideUnreviewed || !isUnreviewed;
 
-            if (matchesSearch && matchesYear && matchesCampus && matchesReviewed) {
+            if (matchesSearch && matchesYear && matchesCampus && passesReviewedFilter && passesUnreviewedFilter) {
                 card.style.display = "block";
             } else {
                 card.style.display = "none";
