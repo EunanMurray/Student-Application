@@ -1,0 +1,6 @@
+C:\Users\damoc\Documents\GitHub\Student-Application\StudentApplicationTests\obj\Debug\net5.0\StudentApplicationTests.csproj.AssemblyReference.cache
+C:\Users\damoc\Documents\GitHub\Student-Application\StudentApplicationTests\obj\Debug\net5.0\StudentApplicationTests.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\damoc\Documents\GitHub\Student-Application\StudentApplicationTests\obj\Debug\net5.0\StudentApplicationTests.AssemblyInfoInputs.cache
+C:\Users\damoc\Documents\GitHub\Student-Application\StudentApplicationTests\obj\Debug\net5.0\StudentApplicationTests.AssemblyInfo.cs
+C:\Users\damoc\Documents\GitHub\Student-Application\StudentApplicationTests\obj\Debug\net5.0\StudentApplicationTests.csproj.CoreCompileInputs.cache
+C:\Users\damoc\Documents\GitHub\Student-Application\StudentApplicationTests\obj\Debug\net5.0\StudentApplicationTests.sourcelink.json
