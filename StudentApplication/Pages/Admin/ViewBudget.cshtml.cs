@@ -26,10 +26,12 @@ namespace StudentApplication.Pages.Admin
         public decimal SecondYearScholarships { get; set; }
         public decimal ThirdYearScholarships { get; set; }
         public decimal FourthYearScholarships { get; set; }
+        public decimal PreviousYearFourthYearScholarships { get; set; }
 
         public async Task OnGetAsync()
         {
             var currentYear = DateTime.UtcNow.Year.ToString();
+            var previousYear = (DateTime.UtcNow.Year - 1).ToString();
             Budget = await _primaryContext.Budgets
                 .FirstOrDefaultAsync(b => b.BudgetYear == currentYear);
 
@@ -61,7 +63,7 @@ namespace StudentApplication.Pages.Admin
                 .Include(h => h.Applicant)
                 .Include(h => h.Scholarship)
                     .ThenInclude(s => s.ScholarshipType)
-                .Where(h => h.ResponseStatus == "Accepted" || h.ResponseStatus == "Pending")
+                .Where(h => h.ResponseStatus == "Accepted" || h.ResponseStatus == "Pending" && h.OfferDate.Year.ToString() == currentYear )
                 .ToListAsync();
 
             FirstYearScholarships = scholarshipOffers
@@ -80,13 +82,23 @@ namespace StudentApplication.Pages.Admin
                 .Where(h => h.Applicant?.CollegeYear == 4)
                 .Sum(h => h.Scholarship?.ScholarshipType?.PaymentAmount ?? 0);
 
+            var previousYearScholarshipOffers = await _primaryContext.ScholarshipOfferHistories
+                .Include(h => h.Applicant)
+                .Include(h => h.Scholarship)
+                    .ThenInclude(s => s.ScholarshipType)
+                .Where(h => (h.ResponseStatus == "Accepted" || h.ResponseStatus == "Pending") && h.OfferDate.Year.ToString() == previousYear)
+                .ToListAsync();
+
+            PreviousYearFourthYearScholarships = previousYearScholarshipOffers
+                .Where(h => h.Applicant?.CollegeYear == 4)
+                .Sum(h => h.Scholarship?.ScholarshipType?.PaymentAmount ?? 0);
+
             Budget.BudgetForFirstYears = FirstYearScholarships;
             Budget.BudgetForSecondYears = SecondYearScholarships;
             Budget.BudgetForThirdYears = ThirdYearScholarships;
             Budget.BudgetForFourthYears = FourthYearScholarships;
 
-            TotalScholarshipAmount = scholarships
-                .Sum(s => s.ScholarshipType.PaymentAmount);
+            TotalScholarshipAmount = FirstYearScholarships + SecondYearScholarships + ThirdYearScholarships + FourthYearScholarships;
 
             RemainingBudget = Budget.BudgetAmount - TotalScholarshipAmount;
             Budget.BudgetUsage = TotalScholarshipAmount;
