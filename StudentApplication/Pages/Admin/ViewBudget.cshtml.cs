@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using NPOI.SS.Formula.Functions;
 using StudentApplicationModel.Data;
 using StudentApplicationModel.Models;
 
@@ -27,7 +28,13 @@ namespace StudentApplication.Pages.Admin
         public decimal ThirdYearScholarships { get; set; }
         public decimal FourthYearScholarships { get; set; }
         public decimal PreviousYearFourthYearScholarships { get; set; }
-        public string SelectedYear { get; set; } 
+        public string SelectedYear { get; set; }
+        public List<Applicant> FirstYearApplicants { get; set; }
+        public List<Applicant> SecondYearApplicants { get; set; }
+        public List<Applicant> ThirdYearApplicants { get; set; }
+        public List<Applicant> FourthYearApplicants { get; set; }
+        public List<ScholarshipOfferHistory> ScholarshipOffers { get; set; } 
+
 
         public async Task OnGetAsync(string year = null)
         {
@@ -54,28 +61,53 @@ namespace StudentApplication.Pages.Admin
                 Budget.BudgetAmount = 80000;
             }
 
-            var scholarshipOffers = await _primaryContext.ScholarshipOfferHistories
+             ScholarshipOffers = await _primaryContext.ScholarshipOfferHistories
                 .Include(h => h.Applicant)
                 .Include(h => h.Scholarship)
                     .ThenInclude(s => s.ScholarshipType)
                 .Where(h => (h.ResponseStatus == "Accepted" || h.ResponseStatus == "Pending") && h.OfferDate.Year.ToString() == SelectedYear)
                 .ToListAsync();
 
-            FirstYearScholarships = scholarshipOffers
+            FirstYearScholarships = ScholarshipOffers
                 .Where(h => h.Applicant?.CollegeYear == 1)
                 .Sum(h => h.Scholarship?.ScholarshipType?.PaymentAmount ?? 0);
 
-            SecondYearScholarships = scholarshipOffers
+            SecondYearScholarships = ScholarshipOffers
                 .Where(h => h.Applicant?.CollegeYear == 2)
                 .Sum(h => h.Scholarship?.ScholarshipType?.PaymentAmount ?? 0);
 
-            ThirdYearScholarships = scholarshipOffers
+            ThirdYearScholarships = ScholarshipOffers
                 .Where(h => h.Applicant?.CollegeYear == 3)
                 .Sum(h => h.Scholarship?.ScholarshipType?.PaymentAmount ?? 0);
 
-            FourthYearScholarships = scholarshipOffers
+            FourthYearScholarships = ScholarshipOffers
                 .Where(h => h.Applicant?.CollegeYear == 4)
                 .Sum(h => h.Scholarship?.ScholarshipType?.PaymentAmount ?? 0);
+
+            FirstYearApplicants = ScholarshipOffers
+                .Where(h => h.Applicant?.CollegeYear == 1)
+                .Select(h => h.Applicant)
+                .Distinct()
+                .ToList();
+
+            SecondYearApplicants = ScholarshipOffers
+                .Where(h => h.Applicant?.CollegeYear == 2)
+                .Select(h => h.Applicant)
+                .Distinct()
+                .ToList();
+
+            ThirdYearApplicants = ScholarshipOffers
+                .Where(h => h.Applicant?.CollegeYear == 3)
+                .Select(h => h.Applicant)
+                .Distinct()
+                .ToList();
+
+            FourthYearApplicants = ScholarshipOffers
+                .Where(h => h.Applicant?.CollegeYear == 4)
+                .Select(h => h.Applicant)
+                .Distinct()
+                .ToList();
+
 
             var previousYear = (int.Parse(SelectedYear) - 1).ToString();
             var previousYearScholarshipOffers = await _primaryContext.ScholarshipOfferHistories
