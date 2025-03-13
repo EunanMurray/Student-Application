@@ -6,9 +6,19 @@
 
 <h1>Budget Overview</h1>
 
+<div class="mb-4">
+    @{
+        var currentYear = DateTime.UtcNow.Year;
+        for (int i = currentYear; i >= currentYear - 5; i--) 
+        {
+            <a href="?year=@i" class="btn @(Model.SelectedYear == i.ToString() ? "btn-primary" : "btn-secondary")">@i</a>
+        }
+    }
+</div>
+
 <div class="card">
     <div class="card-body">
-        <h5 class="card-title">Budget Details</h5>
+        <h5 class="card-title">Budget Details for @Model.SelectedYear</h5>
         <p class="card-text">
             <strong>Budget Year:</strong> @Model.Budget.BudgetYear<br />
             <strong>Total Budget:</strong> @Model.Budget.BudgetAmount.ToString("C")<br />

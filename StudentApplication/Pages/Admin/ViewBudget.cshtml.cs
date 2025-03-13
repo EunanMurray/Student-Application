@@ -27,13 +27,14 @@ namespace StudentApplication.Pages.Admin
         public decimal ThirdYearScholarships { get; set; }
         public decimal FourthYearScholarships { get; set; }
         public decimal PreviousYearFourthYearScholarships { get; set; }
+        public string SelectedYear { get; set; } 
 
-        public async Task OnGetAsync()
+        public async Task OnGetAsync(string year = null)
         {
-            var currentYear = DateTime.UtcNow.Year.ToString();
-            var previousYear = (DateTime.UtcNow.Year - 1).ToString();
+            SelectedYear = year ?? DateTime.UtcNow.Year.ToString();
+
             Budget = await _primaryContext.Budgets
-                .FirstOrDefaultAsync(b => b.BudgetYear == currentYear);
+                .FirstOrDefaultAsync(b => b.BudgetYear == SelectedYear);
 
             if (Budget == null)
             {
@@ -41,7 +42,7 @@ namespace StudentApplication.Pages.Admin
                 {
                     BudgetAmount = 80000,
                     BudgetUsage = 0,
-                    BudgetYear = currentYear,
+                    BudgetYear = SelectedYear,
                     BudgetForFirstYears = 0,
                     BudgetForSecondYears = 0,
                     BudgetForThirdYears = 0,
@@ -53,17 +54,11 @@ namespace StudentApplication.Pages.Admin
                 Budget.BudgetAmount = 80000;
             }
 
-            var scholarships = await _primaryContext.Scholarships
-                .Include(s => s.ScholarshipType)
-                .Include(s => s.ScholarshipOfferHistories)
-                    .ThenInclude(h => h.Applicant)
-                .ToListAsync();
-
             var scholarshipOffers = await _primaryContext.ScholarshipOfferHistories
                 .Include(h => h.Applicant)
                 .Include(h => h.Scholarship)
                     .ThenInclude(s => s.ScholarshipType)
-                .Where(h => h.ResponseStatus == "Accepted" || h.ResponseStatus == "Pending" && h.OfferDate.Year.ToString() == currentYear )
+                .Where(h => (h.ResponseStatus == "Accepted" || h.ResponseStatus == "Pending") && h.OfferDate.Year.ToString() == SelectedYear)
                 .ToListAsync();
 
             FirstYearScholarships = scholarshipOffers
@@ -82,6 +77,7 @@ namespace StudentApplication.Pages.Admin
                 .Where(h => h.Applicant?.CollegeYear == 4)
                 .Sum(h => h.Scholarship?.ScholarshipType?.PaymentAmount ?? 0);
 
+            var previousYear = (int.Parse(SelectedYear) - 1).ToString();
             var previousYearScholarshipOffers = await _primaryContext.ScholarshipOfferHistories
                 .Include(h => h.Applicant)
                 .Include(h => h.Scholarship)
