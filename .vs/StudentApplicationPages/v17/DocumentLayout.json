@@ -1,0 +1,69 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\damoc\\Documents\\GitHub\\Student-Application\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A21B7C11-98A7-4BD7-8DF5-C68C6770BD94}|StudentApplicationPages.csproj|c:\\users\\damoc\\documents\\github\\student-application\\pages\\shared\\_loginpartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A21B7C11-98A7-4BD7-8DF5-C68C6770BD94}|StudentApplicationPages.csproj|solutionrelative:pages\\shared\\_loginpartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A21B7C11-98A7-4BD7-8DF5-C68C6770BD94}|StudentApplicationPages.csproj|c:\\users\\damoc\\documents\\github\\student-application\\pages\\shared\\_validationscriptspartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A21B7C11-98A7-4BD7-8DF5-C68C6770BD94}|StudentApplicationPages.csproj|solutionrelative:pages\\shared\\_validationscriptspartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A21B7C11-98A7-4BD7-8DF5-C68C6770BD94}|StudentApplicationPages.csproj|c:\\users\\damoc\\documents\\github\\student-application\\pages\\admin\\roletest.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A21B7C11-98A7-4BD7-8DF5-C68C6770BD94}|StudentApplicationPages.csproj|solutionrelative:pages\\admin\\roletest.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "_ValidationScriptsPartial.cshtml",
+              "DocumentMoniker": "C:\\Users\\damoc\\Documents\\GitHub\\Student-Application\\Pages\\Shared\\_ValidationScriptsPartial.cshtml",
+              "RelativeDocumentMoniker": "Pages\\Shared\\_ValidationScriptsPartial.cshtml",
+              "ToolTip": "C:\\Users\\damoc\\Documents\\GitHub\\Student-Application\\Pages\\Shared\\_ValidationScriptsPartial.cshtml",
+              "RelativeToolTip": "Pages\\Shared\\_ValidationScriptsPartial.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-13T21:32:10.864Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "_LoginPartial.cshtml",
+              "DocumentMoniker": "C:\\Users\\damoc\\Documents\\GitHub\\Student-Application\\Pages\\Shared\\_LoginPartial.cshtml",
+              "RelativeDocumentMoniker": "Pages\\Shared\\_LoginPartial.cshtml",
+              "ToolTip": "C:\\Users\\damoc\\Documents\\GitHub\\Student-Application\\Pages\\Shared\\_LoginPartial.cshtml",
+              "RelativeToolTip": "Pages\\Shared\\_LoginPartial.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-13T21:32:00.813Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "RoleTest.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\damoc\\Documents\\GitHub\\Student-Application\\Pages\\Admin\\RoleTest.cshtml.cs",
+              "RelativeDocumentMoniker": "Pages\\Admin\\RoleTest.cshtml.cs",
+              "ToolTip": "C:\\Users\\damoc\\Documents\\GitHub\\Student-Application\\Pages\\Admin\\RoleTest.cshtml.cs",
+              "RelativeToolTip": "Pages\\Admin\\RoleTest.cshtml.cs",
+              "ViewState": "AgIAAFIAAAAAAAAAAAAuwIIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-13T21:30:21.432Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
