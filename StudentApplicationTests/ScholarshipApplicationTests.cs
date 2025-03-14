@@ -1,6 +1,5 @@
 using NUnit.Framework;
 using StudentApplicationModel.Models;
-
 namespace StudentApplicationTests
 {
     [TestFixture]
@@ -11,18 +10,16 @@ namespace StudentApplicationTests
         {
             // Arrange
             var scholarshipApplication = new ScholarshipApplication();
-
             // Act
             scholarshipApplication.ApplicationID = 1;
             scholarshipApplication.ApplicantID = 1;
             scholarshipApplication.Year = 2025;
             scholarshipApplication.ApplicationType = "Need-based";
-
             // Assert
-            Assert.AreEqual(1, scholarshipApplication.ApplicationID);
-            Assert.AreEqual(1, scholarshipApplication.ApplicantID);
-            Assert.AreEqual(2025, scholarshipApplication.Year);
-            Assert.AreEqual("Need-based", scholarshipApplication.ApplicationType);
+            Assert.That(scholarshipApplication.ApplicationID, Is.EqualTo(1));
+            Assert.That(scholarshipApplication.ApplicantID, Is.EqualTo(1));
+            Assert.That(scholarshipApplication.Year, Is.EqualTo(2025));
+            Assert.That(scholarshipApplication.ApplicationType, Is.EqualTo("Need-based"));
         }
     }
 }
