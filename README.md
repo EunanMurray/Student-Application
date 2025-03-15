@@ -6,11 +6,10 @@ This repository contains a comprehensive Scholarship Application Management Syst
 
 ## Technology Stack
 
-- **Framework**: ASP.NET Core (.NET 6)
+- **Framework**: ASP.NET Core (.NET 8)
 - **UI**: Razor Pages
 - **Database ORM**: Entity Framework Core
 - **Authentication**: ASP.NET Core Identity
-- **Styling**: Bootstrap 5
 - **Email Service**: SMTP integration with Gmail
 
 ## System Architecture
@@ -119,12 +118,11 @@ Apply database migrations for both contexts:
 
 ```bash
 # For PrimaryContext
-dotnet ef migrations add InitialPrimaryMigration --context PrimaryContext
-dotnet ef database update --context PrimaryContext
+update-database -context PrimaryContext
 
 # For ApplicationDbContext
-dotnet ef migrations add InitialIdentityMigration --context ApplicationDbContext
-dotnet ef database update --context ApplicationDbContext
+
+update-database -context ApplicationDbContext
 ```
 
 If you encounter any migration issues:
