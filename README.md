@@ -1,116 +1,202 @@
-1. Project Overview
--------------------
-This project is a **Scholarship Application Management System**, designed to manage:
-- Applicant submissions, including personal details, academic history, references, and sports involvement.
-- Role-based access control for administrators and committee members to manage applications and scholarships.
-- Scholarships, their types, and applicant offer histories.
+# Scholarship Application Management System
 
-It is built with **ASP.NET Core**, using **Razor Pages** for the front-end and **Entity Framework Core** for database management.
+## Overview
 
-----------------------------------------------------------
+This repository contains a comprehensive Scholarship Application Management System built with ASP.NET Core and Entity Framework Core. The system facilitates the entire scholarship application process, from applicant submissions to committee reviews and scholarship awards.
 
-2. Directory Structure
-----------------------
-The following outlines the core structure of the project directory:
+## Technology Stack
 
-- **Program.cs**: Entry point for the application. Configures services, middleware, and initialises the database.
-- **appsettings.json**: Contains database connection strings and logging configurations.
-- **Pages/**
-  - **Applications/**: Handles applicant submissions and confirmation workflows.
-    - `Apply.cshtml` and `Apply.cshtml.cs`: Form for applicant submissions.
-    - `Confirmation.cshtml` and `Confirmation.cshtml.cs`: Confirmation page for successful submissions.
-  - **Admin/**: Admin and committee functionalities.
-    - `ManageCommitteeSports.cshtml`: Admin interface for assigning committee members to sports.
-    - `ViewApplicantsByCommitteeSport.cshtml`: Allows committee members to view applicants linked to their assigned sports.
-  - **Shared/Partials/**: Modular components used across pages.
-    - `_PersonalDetails.cshtml`: Displays and manages personal details of applicants.
-    - `_SportDetails.cshtml`: Handles sport-related details.
-- **Models/**: Contains entity classes representing database tables, such as `Applicant.cs`, `Sport.cs`, and `Scholarship.cs`.
-- **Data/**: Manages database contexts and initialisation.
-  - `PrimaryContext.cs`: Core application data (e.g., Applicants, Scholarships).
-  - `ApplicationDbContext.cs`: Identity and role management.
-  - `DbInitializer.cs`: Seeds default data for roles, admin users, and test applicants.
+- **Framework**: ASP.NET Core (.NET 6)
+- **UI**: Razor Pages
+- **Database ORM**: Entity Framework Core
+- **Authentication**: ASP.NET Core Identity
+- **Styling**: Bootstrap 5
+- **Email Service**: SMTP integration with Gmail
 
-----------------------------------------------------------
+## System Architecture
 
-3. Setting Up the Project
--------------------------
+### Database Structure
 
-### Prerequisites:
-- **.NET 6 SDK** installed on your machine.
-- **SQL Server** (local or hosted instance).
-- An IDE such as **Visual Studio 2022**.
+The application employs two distinct database contexts:
 
-### Steps:
-1. **Clone the Repository**:
-   ```
-   git clone <repository_url>
-   cd ScholarshipApplicationSystem
-   ```
+1. **PrimaryContext**: Manages core application data
+   - Applicants and their details
+   - Sports and categories
+   - Scholarships and offer histories
+   - Campus information
+   - Budgets and allocations
 
-2. **Configure Database Connection**:
-   Update the connection strings in `appsettings.json`:
+2. **ApplicationDbContext**: Handles identity and authorization
+   - User accounts and profiles
+   - Role-based access control
+   - Committee member sport assignments
+
+### Key Models
+
+- **Applicant**: Contains personal details, academic history, and sports achievements.
+- **Sport**: Defines available sports for scholarship applications.
+- **ScholarshipType**: Defines scholarship levels (Gold, Silver, Bronze) and payment amounts.
+- **ScholarshipOfferHistory**: Tracks scholarship offers, responses, and statuses.
+- **UserSport**: Links committee members to their assigned sports for review.
+
+## User Roles and Access Control
+
+The system implements a role-based access control mechanism with the following predefined roles:
+
+- **Admin**: Full system access, can manage users, roles, and system settings.
+- **Committee Member**: Reviews applications for assigned sports, makes scholarship recommendations.
+- **Secretary**: Manages budget views and allocation reporting.
+- **Applicant**: Submits initial scholarship applications.
+- **ReturningApplicant**: Submits renewal applications for existing scholarships.
+
+## Core Features
+
+### Applicant Workflow
+
+- **Registration and Email Verification**: Secure account creation with email verification.
+- **Multi-step Application Form**: Guided application process with built-in validation.
+- **Application Status Tracking**: Real-time status updates on review progress.
+- **Scholarship Acceptance**: Digital acceptance or rejection of scholarship offers.
+
+### Committee Member Workflow
+
+- **Sport-specific Application Review**: Filtered access to applications based on assigned sports.
+- **Scholarship Decision Making**: Structured decision process with supporting notes.
+- **Application Filtering**: Advanced filtering by student details and application status.
+
+### Administrative Features
+
+- **User Management**: Create, update, and delete system users.
+- **Role Assignment**: Dynamic role allocation to system users.
+- **Committee Sport Assignment**: Link committee members to specific sports for review.
+- **Scholarship Offer Management**: Track and manage all scholarship offers.
+
+### Secretary Features
+
+- **Budget Overview**: Comprehensive view of scholarship budget allocation.
+- **Year-based Reporting**: Breakdown of scholarships by college year.
+- **Financial Tracking**: Monitor remaining budget and allocation history.
+
+## Setup Instructions
+
+### Prerequisites
+
+- **.NET 6 SDK**
+- **SQL Server** (local or hosted)
+- **Visual Studio 2022** (recommended) or another compatible IDE
+
+### Database Configuration
+
+1. **Update Connection Strings**:  
+   Edit the connection strings in `appsettings.json` to point to your SQL Server instance:
+
    ```json
-   "Project300Database": "Server=(localdb)\mssqllocaldb;Database=ScholarshipProjectDB;Trusted_Connection=True;MultipleActiveResultSets=true",
+   "ConnectionStrings": {
+     "Project300Database": "Server=YOUR_SERVER;Initial Catalog=YOUR_DB;Trusted_Connection=True;",
+     "DefaultConnection": "Server=YOUR_SERVER;Initial Catalog=YOUR_DB;Trusted_Connection=True;",
+     "StudentApplicationPagesContextConnection": "Server=YOUR_SERVER;Initial Catalog=YOUR_DB;Trusted_Connection=True;"
+   }
    ```
 
-3. **Apply Migrations**:
-   Run the following commands to set up the database:
+2. **Configure Email Settings**:  
+   Set up your SMTP configuration in `appsettings.json`:
+
+   ```json
+   "EmailSettings": {
+     "SmtpServer": "smtp.example.com",
+     "SmtpPort": 587,
+     "Username": "your-email@example.com",
+     "Password": "your-app-password",
+     "FromEmail": "your-email@example.com",
+     "FromName": "Scholarship System",
+     "EnableSsl": true
+   }
    ```
-   Add-Migration -Context ApplicationDbContext InitialCreate
-   Update-Database -Context ApplicationDbContext
 
-   Add-Migration -Context PrimaryContext InitialCreate
-   Update-Database -Context PrimaryContext
-   ```
-    If you encoutner any issues with migrations do the following:
-      1: Make sure database is not already in existance, if it is stop the program and delete it in sql object explorer.
-      2: Make sure to clear your migrations folder, You may have migrations already using the same name
-      3: If other issue normally stack overflow helps me or just send me (Eunan) a message, have probably already stumbled upon it.
+### Database Migration
 
-4. **Run the Application**:
-   Use the IDE 
-----------------------------------------------------------
+Apply database migrations for both contexts:
 
-4. Database Setup
------------------
-The project uses two separate database contexts:
-- PrimaryContext:
-  - Handles core application entities like `Applicants`, `Scholarships`, and `Sports`.
-- ApplicationDbContext:
-  - Manages user identity and roles.
+```bash
+# For PrimaryContext
+dotnet ef migrations add InitialPrimaryMigration --context PrimaryContext
+dotnet ef database update --context PrimaryContext
 
-----------------------------------------------------------
+# For ApplicationDbContext
+dotnet ef migrations add InitialIdentityMigration --context ApplicationDbContext
+dotnet ef database update --context ApplicationDbContext
+```
 
-5. Core Components
-------------------
+If you encounter any migration issues:
+1. Ensure the database does not already exist with conflicting schema.
+2. Clear your migrations folder if necessary.
+3. Refer to Stack Overflow or contact the project maintainer (Eunan) for assistance.
 
-Applicants
-- Applicants submit applications with personal, academic, and sports details.
-- Data is validated and stored in the database.
+### Running the Application
 
-Role-Based Access Control
-- Admins can assign roles and permissions.
-- Committee members can review applications based on their assigned sports.
+To run the application, use your IDE or execute:
 
-Scholarships
-- Scholarship types (e.g., Gold, Silver, Bronze) are linked to applicants.
-- Offer histories are maintained for tracking.
+```bash
+dotnet run
+```
 
-----------------------------------------------------------
+### Default Credentials
 
-6. Key Features
----------------
-- Applicant Management:
-  - Submission of detailed applications with validation.
-  - Tracking of applicant progress and scholarship offers.
+Upon initialization, the system creates the following default users:
 
-- Role Management:
-  - Admins assign roles dynamically (e.g., Admin, Committee Member).
-  - Committee members are limited to viewing applications for their assigned sports.
+- **Admin**: admin@example.com / Admin123!
+- **Committee Member**: member@example.com / Member123!
 
-- Sport and Scholarship Management:
-  - Sports are assigned to both applicants and committee members.
-  - Scholarships are categorised and linked to applicants.
+## Project Structure
 
-----------------------------------------------------------
+```
+StudentApplication/
+├── Areas/
+│   └── Identity/           # Identity-related pages and functionality
+├── Data/
+│   ├── ApplicationDbContext.cs  # Identity context
+│   ├── DbInitializer.cs    # Database seed data
+│   └── PrimaryContext.cs   # Main application context
+├── Models/
+│   ├── Applicant.cs        # Applicant entity
+│   ├── Scholarship.cs      # Scholarship entities
+│   └── Sport.cs            # Sport entity
+├── Pages/
+│   ├── Admin/              # Administrative interfaces
+│   ├── Applications/       # Application submission flows
+│   ├── Redirections/       # Navigation logic
+│   └── Shared/             # Shared components and layouts
+├── Services/
+│   ├── EmailService.cs     # Email notification service
+│   └── EmailSettings.cs    # Email configuration
+├── ViewModels/             # Data transfer objects
+├── wwwroot/                # Static assets
+├── Program.cs              # Application entry point and configuration
+└── appsettings.json        # Configuration settings
+```
+
+## Development Workflow
+
+1. **Fork and Clone**: Fork this repository and clone it to your local machine.
+2. **Create a Branch**: Create a feature branch for your changes.
+3. **Implement Features**: Develop your changes following the project's established patterns.
+4. **Test**: Thoroughly test your changes.
+5. **Submit a Pull Request**: Provide a detailed description of your changes.
+
+## Troubleshooting
+
+### Common Issues
+
+- **Database Connection Errors**: Verify your connection strings and ensure SQL Server is running.
+- **Email Sending Failures**: Check your SMTP settings and credentials.
+- **Migration Errors**:  
+  - Clear the migrations folder if conflicts occur.
+  - Ensure the database doesn't exist with a conflicting schema.
+  - Run `Update-Database` with the correct context specified.
+
+## Contributors
+
+- Eunan Murray
+- Kian Gillespie
+- Evan Brady
+- Damian Polakov
