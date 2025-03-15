@@ -28,7 +28,7 @@ namespace StudentApplicationPages.ViewModels
         public int? CollegeYear { get; set; }
 
         [Display(Name = "Student Number")]
-        public string StudentNumber { get; set; }
+        public string? StudentNumber { get; set; }
 
         public string MobilePhoneNumber { get; set; }
 

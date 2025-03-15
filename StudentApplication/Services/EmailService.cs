@@ -46,7 +46,7 @@ namespace StudentApplication.Services
                 {
                     EnableSsl = _emailSettings.EnableSsl,
                     Credentials = new NetworkCredential(_emailSettings.Username, _emailSettings.Password),
-                    Timeout = 30000 
+                    Timeout = 30000
                 };
 
                 using var mailMessage = new MailMessage
@@ -85,6 +85,9 @@ namespace StudentApplication.Services
                            style='background-color: #3498db; color: white; padding: 12px 24px; text-decoration: none; border-radius: 4px; display: inline-block;'>
                             Verify Email Address
                         </a>
+                        <p>
+                            Please check your spam folder. If you don't receive the email within a few minutes,
+                        </p>
                     </div>
                     <p>If the button doesn't work, you can copy and paste this link into your browser:</p>
                     <p style='word-break: break-all;'>{encodedLink}</p>
