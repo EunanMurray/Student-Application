@@ -10,7 +10,7 @@ using StudentApplicationModel.Models;
 
 namespace StudentApplication.Pages.Admin
 {
-    [Authorize(Roles = "Secretary,Admin")]
+    [Authorize(Roles = "Secretary,Admin,Committee Member")]
     public class ViewBudgetModel : PageModel
     {
         private readonly PrimaryContext _primaryContext;

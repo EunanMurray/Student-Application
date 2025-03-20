@@ -27,6 +27,7 @@ namespace ScholarshipInfoSystem.Data
             InitializeTestApplicants(primaryContext);
             InitializeUserSports(primaryContext, userManager);
             InitializeBudget(primaryContext);
+            InitializeHistoricalScholarships(primaryContext);
         }
 
         private static void InitializeScholarshipTypes(PrimaryContext primaryContext)
@@ -1418,12 +1419,85 @@ namespace ScholarshipInfoSystem.Data
 
 
         }
+
+        private static void InitializeHistoricalScholarships(PrimaryContext primaryContext)
+        {
+            if (!primaryContext.ScholarshipOfferHistories.Any(s => s.OfferDate.Year < DateTime.UtcNow.Year))
+            {
+                var scholarshipTypes = primaryContext.ScholarshipTypes.ToList();
+
+                var applicants = primaryContext.Applicants
+                    .Include(a => a.ApplicantSports)
+                    .ToList();
+
+                if (!applicants.Any() || !scholarshipTypes.Any())
+                    return;
+
+                var pastYears = new[] { 2023, 2024 };
+                var random = new Random();
+
+                foreach (var year in pastYears)
+                {
+                    for (int i = 0; i < 10 && i < applicants.Count; i++)
+                    {
+                        var applicant = applicants[i];
+
+                        if (i < 5) 
+                        {
+                            applicant.DateSubmitted = new DateTime(year, random.Next(1, 12), random.Next(1, 28));
+                            primaryContext.Applicants.Update(applicant);
+                        }
+
+                        var scholarshipType = scholarshipTypes[random.Next(scholarshipTypes.Count)];
+
+                        var scholarship = new Scholarship
+                        {
+                            ScholarshipTypeID = scholarshipType.ScholarshipTypeID,
+                            OtherDetails = $"Historical scholarship for {year}",
+                            hasAccepted = true
+                        };
+
+                        primaryContext.Scholarships.Add(scholarship);
+                        primaryContext.SaveChanges();
+
+                        var sportID = applicant.ApplicantSports.FirstOrDefault()?.SportID ?? 1;
+
+                        var offerHistory = new ScholarshipOfferHistory
+                        {
+                            ApplicantID = applicant.ApplicantID,
+                            SportID = sportID,
+                            CampusID = applicant.CampusID,
+                            ScholarshipID = scholarship.ScholarshipID,
+                            OfferDate = new DateTime(year, random.Next(1, 12), random.Next(1, 28)),
+                            ResponseDate = new DateTime(year, random.Next(1, 12), random.Next(1, 28)),
+                            ResponseStatus = "Accepted",
+                            Stage = "Completed"
+                        };
+
+                        primaryContext.ScholarshipOfferHistories.Add(offerHistory);
+                    }
+                }
+
+                primaryContext.SaveChanges();
+                Console.WriteLine($"Created historical scholarship data for {pastYears.Length} past years");
+            }
+        }
         private static void InitializeBudget(PrimaryContext primaryContext)
         {
-            if (!primaryContext.Budgets.Any())
+            var currentYear = DateTime.UtcNow.Year.ToString();
+            if (!primaryContext.Budgets.Any(b => b.BudgetYear == currentYear))
             {
-                var budget = new Budget { BudgetAmount = 80000, BudgetYear = "2025" };
+                var budget = new Budget { BudgetAmount = 80000, BudgetYear = currentYear };
                 primaryContext.Budgets.Add(budget);
+            }
+            var pastYears = new[] { "2023", "2024" };
+            foreach (var year in pastYears)
+            {
+                if (!primaryContext.Budgets.Any(b => b.BudgetYear == year))
+                {
+                    var pastBudget = new Budget { BudgetAmount = 75000, BudgetYear = year };
+                    primaryContext.Budgets.Add(pastBudget);
+                }
             }
             primaryContext.SaveChanges();
         }

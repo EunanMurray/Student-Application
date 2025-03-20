@@ -22,6 +22,18 @@
         vertical-align: middle;
     }
 
+    .tag-college-year {
+        display: inline-block;
+        font-size: 0.7em;
+        font-weight: bold;
+        padding: 3px 6px;
+        margin-left: 10px;
+        border-radius: 4px;
+        vertical-align: middle;
+        background-color: #E8E8E8;
+        color: #000;
+    }
+
     .scholarship-gold {
         background-color: #ffd700;
         color: #000;
@@ -196,7 +208,7 @@
 
 
     <div class="page-header">
-        <h2>Review Applications</h2>
+        <h2>Review Applications <small class="text-muted">(@Model.SelectedYear Academic Year)</small></h2>
         <p class="text-muted">Review and manage scholarship applications for your assigned sports</p>
     </div>
 
@@ -226,6 +238,10 @@
                         <div class="info-header">
                             <div class="applicant-name">
                                 @applicant.FirstName @applicant.LastName
+                                @if (applicant.CollegeYear.HasValue)
+                                {
+                                    <span class="tag-college-year">Year @applicant.CollegeYear</span>
+                                }
                                 @if (applicant.HasScholarshipOffer)
                                 {
                                     <span class="scholarship-badge @($"scholarship-{applicant.ScholarshipLevel?.ToLower() ?? ""}")">
@@ -263,6 +279,10 @@
 </div>
 
 <script>
+    function changeYear(year) {
+        window.location.href = window.location.pathname + '?SelectedYear=' + year;
+    }
+
     function filterApplicants() {
         const searchQuery = document.getElementById('searchByName').value.toLowerCase();
         const selectedYear = document.getElementById('yearFilter').value;

@@ -15,6 +15,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\images\delete-icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\images\delete-icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="ClosedXML" Version="0.104.2" />
     <PackageReference Include="ExcelHandler" Version="1.0.1" />
     <PackageReference Include="Luxoft.Framework.Report.Excel.EPPlus" Version="17.6.1" />
